@@ -42,7 +42,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'bootstrap'
-gem 'bootswatch'
+gem 'bootswatch', github: "thomaspark/bootswatch"
 gem 'ejs'
 
 # Use jquery as the JavaScript library
