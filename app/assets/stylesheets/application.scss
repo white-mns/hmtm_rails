@@ -25,10 +25,10 @@ $link-color:                        #6df;
 $link-hover-color:                  #fd0;
 $nav-hover-bg-color:                #555;
 $nav-active-bg-color:               #222;
-$navbar-light-color:                $white;
-$navbar-light-hover-color:          #4cf;
-$navbar-light-active-color:         $white;
-$navbar-light-toggler-border-color: transparent;
+$navbar-dark-color:                $white;
+$navbar-dark-hover-color:          #4cf;
+$navbar-dark-active-color:         $white;
+$navbar-dark-toggler-border-color: transparent;
 $dropdown-link-hover-bg:            $link-hover-color;
 $dropdown-link-active-bg:           $link-hover-color;
 $table-border-color:                #888 ;
@@ -53,13 +53,13 @@ $pagination-disabled-color:         $gray-light;
 $pagination-disabled-bg:            $gray-darker;
 $pagination-disabled-border-color:  #888;
 
-@import "bootswatch/darkly/variables";
+@import "darkly/variables";
 @import "bootstrap";
 
 
 body { padding-top: 5rem; }
 
-@import "bootswatch/darkly/bootswatch";
+@import "darkly/bootswatch";
 
 .navbar-custom {
     border-color: $nav-border-color;
@@ -67,15 +67,16 @@ body { padding-top: 5rem; }
     border-width: 0.3rem;
 }
 
-.navbar-custom .navbar-brand,{
+.navbar-custom .navbar-brand{
     padding: .8rem .5rem;
 }
+
 .navbar-custom .navbar-nav .nav-link{
     padding: 1rem .5rem;
 }
 
 .navbar-custom .navbar-brand:hover {
-    color: $navbar-light-hover-color;
+    color: $navbar-dark-hover-color;
 }
 
 .navbar-custom .nav-item.show .nav-link {

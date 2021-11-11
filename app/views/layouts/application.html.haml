@@ -14,21 +14,21 @@
     = javascript_include_tag "https://www.gstatic.com/charts/loader.js"
 
   %body
-    %nav.navbar.navbar-expand-md.fixed-top.navbar-light.bg-light.navbar-custom.p-0
+    %nav.navbar.navbar-expand-md.fixed-top.navbar-dark.bg-light.navbar-custom.p-0
       .container
         = link_to site_title, root_path, :class => "navbar-brand"
-        %button.navbar-toggler{type: "button", data: {toggle: "collapse", target: "#navbarResponsive"}, area: {controls: "navbarResponsive", expanded: "false", label: "Toggle navigation"}}
+        %button.navbar-toggler{type: "button", data: {toggle: "collapse", target: "#navbarNavDropdown"}, area: {controls: "navbarNavDropdown", expanded: "false", label: "Toggle navigation"}}
           %span.navbar-toggler-icon
-        .collapse.navbar-collapse#navbarResponsive
+        .collapse.navbar-collapse#navbarNavDropdown
           %ul.navbar-nav
             %li.nav-item.dropdown
-              %a.nav-link.dropdown-toggle#themes{ :data => {:toggle =>"dropdown"}, :href => "#"}
+              %a.nav-link.dropdown-toggle#navbarDropdownMenuLink{ data: {bs: {toggle: "dropdown"}}, :href => "#", role: "button", area: {expanded: "false"}}
                 個人データ
                 %span.caret
               .dropdown-menu
                 .dropdown-divider
             %li.nav-item.dropdown
-              %a.nav-link.dropdown-toggle#themes{ :data => {:toggle =>"dropdown"}, :href => "#"}
+              %a.nav-link.dropdown-toggle#navbarDropdownMenuLink{ data: {bs: {toggle: "dropdown"}}, :href => "#", role: "button", area: {expanded: "false"}}
                 結果データ
                 %span.caret
               .dropdown-menu
