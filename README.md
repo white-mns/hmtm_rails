@@ -1,11 +1,10 @@
-# 定期更新ゲームデータ小屋　表示用Railsアプリ
-定期更新ゲームデータ小屋は各種定期更新ゲームを解析して得られるデータを扱った情報サイトです。  
-このリポジトリは各定期更新ゲームのデータ形式に対応する前の雛形の状態です。  
-実際に運用されいているコードを見る場合はフォークされたリポジトリをを閲覧ください。  
-データ小屋の解析部分については[別リポジトリ](https://github.com/white-mns/data_teiki_parse)を参照ください。
+# Secret Sphereデータ小屋　表示用Railsアプリ
+Secret Sphereデータ小屋は[Secret Sphere](http://www.sssloxia.jp/index.html)を解析して得られるデータを扱った情報サイトです。  
+データ小屋の解析部分については[別リポジトリ](https://github.com/white-mns/hmtm_parse)を参照ください。
 
 # サイト
-雛形用リポジトリのため、このコードで動いているサイトはありません。 
+実際に動いているサイトです。
+[Secret Sphereデータ小屋](https://data.teiki.org/hmtm/)
 
 # 動作環境
 以下の環境での動作を確認しています  
@@ -20,7 +19,7 @@ gcc:8.3.1
 ・Railsの使い方を調べてなんやかんやして自分のRailsアプリが動くようにします。  
 ・このソースコードをダウンロードします。  
 
-    git clone git://github.com/white-mns/data_teiki_rails.git
+    git clone git://github.com/white-mns/hmtm_rails.git
 
 ・動かします。  
 
@@ -76,7 +75,7 @@ scaffoldで必要なものは大体用意されます。
 
 	belongs_to :p_name, :foreign_key => [:e_no, :result_no, :generate_no], :primary_key => [:e_no, :result_no, :generate_no], :class_name => 'Name'
 
-あとは[解析プログラム](https://github.com/white-mns/data_teiki_parse)側に圧縮ファイルを用意し、解析とアップロード機能を追加してデータを入れれば新しい解析項目が公開されます。
+あとは[解析プログラム](https://github.com/white-mns/hmtm_parse)側に圧縮ファイルを用意し、解析とアップロード機能を追加してデータを入れれば新しい解析項目が公開されます。
 
 ## ライセンス
 本ソフトウェアはMIT Licenceを採用しています。 ライセンスの詳細については`LICENSE`ファイルを参照してください。
