@@ -20,20 +20,21 @@ $gray:                              #444 ;
 $gray-darker:                       #222 ;
 $gray-dark:                         #282828 ;
 $gray-light:                        #888 ;
+$body-bg:                           #3a313a;
 
-$link-color:                        #6df;
+$link-color:                        #ba95ff;
 $link-hover-color:                  #fd0;
 $nav-hover-bg-color:                #555;
 $nav-active-bg-color:               #222;
-$navbar-dark-color:                $white;
-$navbar-dark-hover-color:          #4cf;
-$navbar-dark-active-color:         $white;
+$navbar-dark-color:                $link-color;
+$navbar-dark-hover-color:          #fd0;
+$navbar-dark-active-color:         $link-color;
 $navbar-dark-toggler-border-color: transparent;
 $dropdown-link-hover-bg:            $link-hover-color;
 $dropdown-link-active-bg:           $link-hover-color;
 $table-border-color:                #888 ;
 $table-hover-bg:                    $gray;
-$nav-border-color:                  MediumSeaGreen;
+$nav-border-color:                  #a7a1ff;
 
 // Cyborgテーマからページネーションのカラーリングをコピー
 $pagination-color:                  #fff;
@@ -42,11 +43,11 @@ $pagination-border-color:           #888;
 $pagination-border-width:           0.05rem;
 
 $pagination-hover-color:            #fff;
-$pagination-hover-bg:               #2A9FD6;
+$pagination-hover-bg:               #8221af;
 $pagination-hover-border-color:     transparent;
 
-$pagination-active-color:           #fff;
-$pagination-active-bg:              #2A9FD6;
+$pagination-active-color:           $pagination-hover-color;
+$pagination-active-bg:              $pagination-hover-bg;
 $pagination-active-border-color:    transparent;
 
 $pagination-disabled-color:         $gray-light;
@@ -60,6 +61,14 @@ $pagination-disabled-border-color:  #888;
 body { padding-top: 5rem; }
 
 @import "darkly/bootswatch";
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
 
 .navbar-custom {
     border-color: $nav-border-color;
