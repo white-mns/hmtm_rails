@@ -1,6 +1,6 @@
 module ApplicationHelper
   def site_title
-    title = "定期更新ゲームデータ小屋"
+    title = "Secret Sphereデータ小屋"
   end
 
   def page_title
