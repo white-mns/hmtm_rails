@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_17_221303) do
+ActiveRecord::Schema.define(version: 2021_11_22_231608) do
+
+  create_table "proper_names", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.integer "proper_id"
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_proper_names_on_name"
+    t.index ["proper_id"], name: "index_proper_names_on_proper_id"
+  end
 
   create_table "uploaded_checks", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.integer "result_no"
