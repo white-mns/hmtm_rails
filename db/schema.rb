@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_22_231608) do
+ActiveRecord::Schema.define(version: 2021_11_22_232841) do
+
+  create_table "names", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "p_no"
+    t.string "name"
+    t.string "player"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["result_no", "p_no", "generate_no"], name: "resultno_pno"
+  end
 
   create_table "proper_names", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.integer "proper_id"
