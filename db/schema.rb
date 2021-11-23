@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2021_11_22_232841) do
 
-  create_table "names", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+  create_table "names", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "result_no"
     t.integer "generate_no"
     t.integer "p_no"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2021_11_22_232841) do
     t.index ["result_no", "p_no", "generate_no"], name: "resultno_pno"
   end
 
-  create_table "proper_names", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+  create_table "proper_names", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "proper_id"
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 2021_11_22_232841) do
     t.index ["proper_id"], name: "index_proper_names_on_proper_id"
   end
 
-  create_table "uploaded_checks", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+  create_table "uploaded_checks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "result_no"
     t.integer "generate_no"
     t.datetime "created_at", precision: 6, null: false
