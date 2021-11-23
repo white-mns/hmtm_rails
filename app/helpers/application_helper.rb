@@ -19,29 +19,29 @@ module ApplicationHelper
     end
   end
 
-  def pc_name_text(e_no, pc_name)
-    e_no_text = "(" + sprintf("%d",e_no) + ")"
+  def pc_name_text(p_no, pc_name)
+    p_no_text = "(" + sprintf("%d",p_no) + ")"
     if pc_name then
-      pc_name.name.html_safe + e_no_text
+      pc_name.name.html_safe + p_no_text
     else
-      e_no_text
+      p_no_text
     end
   end
 
-  def character_link(e_no)
-    if e_no <= 0 then return end
+  def character_link(p_no)
+    if p_no <= 0 then return end
 
-    file_name = sprintf("%d",e_no)
+    file_name = sprintf("%d",p_no)
     link_to " 最終結果", "https://xxx.xxx/"+file_name+".html", :target => "_blank"
   end
 
-  def character_old_link(latest_result_no, e_no, result_no, generate_no)
-    if e_no <= 0 then return end
+  def character_old_link(latest_result_no, p_no, result_no, generate_no)
+    if p_no <= 0 then return end
     if result_no == latest_result_no then return end
 
     result_no_text = sprintf("%d", result_no)
     generate_text  = generate_no > 0 ? "_" + sprintf("%d", generate_no) : ""
-    file_name = sprintf("%d", e_no)
+    file_name = sprintf("%d", p_no)
     link_to " 過去結果", "https://xxx.xxx/"+result_no_text+generate_text+"/"+file_name+".html", :target => "_blank"
   end
 
