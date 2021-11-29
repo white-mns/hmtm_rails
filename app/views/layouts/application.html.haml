@@ -26,7 +26,7 @@
                 個人データ
                 %span.caret
               .dropdown-menu
-                .dropdown-divider
+                = link_to "プロフィール一覧", profiles_path, class: "dropdown-item"
             %li.nav-item.dropdown
               %a.nav-link.dropdown-toggle#navbarDropdownMenuLink{ data: {bs: {toggle: "dropdown"}}, :href => "#", role: "button", area: {expanded: "false"}}
                 結果データ
@@ -39,7 +39,7 @@
         .col-md-12
           - uploading_alert(@latest_result, @uploaded_result)
           = yield
-      
+
       %footer
         %p
           Twitter：#{link_to "@data_teiki", "http://twitter.com/data_teiki"}

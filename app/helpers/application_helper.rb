@@ -158,4 +158,15 @@ module ApplicationHelper
       end
     end
   end
+
+  def subject_text(profile)
+    if !profile then
+      return
+    end
+
+    if profile.subject_id == 0 then "魔術科"
+    elsif profile.subject_id == 1 then "武術科"
+    else "？"
+    end
+  end
 end
