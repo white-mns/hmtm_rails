@@ -33,7 +33,8 @@ module ApplicationHelper
     if p_no <= 0 then return end
 
     file_name = sprintf("%d",p_no)
-    link_to " 最終結果", "https://xxx.xxx/"+file_name+".html", :target => "_blank"
+    #link_to " 最終結果", "http://www.sssloxia.jp/d/rp.aspx?PNo="+file_name+".html", :target => "_blank"
+    link_to " 最終結果", "http://www.sssloxia.jp/d/rp.aspx?PNo="+file_name, :target => "_blank"
   end
 
   def character_old_link(latest_result_no, p_no, result_no, generate_no)
@@ -43,7 +44,7 @@ module ApplicationHelper
     result_no_text = sprintf("%d", result_no)
     generate_text  = generate_no > 0 ? "_" + sprintf("%d", generate_no) : ""
     file_name = sprintf("%d", p_no)
-    link_to " 過去結果", "https://xxx.xxx/"+result_no_text+generate_text+"/"+file_name+".html", :target => "_blank"
+    link_to " 過去結果", "http://www.sssloxia.jp/"+result_no_text+generate_text+"/"+file_name+".html", :target => "_blank"
   end
 
   def search_submit_button()
