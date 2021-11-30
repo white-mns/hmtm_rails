@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_29_043319) do
+ActiveRecord::Schema.define(version: 2021_11_30_004255) do
 
   create_table "names", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
     t.integer "result_no"
@@ -54,6 +54,47 @@ ActiveRecord::Schema.define(version: 2021_11_29_043319) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_proper_names_on_name"
     t.index ["proper_id"], name: "index_proper_names_on_proper_id"
+  end
+
+  create_table "statuses", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "p_no"
+    t.integer "mhp"
+    t.integer "mmp"
+    t.integer "msp"
+    t.integer "cp"
+    t.integer "str"
+    t.integer "def"
+    t.integer "tec"
+    t.integer "eva"
+    t.integer "agi"
+    t.integer "luk"
+    t.integer "cha"
+    t.integer "rank_id"
+    t.integer "tp"
+    t.integer "ap"
+    t.integer "pp"
+    t.integer "sc"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["agi"], name: "index_statuses_on_agi"
+    t.index ["ap"], name: "index_statuses_on_ap"
+    t.index ["cha"], name: "index_statuses_on_cha"
+    t.index ["cp"], name: "index_statuses_on_cp"
+    t.index ["def"], name: "index_statuses_on_def"
+    t.index ["eva"], name: "index_statuses_on_eva"
+    t.index ["luk"], name: "index_statuses_on_luk"
+    t.index ["mhp"], name: "index_statuses_on_mhp"
+    t.index ["mmp"], name: "index_statuses_on_mmp"
+    t.index ["msp"], name: "index_statuses_on_msp"
+    t.index ["pp"], name: "index_statuses_on_pp"
+    t.index ["rank_id"], name: "index_statuses_on_rank_id"
+    t.index ["result_no", "p_no", "generate_no"], name: "resultno_pno"
+    t.index ["sc"], name: "index_statuses_on_sc"
+    t.index ["str"], name: "index_statuses_on_str"
+    t.index ["tec"], name: "index_statuses_on_tec"
+    t.index ["tp"], name: "index_statuses_on_tp"
   end
 
   create_table "uploaded_checks", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
