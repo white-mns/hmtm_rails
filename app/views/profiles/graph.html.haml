@@ -1,0 +1,60 @@
+- @page_title = "学科・教育課程グラフ"
+%h1= @page_title
+
+.card.desc
+  .card-header
+    - act_icon(true)
+    検索仕様
+    - act_desc(true)
+  .card-body
+    = render "layouts/base_desc"
+    %p
+      %span.example_select.example_toggle.pointer
+        - help_icon
+        入力例
+        - act_desc(false)
+    #example.closed
+      = render "layouts/input_desc"
+= search_form_for @search, url: profile_graphs_path do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: "5"}
+          - act_icon(true)
+          絞り込み検索
+          - act_desc(true)
+    %tbody
+      %tr
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "更新回", params_name: "result_no_form", placeholder: nil, colspan: 3)
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder,                         label: "学科", params_name: "subject_id_form",
+                    checkboxes: [{label: "魔術科", params_name: "subject_magic", class_name: "after_space"},
+                                 {label: "武術科", params_name: "subject_martial"}])
+        - td_form(f, @form_params, @placeholder,                         label: "教育課程", params_name: "course_id_form",
+                    checkboxes: [{label: "初等部", params_name: "course_s", class_name: "after_space"},
+                                 {label: "中等部", params_name: "course_c", class_name: "after_space mobile_br"},
+                                 {label: "高等部", params_name: "course_k", class_name: "after_space"},
+                                 {label: "大学部", params_name: "course_d"}])
+      %tr.sep
+        %td.indent
+        %td.indent= hidden_field_tag :is_form, 1
+        %td{colspan: "3"}
+          - search_submit_button
+
+
+= paginate(@profiles)
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%h3.graph_title 学科
+= pie_chart Profile.subject_graph(params), library: @library_param
+%br
+%h3.graph_title 教育課程
+= pie_chart Profile.course_graph(params), library: @library_param
+%br
+%br
