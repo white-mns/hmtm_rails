@@ -265,10 +265,12 @@ span.after_space::after {
     h1 {
         font-size: 1.5rem;
     }
-    
+
     table.search_toggle {
         border-collapse: collapse;
         td, th {
+            border-width: 1px;
+            border-color: $table-border-color;
             display: block;
         }
     }
