@@ -50,8 +50,8 @@ class ProfilesController < ApplicationController
     toggle_params_to_variable(params, @form_params, params_name: "show_data")
   end
 
-  # GET /profile/graph
-  def graph
+  # GET /profile/graphs
+  def graphs
     index
     @library_param = {
       backgroundColor: "#3a313a",

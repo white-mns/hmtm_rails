@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :equips
   resources :statuses
-  get "profile/graphs", :to => "profiles#graph", :as => "profile_graphs"
+  get "profile/graphs", :to => "profiles#graphs", :as => "profile_graphs"
   resources :profiles
   resources :names
   resources :proper_names
