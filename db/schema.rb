@@ -10,7 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_30_004255) do
+ActiveRecord::Schema.define(version: 2021_12_01_103743) do
+
+  create_table "equips", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "p_no"
+    t.integer "equip_no"
+    t.string "name"
+    t.integer "range"
+    t.integer "strength_1"
+    t.integer "strength_2"
+    t.string "note"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["equip_no"], name: "index_equips_on_equip_no"
+    t.index ["name"], name: "index_equips_on_name"
+    t.index ["note"], name: "index_equips_on_note"
+    t.index ["range"], name: "index_equips_on_range"
+    t.index ["result_no", "p_no", "equip_no", "generate_no"], name: "resultno_pno_equipno"
+    t.index ["result_no", "p_no", "generate_no"], name: "resultno_pno"
+    t.index ["strength_1"], name: "index_equips_on_strength_1"
+    t.index ["strength_2"], name: "index_equips_on_strength_2"
+  end
 
   create_table "names", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
     t.integer "result_no"

@@ -171,4 +171,26 @@ module ApplicationHelper
     else "？"
     end
   end
+
+  def equip_no_text(equip_no)
+    if !equip_no then
+      return "-"
+    end
+
+    if equip_no == 0 then "武器"
+    elsif equip_no == 1 then "防具"
+    elsif equip_no == 2 then "装飾"
+    else "？"
+    end
+  end
+
+  def range_text(range)
+    if !range then
+      return "-"
+    end
+
+    if range >= 0 then range
+    else "-"
+    end
+  end
 end
