@@ -46,6 +46,18 @@ class EquipsController < ApplicationController
 
     toggle_params_to_variable(params, @form_params, params_name: "show_profile")
   end
+
+  # GET /equip/graphs
+  def graphs
+    index
+    @library_param = {
+      backgroundColor: "#3a313a",
+      vAxis: { textStyle: { color: "#fff"}, titleTextStyle: {color: "#fff"} },
+      hAxis: { textStyle: { color: "#fff"}, titleTextStyle: {color: "#fff"} },
+      legend: {textStyle: {color: "#fff"}}
+    }
+  end
+
   # GET /equips/1
   #def show
   #end

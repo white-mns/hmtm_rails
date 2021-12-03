@@ -1,0 +1,71 @@
+- @page_title = "装備グラフ"
+%h1= @page_title
+
+.card.desc
+  .card-header
+    - act_icon(true)
+    検索仕様
+    - act_desc(true)
+  .card-body
+    = render "layouts/base_desc"
+    %p
+      %span.example_select.example_toggle.pointer
+        - help_icon
+        入力例
+        - act_desc(false)
+    #example.closed
+      = render "layouts/input_desc"
+= search_form_for @search, url: equip_graphs_path do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: "5"}
+          - act_icon(true)
+          絞り込み検索
+          - act_desc(true)
+    %tbody
+      %tr
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "更新回", params_name: "result_no_form", placeholder: nil, colspan: 3)
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder,                         label: "種類", params_name: "equip_no_form",
+                    checkboxes: [{label: "武器", params_name: "equip_weapon", class_name: "after_space"},
+                                 {label: "防具", params_name: "equip_guard", class_name: "after_space"},
+                                 {label: "装飾", params_name: "equip_decoration"}])
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_profile",
+                    label: {open: "学科で絞り込む", close: "学科で絞り込みを隠す"}, base_first: false)
+    %tbody.closed
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder,                         label: "学科", params_name: "subject_id_form", colspan: 3,
+                    checkboxes: [{label: "魔術科", params_name: "subject_magic", class_name: "after_space"},
+                                 {label: "武術科", params_name: "subject_martial"}])
+
+    - #==========================================================================================================================
+    %tbody
+      %tr.sep
+        %td.indent
+        %td.indent= hidden_field_tag :is_form, 1
+        %td{colspan: "3"}
+          - search_submit_button
+
+
+= paginate(@equips)
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%h3.graph_title 射程
+= column_chart Equip.range_graph(params),xtitle: "射程", ytitle: "人数", library: @library_param
+%br
+%h3.graph_title 攻/防/HP
+= column_chart Equip.strength_1_graph(params),xtitle: "数値", ytitle: "人数", library: @library_param
+%br
+%h3.graph_title 命/回/SP
+= column_chart Equip.strength_2_graph(params),xtitle: "数値", ytitle: "人数", library: @library_param
+%br

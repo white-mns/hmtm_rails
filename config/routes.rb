@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "equip/graphs", :to => "equips#graphs", :as => "equip_graphs"
   resources :equips
   resources :statuses
   get "profile/graphs", :to => "profiles#graphs", :as => "profile_graphs"
