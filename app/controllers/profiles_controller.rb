@@ -54,7 +54,7 @@ class ProfilesController < ApplicationController
   def graphs
     index
     @library_param = {
-      backgroundColor: "#3a313a",
+      backgroundColor: "#252025",
       legend: {textStyle: {color: "#fff"}}
     }
   end

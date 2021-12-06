@@ -51,7 +51,7 @@ class EquipsController < ApplicationController
   def graphs
     index
     @library_param = {
-      backgroundColor: "#3a313a",
+      backgroundColor: "#252025",
       vAxis: { textStyle: { color: "#fff"}, titleTextStyle: {color: "#fff"} },
       hAxis: { textStyle: { color: "#fff"}, titleTextStyle: {color: "#fff"} },
       legend: {textStyle: {color: "#fff"}}

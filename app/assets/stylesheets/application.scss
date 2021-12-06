@@ -14,13 +14,13 @@
  *
  */
 
-$light:                             #444;
+$light:                             #383038;
 $white:                             #fff;
 $gray:                              #444 ;
 $gray-darker:                       #222 ;
 $gray-dark:                         #282828 ;
 $gray-light:                        #888 ;
-$body-bg:                           #3a313a;
+$body-bg:                           #252025;
 
 $link-color:                        #ba95ff;
 $link-hover-color:                  #fd0;
@@ -43,7 +43,7 @@ $pagination-border-color:           #888;
 $pagination-border-width:           0.05rem;
 
 $pagination-hover-color:            #fff;
-$pagination-hover-bg:               #8221af;
+$pagination-hover-bg:               #6e288f;
 $pagination-hover-border-color:     transparent;
 
 $pagination-active-color:           $pagination-hover-color;
@@ -112,7 +112,7 @@ a:hover {
 
 .dropdown-menu .dropdown-item:hover, .dropdown-menu .dropdown-item:focus {
     color: #fff;
-    background-color: #007fff;
+    background-color: #ac00f0;
 }
 
 .dropdown-menu .dropdown-item.no-link:hover, .dropdown-menu .dropdown-item.no-link:focus {
@@ -190,7 +190,7 @@ p.formNum {
 
 .example_select{
     background-color: #ddd;
-    border-left: 0.5em solid #282;
+    border-left: 0.5em solid #81219e;
     color: #222;
     padding: 0.5em 0.8em;
 }
@@ -254,7 +254,7 @@ input[type=checkbox] {
 
 input + label:hover {
     cursor: pointer;
-    background: linear-gradient(transparent 70%, #2A9FD6 0%);
+    background: linear-gradient(transparent 70%, #ae2ad6 0%);
 }
 
 span.after_space::after {
