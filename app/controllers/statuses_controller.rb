@@ -8,8 +8,8 @@ class StatusesController < ApplicationController
     placeholder_set
     param_set
 
-    @count = Status.notnil().includes(:pc_name, :rank).search(params[:q]).result.hit_count()
-    @search = Status.notnil().includes(:pc_name, :rank).page(params[:page]).search(params[:q])
+    @count =  Status.notnil().includes(:pc_name, :rank, :profile).search(params[:q]).result.hit_count()
+    @search = Status.notnil().includes(:pc_name, :rank, :profile).page(params[:page]).search(params[:q])
     @search.sorts = "id asc" if @search.sorts.empty?
     @statuses = @search.result.per(50)
   end
@@ -47,7 +47,11 @@ class StatusesController < ApplicationController
 
     params_to_form(params, @form_params, column_name: "rank_name", params_name: "rank_form", type: "text")
 
-    toggle_params_to_variable(params, @form_params, params_name: "show_data")
+    checkbox_params_set_query_any(params, @form_params, query_name: "profile_subject_id_eq_any",
+                             checkboxes: [{params_name: "subject_magic", value: 0, first_checked: true},
+                                          {params_name: "subject_martial" , value: 1, first_checked: true}])
+
+    toggle_params_to_variable(params, @form_params, params_name: "show_profile")
   end
   # GET /statuses/1
   #def show
