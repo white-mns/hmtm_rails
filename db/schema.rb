@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_01_103743) do
+ActiveRecord::Schema.define(version: 2021_12_26_130555) do
 
   create_table "equips", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
     t.integer "result_no"
@@ -32,6 +32,25 @@ ActiveRecord::Schema.define(version: 2021_12_01_103743) do
     t.index ["result_no", "p_no", "generate_no"], name: "resultno_pno"
     t.index ["strength_1"], name: "index_equips_on_strength_1"
     t.index ["strength_2"], name: "index_equips_on_strength_2"
+  end
+
+  create_table "items", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "p_no"
+    t.integer "i_no"
+    t.string "name"
+    t.integer "type_id"
+    t.integer "strength"
+    t.string "note"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["i_no"], name: "index_items_on_i_no"
+    t.index ["name"], name: "index_items_on_name"
+    t.index ["note"], name: "index_items_on_note"
+    t.index ["result_no", "p_no", "generate_no"], name: "resultno_pno"
+    t.index ["strength"], name: "index_items_on_strength"
+    t.index ["type_id"], name: "index_items_on_type_id"
   end
 
   create_table "names", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
