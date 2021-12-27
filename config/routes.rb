@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :tune_gem_data
   resources :spell_data
   resources :items
   get "equip/graphs", :to => "equips#graphs", :as => "equip_graphs"

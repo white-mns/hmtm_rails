@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_27_063225) do
+ActiveRecord::Schema.define(version: 2021_12_27_112118) do
 
   create_table "equips", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
     t.integer "result_no"
@@ -161,6 +161,21 @@ ActiveRecord::Schema.define(version: 2021_12_27_063225) do
     t.index ["str"], name: "index_statuses_on_str"
     t.index ["tec"], name: "index_statuses_on_tec"
     t.index ["tp"], name: "index_statuses_on_tp"
+  end
+
+  create_table "tune_gem_data", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
+    t.integer "tg_id"
+    t.string "name"
+    t.string "sp"
+    t.integer "type_id"
+    t.string "text"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_tune_gem_data_on_name"
+    t.index ["sp"], name: "index_tune_gem_data_on_sp"
+    t.index ["text"], name: "index_tune_gem_data_on_text"
+    t.index ["tg_id"], name: "index_tune_gem_data_on_tg_id"
+    t.index ["type_id"], name: "index_tune_gem_data_on_type_id"
   end
 
   create_table "uploaded_checks", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
