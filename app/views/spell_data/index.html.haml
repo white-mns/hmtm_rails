@@ -37,7 +37,7 @@
                     checkboxes: [{label: "無", params_name: "element_none",  class_name: "after_space", br: true},
                                  {label: "火", params_name: "element_fire",  class_name: "after_space"},
                                  {label: "水", params_name: "element_water", class_name: "after_space"},
-                                 {label: "風", params_name: "element_wind",  class_name: "after_space mobile_br"},
+                                 {label: "風", params_name: "element_air",   class_name: "after_space mobile_br"},
                                  {label: "土", params_name: "element_earth", class_name: "after_space"},
                                  {label: "光", params_name: "element_light", class_name: "after_space"},
                                  {label: "闇", params_name: "element_dark"}])
@@ -61,13 +61,13 @@
       %tr
         %td.indent
         - td_form(f, @form_params, @placeholder,                         label: "分類", params_name: "分類_id_form",
-                    checkboxes: [{label: "近接", params_name: "class_approach",     class_name: "after_space"},
-                                 {label: "射撃", params_name: "class_gunshot",      class_name: "after_space"},
+                    checkboxes: [{label: "近接",     params_name: "class_approach",     class_name: "after_space"},
+                                 {label: "射撃",     params_name: "class_gunshot",      class_name: "after_space"},
                                  {label: "防御補助", params_name: "class_defense",  class_name: "after_space mobile_br"},
-                                 {label: "回復", params_name: "class_heal",         class_name: "after_space"},
-                                 {label: "異常", params_name: "class_abnormal",     class_name: "after_space"},
-                                 {label: "召喚", params_name: "class_summon",       class_name: "after_space"},
-                                 {label: "合成", params_name: "class_synthesis"}])
+                                 {label: "回復",     params_name: "class_heal",         class_name: "after_space"},
+                                 {label: "異常",     params_name: "class_abnormal",     class_name: "after_space"},
+                                 {label: "召喚",     params_name: "class_summon",       class_name: "after_space"},
+                                 {label: "合成",     params_name: "class_synthesis"}])
       %tr.sep
         %td.indent
         %td.indent= hidden_field_tag :is_form, 1

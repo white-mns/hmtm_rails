@@ -44,7 +44,7 @@ class SpellDataController < ApplicationController
                              checkboxes: [{params_name: "element_none",   value: proper_name["無"]},
                                           {params_name: "element_fire" ,  value: proper_name["火"]},
                                           {params_name: "element_water" , value: proper_name["水"]},
-                                          {params_name: "element_wind" ,  value: proper_name["風"]},
+                                          {params_name: "element_air" ,   value: proper_name["風"]},
                                           {params_name: "element_earth" , value: proper_name["土"]},
                                           {params_name: "element_light" , value: proper_name["光"]},
                                           {params_name: "element_dark" ,  value: proper_name["闇"]}])
