@@ -172,6 +172,10 @@ label {
     cursor: pointer;
 }
 
+.TG {
+    border-left: 0.2em solid red !important;
+}
+
 .formText {
     border-left: 0.2em solid #48f !important;
 }
@@ -209,6 +213,10 @@ td.sign{
 
 th.sep,td.sep{
     border-left: 3px solid $table-border-color;
+}
+
+th.sep_r,td.sep_r{
+    border-right: 3px solid $table-border-color;
 }
 
 tr.sep{

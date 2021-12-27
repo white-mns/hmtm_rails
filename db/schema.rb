@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_27_112118) do
+ActiveRecord::Schema.define(version: 2021_12_27_140101) do
 
   create_table "equips", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
     t.integer "result_no"
@@ -120,6 +120,33 @@ ActiveRecord::Schema.define(version: 2021_12_27_112118) do
     t.index ["spell_id"], name: "index_spell_data_on_spell_id"
     t.index ["text"], name: "index_spell_data_on_text"
     t.index ["timing_id"], name: "index_spell_data_on_timing_id"
+  end
+
+  create_table "spells", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "p_no"
+    t.integer "s_no"
+    t.string "name"
+    t.integer "sp"
+    t.integer "power"
+    t.integer "hit"
+    t.integer "range"
+    t.integer "timing_id"
+    t.integer "spell_id"
+    t.string "gems"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["gems"], name: "index_spells_on_gems"
+    t.index ["hit"], name: "index_spells_on_hit"
+    t.index ["name"], name: "index_spells_on_name"
+    t.index ["power"], name: "index_spells_on_power"
+    t.index ["range"], name: "index_spells_on_range"
+    t.index ["result_no", "p_no", "generate_no"], name: "resultno_pno"
+    t.index ["s_no"], name: "index_spells_on_s_no"
+    t.index ["sp"], name: "index_spells_on_sp"
+    t.index ["spell_id"], name: "index_spells_on_spell_id"
+    t.index ["timing_id"], name: "index_spells_on_timing_id"
   end
 
   create_table "statuses", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|

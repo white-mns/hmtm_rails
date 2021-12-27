@@ -10,8 +10,11 @@ class ApplicationController < ActionController::Base
     @placeholder["Number"] = "例）1~10/50~100"
     @placeholder["Text"]   = "例）武器/\"防具\""
     @placeholder["Name"]   = "例）太郎/\"次郎\""
+    @placeholder["Item"]   = "例）武器/\"防具\""
     @placeholder["Spell"]  = "例）ショット/\"シールド\""
     @placeholder["SpellText"]  = "例）属性付与/\"対：攻撃\""
-    @placeholder["Item"]   = "例）武器/\"防具\""
+    @placeholder["TuneGem"]  = "例）火付与/\"射程増\""
+    @placeholder["TuneGemSP"]  = "例）2倍/\"3倍\""
+    @placeholder["TuneGemText"]  = "例）属性付与/\"列化\""
   end
 end
