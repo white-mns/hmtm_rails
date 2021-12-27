@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_26_130555) do
+ActiveRecord::Schema.define(version: 2021_12_27_063225) do
 
   create_table "equips", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
     t.integer "result_no"
@@ -95,6 +95,31 @@ ActiveRecord::Schema.define(version: 2021_12_26_130555) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_proper_names_on_name"
     t.index ["proper_id"], name: "index_proper_names_on_proper_id"
+  end
+
+  create_table "spell_data", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
+    t.integer "spell_id"
+    t.string "name"
+    t.integer "sp"
+    t.integer "element_id"
+    t.string "text"
+    t.integer "range"
+    t.integer "power"
+    t.integer "hit"
+    t.integer "timing_id"
+    t.integer "class_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["class_id"], name: "index_spell_data_on_class_id"
+    t.index ["element_id"], name: "index_spell_data_on_element_id"
+    t.index ["hit"], name: "index_spell_data_on_hit"
+    t.index ["name"], name: "index_spell_data_on_name"
+    t.index ["power"], name: "index_spell_data_on_power"
+    t.index ["range"], name: "index_spell_data_on_range"
+    t.index ["sp"], name: "index_spell_data_on_sp"
+    t.index ["spell_id"], name: "index_spell_data_on_spell_id"
+    t.index ["text"], name: "index_spell_data_on_text"
+    t.index ["timing_id"], name: "index_spell_data_on_timing_id"
   end
 
   create_table "statuses", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|

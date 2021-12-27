@@ -10,7 +10,8 @@ class ApplicationController < ActionController::Base
     @placeholder["Number"] = "例）1~10/50~100"
     @placeholder["Text"]   = "例）武器/\"防具\""
     @placeholder["Name"]   = "例）太郎/\"次郎\""
-    @placeholder["Skill"]  = "例）スラッシュ/\"ラッシュ\""
+    @placeholder["Spell"]  = "例）ショット/\"シールド\""
+    @placeholder["SpellText"]  = "例）属性付与/\"対：攻撃\""
     @placeholder["Item"]   = "例）武器/\"防具\""
   end
 end

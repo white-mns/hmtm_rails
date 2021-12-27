@@ -1,0 +1,108 @@
+- @page_title = "スペル一覧"
+%h1= @page_title
+
+.card.desc
+  .card-header
+    - act_icon(true)
+    検索仕様
+    - act_desc(true)
+  .card-body
+    = render "layouts/base_desc"
+    %p
+      %span.example_select.example_toggle.pointer
+        - help_icon
+        入力例
+        - act_desc(false)
+    #example.closed
+      = render "layouts/input_desc"
+= search_form_for @search do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: "5"}
+          - act_icon(true)
+          絞り込み検索
+          - act_desc(true)
+    %tbody
+      %tr
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "スペル名", params_name: "name_form", placeholder: "Spell")
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "SP", params_name: "sp_form", placeholder: "Number")
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder,                         label: "属性", params_name: "element_id_form",
+                    checkboxes: [{label: "無", params_name: "element_none",  class_name: "after_space", br: true},
+                                 {label: "火", params_name: "element_fire",  class_name: "after_space"},
+                                 {label: "水", params_name: "element_water", class_name: "after_space"},
+                                 {label: "風", params_name: "element_wind",  class_name: "after_space mobile_br"},
+                                 {label: "土", params_name: "element_earth", class_name: "after_space"},
+                                 {label: "光", params_name: "element_light", class_name: "after_space"},
+                                 {label: "闇", params_name: "element_dark"}])
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "説明", params_name: "text_form", placeholder: "SpellText")
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "射程", params_name: "range_form", placeholder: "Number")
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "威力", params_name: "power_form")
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "命中", params_name: "hit_form")
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder,                         label: "タイミング", params_name: "timing_id_form",
+                    checkboxes: [{label: "アクティブ", params_name: "timing_active", class_name: "after_space"},
+                                 {label: "カウンター", params_name: "timing_counter"}])
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder,                         label: "分類", params_name: "分類_id_form",
+                    checkboxes: [{label: "近接", params_name: "class_approach",     class_name: "after_space"},
+                                 {label: "射撃", params_name: "class_gunshot",      class_name: "after_space"},
+                                 {label: "防御補助", params_name: "class_defense",  class_name: "after_space mobile_br"},
+                                 {label: "回復", params_name: "class_heal",         class_name: "after_space"},
+                                 {label: "異常", params_name: "class_abnormal",     class_name: "after_space"},
+                                 {label: "召喚", params_name: "class_summon",       class_name: "after_space"},
+                                 {label: "合成", params_name: "class_synthesis"}])
+      %tr.sep
+        %td.indent
+        %td.indent= hidden_field_tag :is_form, 1
+        %td{colspan: "3"}
+          - search_submit_button
+
+
+= paginate(@spell_data)
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th= sort_link(@search, :name, "スペル名", default_order: :desc)
+      %th= sort_link(@search, :sp, "SP", default_order: :desc)
+      %th= sort_link(@search, :element_id, "属性", default_order: :desc)
+      %th= sort_link(@search, :text, "説明", default_order: :desc)
+      %th= sort_link(@search, :range, "射程", default_order: :desc)
+      %th= sort_link(@search, :power, "威力", default_order: :desc)
+      %th= sort_link(@search, :hit, "命中", default_order: :desc)
+      %th= sort_link(@search, :timing_id, "タイミング", default_order: :desc)
+      %th= sort_link(@search, :class_id, "分類", default_order: :desc)
+  %tbody
+    - @spell_data.each do |spell_datum|
+      %tr
+        %td= spell_datum.name
+        %td= spell_datum.sp
+        %td= spell_datum.element.name if spell_datum.element
+        %td= spell_datum.text
+        %td= range_text(spell_datum.range)
+        %td= spell_datum.power
+        %td= range_text(spell_datum.hit)
+        %td= spell_datum.timing.name if spell_datum.timing
+        %td= spell_datum.class_data.name if spell_datum.class_data
+= paginate(@spell_data)
