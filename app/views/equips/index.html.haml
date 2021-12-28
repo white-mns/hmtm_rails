@@ -19,7 +19,7 @@
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer
       %tr
-        %td{colspan: "5"}
+        %td{colspan: 5}
           - act_icon(true)
           絞り込み検索
           - act_desc(true)
@@ -68,7 +68,7 @@
       %tr.sep
         %td.indent
         %td.indent= hidden_field_tag :is_form, 1
-        %td{colspan: "3"}
+        %td{colspan: 3}
           - search_submit_button
 
 
@@ -90,7 +90,7 @@
       %th= sort_link(@search, :strength_1, "攻/防/HP", default_order: :desc)
       %th= sort_link(@search, :strength_2, "命/回/SP", default_order: :desc)
       %th= sort_link(@search, :note, "備考", default_order: :desc)
-      %th.sep{colspan: "2"} 結果リンク
+      %th.sep{colspan: 2} 結果リンク
   %tbody
     - @equips.each do |equip|
       %tr

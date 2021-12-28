@@ -19,7 +19,7 @@
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer
       %tr
-        %td{colspan: "5"}
+        %td{colspan: 5}
           - act_icon(true)
           絞り込み検索
           - act_desc(true)
@@ -83,7 +83,7 @@
       %tr.sep
         %td.indent
         %td.indent= hidden_field_tag :is_form, 1
-        %td{colspan: "3"}
+        %td{colspan: 3}
           - search_submit_button
 
 
@@ -107,7 +107,7 @@
       %th= sort_link(@search, :hit, "命中", default_order: :desc)
       %th= sort_link(@search, :range, "射程", default_order: :desc)
       %th= sort_link(@search, :timing_id, "タイミング", default_order: :desc)
-      %th.sep{colspan: "2"} 結果リンク
+      %th.sep{colspan: 2} 結果リンク
   %tbody
     - @spells.each do |spell|
       %tr
@@ -126,9 +126,9 @@
         %td{rowspan: 3}= character_old_link(@latest_result, spell.p_no, spell.result_no, spell.generate_no)
       %tr
         - if @form_params["show_spell_text"] == "1"
-          %td{colspan: "5"}= spell.spell.text if spell.spell
+          %td{colspan: 5}= spell.spell.text if spell.spell
           %td= spell.spell.class_data.name if spell.spell.class_data
       %tr
         - if spell.gems != "" then
-          %td.TG{colspan: "6"}= spell.gems
+          %td.TG{colspan: 6}= spell.gems
 = paginate(@spells)
