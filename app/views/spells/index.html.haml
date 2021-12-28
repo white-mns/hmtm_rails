@@ -127,7 +127,7 @@
       %tr
         - if @form_params["show_spell_text"] == "1"
           %td{colspan: "5"}= spell.spell.text if spell.spell
-          %td{colspan: "6"}= spell.spell.class_data.name if spell.spell.class_data
+          %td= spell.spell.class_data.name if spell.spell.class_data
       %tr
         - if spell.gems != "" then
           %td.TG{colspan: "6"}= spell.gems
