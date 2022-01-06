@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_27_140101) do
+ActiveRecord::Schema.define(version: 2022_01_05_095323) do
 
   create_table "equips", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
     t.integer "result_no"
@@ -110,8 +110,10 @@ ActiveRecord::Schema.define(version: 2021_12_27_140101) do
     t.integer "class_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "gems"
     t.index ["class_id"], name: "index_spell_data_on_class_id"
     t.index ["element_id"], name: "index_spell_data_on_element_id"
+    t.index ["gems"], name: "index_spell_data_on_gems"
     t.index ["hit"], name: "index_spell_data_on_hit"
     t.index ["name"], name: "index_spell_data_on_name"
     t.index ["power"], name: "index_spell_data_on_power"
