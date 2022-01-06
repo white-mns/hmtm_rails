@@ -101,12 +101,15 @@ function set_tooltip() {
 
 // 検索実行後の遷移で説明・検索フォームを閉じる処理
 function exec_searched() {
-	if((params[1] && !(params[1] == "no_result=on" || params[1] == "no_count=on")) || window.innerWidth < 767){
+    var url     = location.href;
+    var params  = url.split("?");
+
+    if((params[1] && !(params[1] == "no_result=on" || params[1] == "no_count=on")) || window.innerWidth < 767){
         search_close();
         detail_toggle_open();
         desc_close();
         base_first_toggle(); // 初期遷移時にクエリが入るページではトグル開閉状態が逆になるため、もう一度トグル実行
-	}
+    }
 }
 
 // ページ表示時に必ず実行する処理
@@ -118,8 +121,6 @@ function exec_load() {
 
 // ページ移動時の発火処理
 var turboReady = function(){
-	var url     = location.href;
-    var params  = url.split("?");
 
     $('FORM').cleanQuery();
     exec_searched();
