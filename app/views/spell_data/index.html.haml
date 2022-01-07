@@ -68,6 +68,13 @@
                                  {label: "異常",     params_name: "class_abnormal",     class_name: "after_space"},
                                  {label: "召喚",     params_name: "class_summon",       class_name: "after_space"},
                                  {label: "合成",     params_name: "class_synthesis"}])
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "TG", params_name: "gems_form")
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder,                            params_name: "gems_form",
+                    checkboxes: [{label: "TGが付加されていないものだけを表示", params_name: "no_gems"}])
       %tr.sep
         %td.indent
         %td.indent= hidden_field_tag :is_form, 1
@@ -85,6 +92,7 @@
   %thead
     %tr
       %th= sort_link(@search, :name, "スペル名", default_order: :desc)
+      %th= sort_link(@search, :gems, "TG", default_order: :desc)
       %th= sort_link(@search, :sp, "SP", default_order: :desc)
       %th= sort_link(@search, :element_id, "属性", default_order: :desc)
       %th= sort_link(@search, :text, "説明", default_order: :desc)
@@ -96,7 +104,7 @@
   %tbody
     - @spell_data.each do |spell_datum|
       %tr
-        %td= spell_datum.name
+        %td{rowspan: 3, colspan: 2}= spell_datum.name
         %td= spell_datum.sp
         %td= spell_datum.element.name if spell_datum.element
         %td= spell_datum.text
@@ -105,4 +113,8 @@
         %td= range_text(spell_datum.hit)
         %td= spell_datum.timing.name if spell_datum.timing
         %td= spell_datum.class_data.name if spell_datum.class_data
+      %tr
+      %tr
+        - if spell_datum.gems.length > 1
+          %td.TG{colspan: 8}= spell_datum.gems
 = paginate(@spell_data)

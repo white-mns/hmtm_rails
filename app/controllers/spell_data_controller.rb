@@ -34,6 +34,7 @@ class SpellDataController < ApplicationController
     params_to_form(params, @form_params, column_name: "hit", params_name: "hit_form", type: "number")
     params_to_form(params, @form_params, column_name: "timing_id", params_name: "timing_id_form", type: "number")
     params_to_form(params, @form_params, column_name: "class_id", params_name: "class_id_form", type: "number")
+    params_to_form(params, @form_params, column_name: "gems", params_name: "gems_form", type: "concat")
 
     params_to_form(params, @form_params, column_name: "element_name", params_name: "element_form", type: "text")
     params_to_form(params, @form_params, column_name: "timing_name", params_name: "timing_form", type: "text")
@@ -61,6 +62,9 @@ class SpellDataController < ApplicationController
                                           {params_name: "class_abnormal" ,  value: proper_name["異常"]},
                                           {params_name: "class_summon" ,    value: proper_name["召喚"]},
                                           {params_name: "class_synthesis" , value: proper_name["合成"]}])
+
+    checkbox_params_set_query_single(params, @form_params, query_name: "gems_blank",
+                             checkbox: {params_name: "no_gems",   value: true})
 
     toggle_params_to_variable(params, @form_params, params_name: "show_data")
   end
