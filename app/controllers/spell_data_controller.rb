@@ -65,11 +65,11 @@ class SpellDataController < ApplicationController
                                           {params_name: "class_synthesis" , value: proper_name["合成"]}])
 
     checkbox_params_set_query_single(params, @form_params, query_name: "gems_blank",
-                             checkbox: {params_name: "no_gems",   value: true})
-    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "no_poison", query_name:"poison_lv_blank",  value: true})
+                             checkbox: {params_name: "no_gems",   value: true, first_checked: true})
 
     toggle_params_to_variable(params, @form_params, params_name: "show_data")
   end
+
   # GET /spell_data/1
   #def show
   #end
