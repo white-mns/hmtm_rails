@@ -91,7 +91,7 @@ function base_first_toggle() {
 function set_tooltip() {
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        placement = "right";
+        placement = "bottom";
 
         if (tooltipTriggerEl.getAttribute("data-bs-placement")) placement = tooltipTriggerEl.getAttribute("data-bs-placement");
 
