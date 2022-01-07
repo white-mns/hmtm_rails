@@ -7,6 +7,7 @@ class SpellDataController < ApplicationController
     resultno_set
     placeholder_set
     param_set
+    tg_data_set
 
     @count =  SpellDatum.includes(:element, :timing, :class_data).where(spell_id: 1..Float::INFINITY).search(params[:q]).result.hit_count()
     @search = SpellDatum.includes(:element, :timing, :class_data).where(spell_id: 1..Float::INFINITY).page(params[:page]).search(params[:q])
@@ -65,6 +66,7 @@ class SpellDataController < ApplicationController
 
     checkbox_params_set_query_single(params, @form_params, query_name: "gems_blank",
                              checkbox: {params_name: "no_gems",   value: true})
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "no_poison", query_name:"poison_lv_blank",  value: true})
 
     toggle_params_to_variable(params, @form_params, params_name: "show_data")
   end

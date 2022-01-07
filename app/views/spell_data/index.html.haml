@@ -116,5 +116,5 @@
       %tr
       %tr
         - if spell_datum.gems.length > 1
-          %td.TG{colspan: 8}= spell_datum.gems
+          %td.TG{colspan: 8}= gems_text(spell_datum.gems, @tg_data)
 = paginate(@spell_data)

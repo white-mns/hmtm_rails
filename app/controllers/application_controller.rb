@@ -17,4 +17,9 @@ class ApplicationController < ActionController::Base
     @placeholder["TuneGemSP"]  = "例）2倍/\"3倍\""
     @placeholder["TuneGemText"]  = "例）属性付与/\"列化\""
   end
+
+  def tg_data_set
+    tg_data = TuneGemDatum.pluck(:name, :text)
+    @tg_data = Hash[*tg_data.flatten]
+  end
 end
