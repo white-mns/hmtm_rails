@@ -64,8 +64,9 @@ class SpellDataController < ApplicationController
                                           {params_name: "class_summon" ,    value: proper_name["召喚"]},
                                           {params_name: "class_synthesis" , value: proper_name["合成"]}])
 
+    gems_first_checked = (params["tg_all"]) ? false : true
     checkbox_params_set_query_single(params, @form_params, query_name: "gems_blank",
-                             checkbox: {params_name: "no_gems",   value: true, first_checked: true})
+                             checkbox: {params_name: "no_gems",   value: true, first_checked: gems_first_checked})
 
     toggle_params_to_variable(params, @form_params, params_name: "show_data")
   end

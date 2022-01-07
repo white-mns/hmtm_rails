@@ -107,7 +107,7 @@
         %td{rowspan: 3, colspan: 2}= spell_datum.name
         %td= spell_datum.sp
         %td= spell_datum.element.name if spell_datum.element
-        %td= spell_datum.text
+        %td= link_to spell_datum.text, spell_data_path + "?text_form=\"" + CGI.escape(spell_datum.text) + "\"" + "&tg_all=on"
         %td= range_text(spell_datum.range)
         %td= spell_datum.power
         %td= range_text(spell_datum.hit)
