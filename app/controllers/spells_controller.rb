@@ -7,6 +7,8 @@ class SpellsController < ApplicationController
     resultno_set
     placeholder_set
     param_set
+    spell_data_set
+    tg_data_set
 
     @count =  Spell.notnil().includes(:pc_name, :spell, :timing).search(params[:q]).result.hit_count()
     @search = Spell.notnil().includes(:pc_name, :spell, :timing).page(params[:page]).search(params[:q])

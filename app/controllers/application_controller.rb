@@ -18,6 +18,11 @@ class ApplicationController < ActionController::Base
     @placeholder["TuneGemText"]  = "例）属性付与/\"列化\""
   end
 
+  def spell_data_set
+    spell_data = SpellDatum.pluck(:name, :text)
+    @spell_data = Hash[*spell_data.flatten]
+  end
+
   def tg_data_set
     tg_data = TuneGemDatum.pluck(:name, :text)
     @tg_data = Hash[*tg_data.flatten]
