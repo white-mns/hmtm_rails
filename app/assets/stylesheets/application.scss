@@ -54,6 +54,10 @@ $pagination-disabled-color:         $gray-light;
 $pagination-disabled-bg:            $gray-darker;
 $pagination-disabled-border-color:  #888;
 
+$tooltip-color:                     #222;
+$tooltip-bg:                        #ddd;
+$tooltip-arrow-color:               #ddd;
+
 @import "darkly/variables";
 @import "bootstrap";
 
