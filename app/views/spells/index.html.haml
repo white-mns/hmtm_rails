@@ -121,7 +121,7 @@
             - if @form_params["show_spell_text"] == "1"
               = spell.spell.name
             - else
-              - tooltip_text(spell.spell.name, @spell_data)
+              - spell_text(spell.spell.name, @spell_data)
         %td.sep= spell.sp
         %td= spell.power
         %td= range_text(spell.hit)
