@@ -89,11 +89,14 @@ function base_first_toggle() {
 
 // ツールチップの表示処理
 function set_tooltip() {
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle^="tooltip"]'))
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        placement = "bottom";
+        placement = "right";
 
-        if (tooltipTriggerEl.getAttribute("data-bs-placement")) placement = tooltipTriggerEl.getAttribute("data-bs-placement");
+        toggle_text = tooltipTriggerEl.getAttribute("data-bs-toggle"); // data-bs-toggleに入る文字列での位置変更
+        if (toggle_text.match(/tooltip-(.+)/)) placement = toggle_text.match(/tooltip-(.+)/)[1];
+
+        if (tooltipTriggerEl.getAttribute("data-bs-placement")) placement = tooltipTriggerEl.getAttribute("data-bs-placement"); // data-bs-placement属性での位置変更
 
         return new bootstrap.Tooltip(tooltipTriggerEl, {placement: placement, html: true});
     })

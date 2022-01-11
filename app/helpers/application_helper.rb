@@ -193,16 +193,23 @@ module ApplicationHelper
     end
   end
 
-  def tooltip_text(name, data)
-    if name == "" then return end
+  def tooltip_text(text, data, placement="right")
+    if text == "" then return end
 
-    title = data[name]
+    title = data[text]
+    placement = "-" + placement
 
-    span_attr = {data: {bs: {toggle: "tooltip"}}, title: title}
+    span_attr = {data: {bs: {toggle: "tooltip" + placement}}, title: title}
 
     haml_tag :span, span_attr do
-      haml_concat name
+      haml_concat text
     end
+  end
+
+  def spell_text(name, skill_data, placement="right")
+    if name == "" then return end
+
+    tooltip_text(name, skill_data, placement)
   end
 
   def gems_text(gems_text, tg_data)
@@ -213,7 +220,7 @@ module ApplicationHelper
     gems.each_with_index do |gem, index|
       if gem == "" then next end
 
-      tooltip_text(gem, tg_data)
+        tooltip_text(gem, tg_data, "bottom")
 
       if index != gems.size - 1 then haml_concat "、" end
     end
