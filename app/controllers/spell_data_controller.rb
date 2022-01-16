@@ -47,7 +47,7 @@ class SpellDataController < ApplicationController
                                           {params_name: "element_fire" ,  value: proper_name["火"]},
                                           {params_name: "element_water" , value: proper_name["水"]},
                                           {params_name: "element_air" ,   value: proper_name["風"]},
-                                          {params_name: "element_earth" , value: proper_name["土"]},
+                                          {params_name: "element_earth" , value: proper_name["地"]},
                                           {params_name: "element_light" , value: proper_name["光"]},
                                           {params_name: "element_dark" ,  value: proper_name["闇"]}])
 
