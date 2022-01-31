@@ -1,0 +1,2 @@
+class Obsolescence < ApplicationRecord
+end

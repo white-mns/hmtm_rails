@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   def placeholder_set
     @placeholder = {}
     @placeholder["Number"] = "例）1~10/50~100"
+    @placeholder["Obsolescence"] = "例）-50~-40/~0/0~25"
     @placeholder["Text"]   = "例）武器/\"防具\""
     @placeholder["Name"]   = "例）太郎/\"次郎\""
     @placeholder["Item"]   = "例）武器/\"防具\""

@@ -15,6 +15,7 @@
           %li 基本データ
           %ul
             %li= link_to "スペルリスト", spell_data_path
+            %li= link_to "陳腐化一覧", obsolescences_path
         %ul
           %li 個人データ
           %ul
@@ -39,6 +40,9 @@
     %ul
       %li 2022/1/31
       %ul
+        %li
+          = link_to "陳腐化一覧", obsolescences_path
+          を公開
         %li
           = link_to "習得スペル一覧", spells_path
           に属性と陳腐化の情報を追加

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_31_024452) do
+ActiveRecord::Schema.define(version: 2022_01_31_050952) do
 
   create_table "equips", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
     t.integer "result_no"
@@ -62,6 +62,20 @@ ActiveRecord::Schema.define(version: 2022_01_31_024452) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["result_no", "p_no", "generate_no"], name: "resultno_pno"
+  end
+
+  create_table "obsolescences", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.string "gems"
+    t.integer "gem_num"
+    t.decimal "obsolescence", precision: 8, scale: 1
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["gem_num"], name: "index_obsolescences_on_gem_num"
+    t.index ["gems"], name: "index_obsolescences_on_gems"
+    t.index ["obsolescence"], name: "index_obsolescences_on_obsolescence"
+    t.index ["result_no", "generate_no"], name: "resultno_generateno"
   end
 
   create_table "profiles", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|

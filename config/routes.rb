@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :obsolescences
   resources :spells
   resources :tune_gem_data
   resources :spell_data
