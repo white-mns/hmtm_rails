@@ -10,8 +10,8 @@ class SpellsController < ApplicationController
     spell_data_set
     tg_data_set
 
-    @count =  Spell.notnil().includes(:pc_name, :spell, :timing).search(params[:q]).result.hit_count()
-    @search = Spell.notnil().includes(:pc_name, :spell, :timing).page(params[:page]).search(params[:q])
+    @count =  Spell.notnil().includes(:pc_name, :spell, :timing, :element).search(params[:q]).result.hit_count()
+    @search = Spell.notnil().includes(:pc_name, :spell, :timing, :element).page(params[:page]).search(params[:q])
     @search.sorts = "id asc" if @search.sorts.empty?
     @spells = @search.result.per(50)
   end
@@ -39,6 +39,7 @@ class SpellsController < ApplicationController
     params_to_form(params, @form_params, column_name: "timing_id", params_name: "timing_id_form", type: "number")
     params_to_form(params, @form_params, column_name: "spell_id", params_name: "spell_id_form", type: "number")
     params_to_form(params, @form_params, column_name: "gems", params_name: "gems_form", type: "concat")
+    params_to_form(params, @form_params, column_name: "obsolescence", params_name: "obsolescence_form", type: "number")
 
     params_to_form(params, @form_params, column_name: "spell_name", params_name: "spell_form", type: "text")
     params_to_form(params, @form_params, column_name: "spell_text", params_name: "spell_text_form", type: "text")
@@ -48,6 +49,15 @@ class SpellsController < ApplicationController
     checkbox_params_set_query_any(params, @form_params, query_name: "timing_id_eq_any",
                              checkboxes: [{params_name: "timing_active",   value: proper_name["アクティブ"]},
                                           {params_name: "timing_counter" , value: proper_name["カウンター"]}])
+
+    checkbox_params_set_query_any(params, @form_params, query_name: "element_id_eq_any",
+                             checkboxes: [{params_name: "element_none",   value: proper_name["無"]},
+                                          {params_name: "element_fire" ,  value: proper_name["火"]},
+                                          {params_name: "element_water" , value: proper_name["水"]},
+                                          {params_name: "element_air" ,   value: proper_name["風"]},
+                                          {params_name: "element_earth" , value: proper_name["地"]},
+                                          {params_name: "element_light" , value: proper_name["光"]},
+                                          {params_name: "element_dark" ,  value: proper_name["闇"]}])
 
     checkbox_params_set_query_any(params, @form_params, query_name: "spell_class_id_eq_any",
                              checkboxes: [{params_name: "class_approach",   value: proper_name["近接"]},
