@@ -9,10 +9,28 @@ class SpellDataController < ApplicationController
     param_set
     tg_data_set
 
-    @count =  SpellDatum.includes(:element, :timing, :class_data).where(spell_id: 1..Float::INFINITY).search(params[:q]).result.hit_count()
-    @search = SpellDatum.includes(:element, :timing, :class_data).where(spell_id: 1..Float::INFINITY).page(params[:page]).search(params[:q])
+    @pre_search = SpellDatum.includes(:element, :timing, :class_data).where(spell_id: 1..Float::INFINITY)
+    @count =  @pre_search.search(params[:q]).result.hit_count()
+    @search = @pre_search.page(params[:page]).search(params[:q])
     @search.sorts = "id asc" if @search.sorts.empty?
     @spell_data = @search.result.per(50)
+  end
+
+  # GET /spell_data/json_pno
+  def json_pno
+    index
+    render json: []
+  end
+
+  # GET /spell_data/json
+  def json
+    index
+    render json: @pre_search.search(params[:q]).result.to_json(except: [:id, :created_at, :updated_at],
+      include: [
+        {element: {only: :name}},
+        {timing: {only: :name}},
+        {class_data: {only: :name}}
+      ])
   end
 
   def param_set

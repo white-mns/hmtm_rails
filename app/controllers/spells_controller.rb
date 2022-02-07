@@ -10,10 +10,29 @@ class SpellsController < ApplicationController
     spell_data_set
     tg_data_set
 
-    @count =  Spell.notnil().includes(:pc_name, :spell, :timing, :element).search(params[:q]).result.hit_count()
-    @search = Spell.notnil().includes(:pc_name, :spell, :timing, :element).page(params[:page]).search(params[:q])
+    @pre_search = Spell.notnil().includes(:pc_name, :spell, :timing, :element)
+    @count =  @pre_search.search(params[:q]).result.hit_count()
+    @search = @pre_search.page(params[:page]).search(params[:q])
     @search.sorts = "id asc" if @search.sorts.empty?
     @spells = @search.result.per(50)
+  end
+
+  # GET /spells/json_pno
+  def json_pno
+    index
+    render json: @pre_search.group(:p_no).search(params[:q]).result.to_json(only: :p_no)
+  end
+
+  # GET /spells/json
+  def json
+    index
+    render json: @pre_search.search(params[:q]).result.to_json(except: [:id, :created_at, :updated_at],
+      include: [
+        {pc_name: {only: [:name, :player]}},
+        {spell: {except: [:id, :spell_id, :created_at, :updated_at]}},
+        {timing: {only: :name}},
+        {element: {only: :name}}
+      ])
   end
 
   def param_set

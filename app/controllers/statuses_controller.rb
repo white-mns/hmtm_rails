@@ -8,10 +8,28 @@ class StatusesController < ApplicationController
     placeholder_set
     param_set
 
-    @count =  Status.notnil().includes(:pc_name, :rank, :profile).search(params[:q]).result.hit_count()
-    @search = Status.notnil().includes(:pc_name, :rank, :profile).page(params[:page]).search(params[:q])
+    @pre_search = Status.notnil().includes(:pc_name, :rank, :profile)
+    @count =  @pre_search.search(params[:q]).result.hit_count()
+    @search = @pre_search.page(params[:page]).search(params[:q])
     @search.sorts = "id asc" if @search.sorts.empty?
     @statuses = @search.result.per(50)
+  end
+
+  # GET /statuses/json_pno
+  def json_pno
+    index
+    render json: @pre_search.group(:p_no).search(params[:q]).result.to_json(only: :p_no)
+  end
+
+  # GET /statuses/json
+  def json
+    index
+    render json: @pre_search.search(params[:q]).result.to_json(except: [:id, :created_at, :updated_at],
+      include: [
+        {pc_name: {only: [:name, :player]}},
+        {profile: {except: [:id, :result_no, :generate_no, :created_at, :updated_at]}},
+        {rank: {only: :name}}
+      ])
   end
 
   def param_set

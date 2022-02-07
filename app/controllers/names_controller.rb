@@ -8,15 +8,23 @@ class NamesController < ApplicationController
     placeholder_set
     param_set
 
-    @count = Name.notnil().search(params[:q]).result.hit_count()
-    @search = Name.notnil().page(params[:page]).search(params[:q])
+    @pre_search = Name.notnil()
+    @count = @pre_search.search(params[:q]).result.hit_count()
+    @search = @pre_search.page(params[:page]).search(params[:q])
     @search.sorts = "id asc" if @search.sorts.empty?
     @names = @search.result.per(50)
   end
 
+  # GET /names/json_pno
+  def json_pno
+    index
+    render json: @pre_search.group(:p_no).search(params[:q]).result.to_json(only: :p_no)
+  end
+
+  # GET /names/json
   def json
     index
-    render json: @search.result.per(100000).to_json(except: [:id, :created_at, :updated_at])
+    render json: @pre_search.page(params[:page]).result.per(100000).to_json(except: [:id, :created_at, :updated_at])
   end
 
   def param_set

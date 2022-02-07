@@ -8,10 +8,35 @@ class ProfilesController < ApplicationController
     placeholder_set
     param_set
 
-    @count = Profile.notnil().includes(:pc_name, :course).search(params[:q]).result.hit_count()
-    @search = Profile.notnil().includes(:pc_name, :course).page(params[:page]).search(params[:q])
+    @pre_search = Profile.notnil().includes(:pc_name, :course)
+    @count = @pre_search.search(params[:q]).result.hit_count()
+    @search = @pre_search.page(params[:page]).search(params[:q])
     @search.sorts = "id asc" if @search.sorts.empty?
     @profiles = @search.result.per(50)
+  end
+
+  # GET /profile/graphs
+  def graphs
+    index
+    @library_param = {
+      backgroundColor: "#252025",
+      legend: {textStyle: {color: "#fff"}}
+    }
+  end
+
+  # GET /profiles/json_pno
+  def json_pno
+    index
+    render json: @pre_search.group(:p_no).search(params[:q]).result.to_json(only: :p_no)
+  end
+
+  # GET /profiles/json
+  def json
+    index
+    render json: @pre_search.search(params[:q]).result.to_json(except: [:id, :created_at, :updated_at],
+      include: [
+        {pc_name: {only: [:name, :player]}},
+        {course: {only: :name}}])
   end
 
   def param_set
@@ -48,15 +73,6 @@ class ProfilesController < ApplicationController
                                           {params_name: "course_d" , value: proper_name["大学部"], first_checked: true}])
 
     toggle_params_to_variable(params, @form_params, params_name: "show_data")
-  end
-
-  # GET /profile/graphs
-  def graphs
-    index
-    @library_param = {
-      backgroundColor: "#252025",
-      legend: {textStyle: {color: "#fff"}}
-    }
   end
 
   # GET /profiles/1

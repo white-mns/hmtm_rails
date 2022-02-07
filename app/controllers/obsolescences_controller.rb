@@ -9,10 +9,23 @@ class ObsolescencesController < ApplicationController
     param_set
     tg_data_set
 
-    @count = Obsolescence.notnil().search(params[:q]).result.hit_count()
-    @search = Obsolescence.notnil().page(params[:page]).search(params[:q])
+    @pre_search = Obsolescence.notnil()
+    @count = @pre_search.search(params[:q]).result.hit_count()
+    @search = @pre_search.page(params[:page]).search(params[:q])
     @search.sorts = "id asc" if @search.sorts.empty?
     @obsolescences = @search.result.per(50)
+  end
+
+  # GET /obsolescences/json_pno
+  def json_pno
+    index
+    render json: []
+  end
+
+  # GET /obsolescences/json
+  def json
+    index
+    render json: @pre_search.search(params[:q]).result.to_json(except: [:id, :created_at, :updated_at])
   end
 
   def param_set

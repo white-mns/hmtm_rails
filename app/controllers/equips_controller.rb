@@ -8,10 +8,27 @@ class EquipsController < ApplicationController
     placeholder_set
     param_set
 
-    @count = Equip.notnil().includes(:pc_name, :profile).search(params[:q]).result.hit_count()
-    @search = Equip.notnil().includes(:pc_name, :profile).page(params[:page]).search(params[:q])
+    @pre_search = Equip.notnil().includes(:pc_name, :profile)
+    @count = @pre_search.search(params[:q]).result.hit_count()
+    @search = @pre_search.page(params[:page]).search(params[:q])
     @search.sorts = "id asc" if @search.sorts.empty?
     @equips = @search.result.per(50)
+  end
+
+  # GET /equips/json_pno
+  def json_pno
+    index
+    render json: @pre_search.group(:p_no).search(params[:q]).result.to_json(only: :p_no)
+  end
+
+  # GET /equips/json
+  def json
+    index
+    render json: @pre_search.search(params[:q]).result.to_json(except: [:id, :created_at, :updated_at],
+      include: [
+        {pc_name: {only: [:name, :player]}},
+        {profile: {except: [:id, :result_no, :generate_no, :created_at, :updated_at]}}
+      ])
   end
 
   def param_set

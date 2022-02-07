@@ -8,10 +8,23 @@ class ProperNamesController < ApplicationController
     placeholder_set
     param_set
 
-    @count = ProperName.search(params[:q]).result.hit_count()
-    @search = ProperName.page(params[:page]).search(params[:q])
+    @pre_search = ProperName
+    @count = @pre_search.search(params[:q]).result.hit_count()
+    @search = @pre_search.page(params[:page]).search(params[:q])
     @search.sorts = "id asc" if @search.sorts.empty?
     @proper_names = @search.result.per(50)
+  end
+
+  # GET /proper_names/json_pno
+  def json_pno
+    index
+    render json: []
+  end
+
+  # GET /proper_names/json
+  def json
+    index
+    render json: @pre_search.search(params[:q]).result.to_json(except: [:id, :created_at, :updated_at])
   end
 
   def param_set
@@ -22,6 +35,7 @@ class ProperNamesController < ApplicationController
     params_to_form(params, @form_params, column_name: "pc_name_name", params_name: "pc_name_form", type: "text")
     params_to_form(params, @form_params, column_name: "proper_id", params_name: "proper_id_form", type: "number")
   end
+
   # GET /proper_names/1
   #def show
   #end

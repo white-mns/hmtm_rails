@@ -8,10 +8,23 @@ class UploadedChecksController < ApplicationController
     placeholder_set
     param_set
 
-    @count  = UploadedCheck.notnil().search(params[:q]).result.hit_count()
-    @search = UploadedCheck.notnil().page(params[:page]).search(params[:q])
+    @pre_search = UploadedCheck.notnil()
+    @count  = @pre_search.search(params[:q]).result.hit_count()
+    @search = @pre_search.page(params[:page]).search(params[:q])
     @search.sorts = "id asc" if @search.sorts.empty?
     @uploaded_checks = @search.result.per(50)
+  end
+
+  # GET /uploaded_checks/json_pno
+  def json_pno
+    index
+    render json: []
+  end
+
+  # GET /uploaded_checks/json
+  def json
+    index
+    render json: @pre_search.search(params[:q]).result.to_json(except: [:id, :created_at, :updated_at])
   end
 
   def param_set

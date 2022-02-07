@@ -8,10 +8,26 @@ class TuneGemDataController < ApplicationController
     placeholder_set
     param_set
 
-    @count =  TuneGemDatum.includes(:type).where(tg_id: 1..Float::INFINITY).search(params[:q]).result.hit_count()
-    @search = TuneGemDatum.includes(:type).where(tg_id: 1..Float::INFINITY).page(params[:page]).search(params[:q])
+    @pre_search = TuneGemDatum.includes(:type).where(tg_id: 1..Float::INFINITY)
+    @count =  @pre_search.search(params[:q]).result.hit_count()
+    @search = @pre_search.page(params[:page]).search(params[:q])
     @search.sorts = "id asc" if @search.sorts.empty?
     @tune_gem_data = @search.result.per(50)
+  end
+
+  # GET /tune_gem_data/json_pno
+  def json_pno
+    index
+    render json: []
+  end
+
+  # GET /spells/json
+  def json
+    index
+    render json: @pre_search.search(params[:q]).result.to_json(except: [:id, :created_at, :updated_at],
+      include: [
+        {type: {only: :name}}
+      ])
   end
 
   def param_set
