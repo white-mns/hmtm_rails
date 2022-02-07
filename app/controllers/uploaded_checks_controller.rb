@@ -15,10 +15,10 @@ class UploadedChecksController < ApplicationController
     @uploaded_checks = @search.result.per(50)
   end
 
-  # GET /uploaded_checks/json_pno
-  def json_pno
+  # GET /uploaded_checks/pno_text
+  def pno_text
     index
-    render json: []
+    render plain: ""
   end
 
   # GET /uploaded_checks/json

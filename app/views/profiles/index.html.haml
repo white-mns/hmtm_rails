@@ -93,4 +93,5 @@
         %td= profile.age
         %td.sep= character_link(profile.p_no)
         %td= character_old_link(@latest_result, profile.p_no, profile.result_no, profile.generate_no)
+- p_no_concat_button
 = paginate(@profiles)

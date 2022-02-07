@@ -24,11 +24,12 @@ class ProfilesController < ApplicationController
     }
   end
 
-  # GET /profiles/json_pno
-  def json_pno
+  # GET /profiles/pno_text
+  def pno_text
     index
-    render json: @pre_search.group(:p_no).search(params[:q]).result.to_json(only: :p_no)
+    render plain: @pre_search.group(:p_no).search(params[:q]).result.pluck(:p_no).join('/')
   end
+
 
   # GET /profiles/json
   def json

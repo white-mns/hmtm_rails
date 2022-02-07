@@ -16,10 +16,10 @@ class SpellDataController < ApplicationController
     @spell_data = @search.result.per(50)
   end
 
-  # GET /spell_data/json_pno
-  def json_pno
+  # GET /spell_data/pno_text
+  def pno_text
     index
-    render json: []
+    render plain: ""
   end
 
   # GET /spell_data/json

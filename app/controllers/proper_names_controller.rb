@@ -15,10 +15,10 @@ class ProperNamesController < ApplicationController
     @proper_names = @search.result.per(50)
   end
 
-  # GET /proper_names/json_pno
-  def json_pno
+  # GET /proper_names/pno_text
+  def pno_text
     index
-    render json: []
+    render plain: ""
   end
 
   # GET /proper_names/json

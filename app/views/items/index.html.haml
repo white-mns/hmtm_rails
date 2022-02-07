@@ -78,4 +78,5 @@
         %td= item.note
         %td.sep= character_link(item.p_no)
         %td= character_old_link(@latest_result, item.p_no, item.result_no, item.generate_no)
+- p_no_concat_button
 = paginate(@items)

@@ -52,6 +52,13 @@ module ApplicationHelper
     end
   end
 
+  def p_no_concat_button()
+    query_text = (URI.parse(request.url).query) ? '?' + URI.parse(request.url).query : ''
+    haml_tag :a, href: '#', class: 'btn btn-p-no-concat', data: {url: controller_name + '/pno_text' + query_text} do
+      haml_concat "Pnoを文字列化"
+    end
+  end
+
   def ex_sort_text(params, sort_column, text)
     if params["ex_sort"] == "on" && params["ex_sort_text"] && params["ex_sort_text"].include?(sort_column) then
       if params["ex_sort_text"].include?("desc")

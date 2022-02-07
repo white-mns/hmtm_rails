@@ -16,10 +16,10 @@ class ObsolescencesController < ApplicationController
     @obsolescences = @search.result.per(50)
   end
 
-  # GET /obsolescences/json_pno
-  def json_pno
+  # GET /obsolescences/pno_text
+  def pno_text
     index
-    render json: []
+    render plain: ""
   end
 
   # GET /obsolescences/json

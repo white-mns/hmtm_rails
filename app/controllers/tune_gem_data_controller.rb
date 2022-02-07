@@ -15,10 +15,10 @@ class TuneGemDataController < ApplicationController
     @tune_gem_data = @search.result.per(50)
   end
 
-  # GET /tune_gem_data/json_pno
-  def json_pno
+  # GET /tune_gem_data/pno_text
+  def pno_text
     index
-    render json: []
+    render plain: ""
   end
 
   # GET /spells/json

@@ -17,10 +17,10 @@ class SpellsController < ApplicationController
     @spells = @search.result.per(50)
   end
 
-  # GET /spells/json_pno
-  def json_pno
+  # GET /spells/pno_text
+  def pno_text
     index
-    render json: @pre_search.group(:p_no).search(params[:q]).result.to_json(only: :p_no)
+    render plain: @pre_search.group(:p_no).search(params[:q]).result.pluck(:p_no).join('/')
   end
 
   # GET /spells/json
