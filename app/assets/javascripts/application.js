@@ -102,7 +102,7 @@ function set_tooltip() {
     })
 }
 
-// 検索にヒットしたPno取得用ボタンとクリック時の処理
+// 検索にヒットしたPNo取得用ボタンとクリック時の処理
 function set_p_no_concat_button() {
     $('.btn-p-no-concat').click(function(){
         const $this = $(this);

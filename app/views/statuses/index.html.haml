@@ -30,7 +30,7 @@
         - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "更新回", params_name: "result_no_form", placeholder: nil, colspan: 3)
       %tr
         %td.indent
-        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "Pno", params_name: "p_no_form", placeholder: "Number")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "PNo", params_name: "p_no_form", placeholder: "Number")
         - td_form(f, @form_params, @placeholder, class_name: "formText", label: "キャラクター名", params_name: "pc_name_form", placeholder: "Name")
       %tr.sep
         %td.indent
@@ -97,7 +97,7 @@
   %thead
     %tr
       %th= sort_link(@search, :result_no,"更新回", default_order: :desc)
-      %th.sep= sort_link(@search, :p_no,"キャラクター(Pno)", default_order: :desc)
+      %th.sep= sort_link(@search, :p_no,"キャラクター(PNo)", default_order: :desc)
       %th.sep= sort_link(@search, :profile_subject_id, "学科", default_order: :desc)
       %th= sort_link(@search, :mhp, "MHP", default_order: :desc)
       %th= sort_link(@search, :msp, "MSP", default_order: :desc)
