@@ -107,31 +107,29 @@ function set_p_no_concat_button() {
     $('.btn-p-no-concat').click(function(){
         const $this = $(this);
         setTimeout(function(){
-            $this.prepend('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="margin-right:1rem;"></span>');
+            $this.find('.fa').remove();
+            $this.prepend('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="margin-right:0.5rem;"></span>');
         }, 1000);
-        output_p_no_concat( $(this).data('url') );
+
+        $.ajax(
+            {
+                type: 'GET',
+                url: $(this).data('url'),
+                dataType: 'text'
+            }
+        ).then(
+            function(data){
+                $('.btn-p-no-concat').after('<div><textarea id="p_no_concat_text" class="form-control">'+ data +'</textarea></div>');
+                $('.btn-p-no-concat').hide();
+            },
+
+            function(){
+                $('.btn-p-no-concat').text("読み込み失敗");
+            }
+        );
+
         return false;
     });
-}
-
-// 検索にヒットしたPno取得用ボタンとクリック時の処理
-function output_p_no_concat(getUrl) {
-    $.ajax(
-        {
-            type: 'GET',
-            url: getUrl,
-            dataType: 'text'
-        }
-    ).then(
-        function(data){
-            $('.btn-p-no-concat').after('<div><textarea id="p_no_concat_text" class="form-control">'+ data +'</textarea></div>');
-            $('.btn-p-no-concat').hide();
-        },
-
-        function(){
-            $('.btn-p-no-concat').text("読み込み失敗");
-        }
-    );
 }
 
 // 検索実行後の遷移で説明・検索フォームを閉じる処理
