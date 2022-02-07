@@ -14,6 +14,11 @@ class NamesController < ApplicationController
     @names = @search.result.per(50)
   end
 
+  def json
+    index
+    render json: @search.result.per(100000).to_json(except: [:id, :created_at, :updated_at])
+  end
+
   def param_set
     @form_params = {}
 

@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :statuses
   get "profile/graphs", :to => "profiles#graphs", :as => "profile_graphs"
   resources :profiles
-  resources :names
+  resources :names do collection do get "json" end end
   resources :proper_names
   resources :uploaded_checks
   get "privacy", :to => "top_page#privacy", :as => "privacy"
