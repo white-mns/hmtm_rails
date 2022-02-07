@@ -13,10 +13,26 @@ class <%= controller_class_name %>Controller < ApplicationController
     placeholder_set
     param_set
 
-    @count = <%= class_name %>.notnil().includes(:pc_name).search(params[:q]).result.hit_count()
-    @search = <%= class_name %>.notnil().includes(:pc_name).page(params[:page]).search(params[:q])
+    @pre_search = <%= class_name %>.notnil().includes(:pc_name)
+    @count = @pre_search.search(params[:q]).result.hit_count()
+    @search = @pre_search.page(params[:page]).search(params[:q])
     @search.sorts = "id asc" if @search.sorts.empty?
     @<%= plural_table_name %> = @search.result.per(50)
+  end
+
+  # GET <%= route_url %>/json_pno
+  def json_pno
+    index
+    render json: @pre_search.group(:p_no).search(params[:q]).result.to_json(only: :p_no)
+  end
+
+  # GET <%= route_url %>/json
+  def json
+    index
+    render json: @pre_search.search(params[:q]).result.to_json(except: [:id, :created_at, :updated_at],
+      include: [
+        {pc_name: {only: [:name, :player]}}
+      ])
   end
 
   def param_set
@@ -36,44 +52,6 @@ class <%= controller_class_name %>Controller < ApplicationController
 
     toggle_params_to_variable(params, @form_params, params_name: "show_data")
   end
-  # GET <%= route_url %>/1
-  #def show
-  #end
-
-  # GET <%= route_url %>/new
-  #def new
-  #  @<%= singular_table_name %> = <%= orm_class.build(class_name) %>
-  #end
-
-  # GET <%= route_url %>/1/edit
-  #def edit
-  #end
-
-  # POST <%= route_url %>
-  #def create
-  #  @<%= singular_table_name %> = <%= orm_class.build(class_name, "#{singular_table_name}_params") %>
-
-  #  if @<%= orm_instance.save %>
-  #    redirect_to @<%= singular_table_name %>, notice: <%= "\"#{human_name} was successfully created.\"" %>
-  #  else
-  #    render action: "new"
-  #  end
-  #end
-
-  # PATCH/PUT <%= route_url %>/1
-  #def update
-  #  if @<%= orm_instance.update("#{singular_table_name}_params") %>
-  #    redirect_to @<%= singular_table_name %>, notice: <%= "\"#{human_name} was successfully updated.\"" %>
-  #  else
-  #    render action: "edit"
-  #  end
-  #end
-
-  # DELETE <%= route_url %>/1
-  #def destroy
-  #  @<%= orm_instance.destroy %>
-  #  redirect_to <%= index_helper %>_url, notice: <%= "\"#{human_name} was successfully destroyed.\"" %>
-  #end
 
   private
     # Use callbacks to share common setup or constraints between actions.
