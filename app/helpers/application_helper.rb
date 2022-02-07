@@ -55,7 +55,7 @@ module ApplicationHelper
   def p_no_concat_button()
     query_text = (URI.parse(request.url).query) ? '?' + URI.parse(request.url).query : ''
     haml_tag :button, class: 'btn btn-p-no-concat', data: {url: controller_name + '/pno_text' + query_text} do
-      haml_concat fa_icon "copy", text: "Pnoを文字列化"
+      haml_concat fa_icon "copy", text: "PNoを文字列化"
     end
   end
 
