@@ -36,9 +36,6 @@ class TuneGemDataController < ApplicationController
     @latest_result = Name.maximum("result_no")
 
     params_clean(params)
-    unless params["is_form"]
-      params["result_no_form"] ||= sprintf("%d",@latest_result)
-    end
 
     params_to_form(params, @form_params, column_name: "tg_id", params_name: "tg_id_form", type: "number")
     params_to_form(params, @form_params, column_name: "name", params_name: "name_form", type: "text")
