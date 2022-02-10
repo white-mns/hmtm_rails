@@ -1,0 +1,173 @@
+- @page_title = "能力調律一覧"
+%h1= @page_title
+
+.card.desc
+  .card-header
+    - act_icon(true)
+    検索仕様
+    - act_desc(true)
+  .card-body
+    = render "layouts/base_desc"
+    %p
+      %span.example_select.example_toggle.pointer
+        - help_icon
+        入力例
+        - act_desc(false)
+    #example.closed
+      = render "layouts/input_desc"
+= search_form_for @search do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: 5}
+          - act_icon(true)
+          絞り込み検索
+          - act_desc(true)
+    %tbody
+      %tr
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "更新回", params_name: "result_no_form", placeholder: nil, colspan: 3)
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "PNo", params_name: "p_no_form", placeholder: "Number")
+        - td_form(f, @form_params, @placeholder, class_name: "formText", label: "キャラクター名", params_name: "pc_name_form", placeholder: "Name")
+      %tr.sep
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "スペルNo", params_name: "s_no_form", placeholder: "Number")
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "スペル名", params_name: "spell_form", placeholder: "Spell")
+      %tr.sep
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "メリット項目", params_name: "merit_form", placeholder: "TuneKind")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "メリット数値", params_name: "merit_value_form", placeholder: "Number")
+      %tr.sep
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "デメリット項目", params_name: "demerit_form", placeholder: "TuneKind")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "デメリット数値", params_name: "demerit_value_form", placeholder: "Number")
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_spell_data",
+                    label: {open: "調律後スペル情報を表示する", close: "調律後スペル情報を表示しない"}, base_first: false,
+                    act_desc: "属性、消費SP、威力、命中、射程、タイミング", base_first: false)
+    %tbody.closed
+      %tr.sep
+        %td.indent
+        - td_form(f, @form_params, @placeholder,                         label: "属性", params_name: "element_id_form", colspan: 3,
+                    checkboxes: [{label: "無", params_name: "element_none",  class_name: "after_space", br: true},
+                                 {label: "火", params_name: "element_fire",  class_name: "after_space"},
+                                 {label: "水", params_name: "element_water", class_name: "after_space"},
+                                 {label: "風", params_name: "element_air",   class_name: "after_space mobile_br"},
+                                 {label: "地", params_name: "element_earth", class_name: "after_space"},
+                                 {label: "光", params_name: "element_light", class_name: "after_space"},
+                                 {label: "闇", params_name: "element_dark"}])
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "消費SP", params_name: "sp_form", placeholder: "Number")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "威力", params_name: "power_form")
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "命中", params_name: "hit_form")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "射程", params_name: "range_form")
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder,                         label: "タイミング", params_name: "timing_id_form", colspan: 3,
+                    checkboxes: [{label: "アクティブ", params_name: "timing_active", class_name: "after_space"},
+                                 {label: "カウンター", params_name: "timing_counter"}])
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_spell_text",
+                    label: {open: "スペル説明で絞り込む", close: "スペル説明で絞り込まない"}, base_first: false,
+                    act_desc: "スペル説明、分類", base_first: false)
+    %tbody.closed
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "スペル説明", params_name: "spell_text_form", placeholder: "SpellText", colspan: 3)
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder,                         label: "分類", params_name: "class_id_form", colspan: 3,
+                    checkboxes: [{label: "近接",     params_name: "class_approach",     class_name: "after_space"},
+                                 {label: "射撃",     params_name: "class_gunshot",      class_name: "after_space"},
+                                 {label: "防御補助", params_name: "class_defense",  class_name: "after_space mobile_br"},
+                                 {label: "回復",     params_name: "class_heal",         class_name: "after_space"},
+                                 {label: "異常",     params_name: "class_abnormal",     class_name: "after_space"},
+                                 {label: "召喚",     params_name: "class_summon",       class_name: "after_space"},
+                                 {label: "合成",     params_name: "class_synthesis"}])
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_spell_name",
+                    label: {open: "改名後スペル名を表示する", close: "改名後スペル名を表示しない"}, base_first: false)
+    %tbody.closed
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "改名後スペル名", params_name: "name_form", colspan: 3)
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_profile",
+                    label: {open: "学科で絞り込む", close: "学科で絞り込みを隠す"}, base_first: false)
+    %tbody.closed
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder,                         label: "学科", params_name: "subject_id_form", colspan: 3,
+                    checkboxes: [{label: "魔術科", params_name: "subject_magic", class_name: "after_space"},
+                                 {label: "武術科", params_name: "subject_martial"}])
+
+    - #==========================================================================================================================
+    %tbody
+      %tr.sep
+        %td.indent
+        %td.indent= hidden_field_tag :is_form, 1
+        %td{colspan: 3}
+          - search_submit_button
+
+
+= paginate(@tuning_abilities)
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th= sort_link(@search, :result_no,"更新回", default_order: :desc)
+      %th= sort_link(@search, :p_no,"キャラクター(PNo)", default_order: :desc)
+      %th.sep= sort_link(@search, :s_no, "No", default_order: :desc)
+      - if @form_params["show_spell_name"] == "1"
+        %th= sort_link(@search, :name, "改名スペル名", default_order: :desc)
+      %th= sort_link(@search, :spell_name, "元スペル名", default_order: :desc)
+      %th.sep= sort_link(@search, :merit_id, "メリット", default_order: :desc)
+      %th= sort_link(@search, :merit_value, "値", default_order: :desc)
+      %th.sep= sort_link(@search, :demerit_id, "デメリット", default_order: :desc)
+      %th= sort_link(@search, :demerit_value, "値", default_order: :desc)
+      - if @form_params["show_spell_data"] == "1"
+        %th.sep= sort_link(@search, :spell_element_id, "属性", default_order: :desc)
+        %th= sort_link(@search, :spell_sp, "消費", default_order: :desc)
+        %th= sort_link(@search, :spell_power, "威力", default_order: :desc)
+        %th= sort_link(@search, :spell_hit, "命中", default_order: :desc)
+        %th= sort_link(@search, :spell_range, "射程", default_order: :desc)
+        %th= sort_link(@search, :spell_timing_id, "タイミング", default_order: :desc)
+      %th.sep{colspan: 2} 結果リンク
+  %tbody
+    - @tuning_abilities.each do |tuning_ability|
+      %tr
+        %td= tuning_ability.result_no
+        %td= pc_name_text(tuning_ability.p_no, tuning_ability.pc_name)
+        %td.sep= tuning_ability.s_no if tuning_ability.s_no > -9999
+        - if @form_params["show_spell_name"] == "1"
+          %td= tuning_ability.name
+        %td
+          - spell_text(tuning_ability.spell.spell.name, @spell_data) if tuning_ability.spell && tuning_ability.spell.spell
+        %td.sep= tuning_ability.merit.name if tuning_ability.merit
+        %td= tuning_ability.merit_value if tuning_ability.merit_value > -9999
+        %td.sep= tuning_ability.demerit.name if tuning_ability.demerit
+        %td= tuning_ability.demerit_value if tuning_ability.demerit_value > -9999
+        - if @form_params["show_spell_data"] == "1"
+          %td.sep= tuning_ability.spell.element.name if tuning_ability.spell && tuning_ability.spell.element
+          %td= tuning_ability.spell.sp if tuning_ability.spell
+          %td= tuning_ability.spell.power if tuning_ability.spell
+          %td= range_text(tuning_ability.spell.hit) if tuning_ability.spell
+          %td= range_text(tuning_ability.spell.range) if tuning_ability.spell
+          %td= tuning_ability.spell.timing.name if tuning_ability.spell && tuning_ability.spell.timing
+        %td.sep= character_link(tuning_ability.p_no)
+        %td= character_old_link(@latest_result, tuning_ability.p_no, tuning_ability.result_no, tuning_ability.generate_no)
+= paginate(@tuning_abilities)

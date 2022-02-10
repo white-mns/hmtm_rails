@@ -43,7 +43,7 @@
                 行動データ
                 %span.caret
               .dropdown-menu
-                .dropdown-divider
+                = link_to "能力調律一覧", tuning_abilities_path, class: "dropdown-item"
             %li.nav-item.dropdown
               %a.nav-link.dropdown-toggle#navbarDropdownMenuLink{ data: {bs: {toggle: "dropdown"}}, :href => "#", role: "button", area: {expanded: "false"}}
                 グラフデータ
@@ -51,6 +51,7 @@
               .dropdown-menu
                 = link_to "学科・教育課程グラフ", graphs_profiles_path, class: "dropdown-item"
                 = link_to "装備グラフ", graphs_equips_path, class: "dropdown-item"
+                .dropdown-divider
 
     .container
       .row

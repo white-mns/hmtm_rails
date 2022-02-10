@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_31_050952) do
+ActiveRecord::Schema.define(version: 2022_02_09_141258) do
 
   create_table "equips", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
     t.integer "result_no"
@@ -223,6 +223,27 @@ ActiveRecord::Schema.define(version: 2022_01_31_050952) do
     t.index ["text"], name: "index_tune_gem_data_on_text"
     t.index ["tg_id"], name: "index_tune_gem_data_on_tg_id"
     t.index ["type_id"], name: "index_tune_gem_data_on_type_id"
+  end
+
+  create_table "tuning_abilities", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "p_no"
+    t.integer "s_no"
+    t.string "name"
+    t.integer "merit_id"
+    t.integer "merit_value"
+    t.integer "demerit_id"
+    t.integer "demerit_value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["demerit_id"], name: "index_tuning_abilities_on_demerit_id"
+    t.index ["demerit_value"], name: "index_tuning_abilities_on_demerit_value"
+    t.index ["merit_id"], name: "index_tuning_abilities_on_merit_id"
+    t.index ["merit_value"], name: "index_tuning_abilities_on_merit_value"
+    t.index ["name"], name: "index_tuning_abilities_on_name"
+    t.index ["result_no", "p_no", "generate_no"], name: "resultno_pno"
+    t.index ["s_no"], name: "index_tuning_abilities_on_s_no"
   end
 
   create_table "uploaded_checks", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
