@@ -170,4 +170,5 @@
           %td= tuning_ability.spell.timing.name if tuning_ability.spell && tuning_ability.spell.timing
         %td.sep= character_link(tuning_ability.p_no)
         %td= character_old_link(@latest_result, tuning_ability.p_no, tuning_ability.result_no, tuning_ability.generate_no)
+- p_no_concat_button
 = paginate(@tuning_abilities)
