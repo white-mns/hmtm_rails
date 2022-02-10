@@ -32,7 +32,14 @@ class TuningAbilitiesController < ApplicationController
       {spell: {
         only: [:name, :power, :hit, :range, :gems],
         include: [
-          {spell: {except: [:id, :spell_id, :created_at, :updated_at]}},
+          {spell: {
+            except: [:id, :spell_id, :created_at, :updated_at],
+            include: [
+              {element: {only: :name}},
+              {timing: {only: :name}},
+              {class_data: {only: :name}}
+            ]
+          }},
           {timing: {only: :name}},
           {element: {only: :name}}
         ]
