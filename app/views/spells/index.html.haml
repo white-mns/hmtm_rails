@@ -92,6 +92,16 @@
         - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "改名スペル名", params_name: "name_form", colspan: 3)
 
     - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_profile",
+                    label: {open: "学科で絞り込む", close: "学科で絞り込みを隠す"}, base_first: false)
+    %tbody.closed
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder,                         label: "学科", params_name: "subject_id_form", colspan: 3,
+                    checkboxes: [{label: "魔術科", params_name: "subject_magic", class_name: "after_space"},
+                                 {label: "武術科", params_name: "subject_martial"}])
+
+    - #==========================================================================================================================
     %tbody
       %tr.sep
         %td.indent

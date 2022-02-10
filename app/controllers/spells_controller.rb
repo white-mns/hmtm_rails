@@ -10,7 +10,7 @@ class SpellsController < ApplicationController
     spell_data_set
     tg_data_set
 
-    @pre_search = Spell.notnil().includes(:pc_name, :spell, :timing, :element)
+    @pre_search = Spell.notnil().includes(:pc_name, :spell, :timing, :element, :profile)
     @count =  @pre_search.search(params[:q]).result.hit_count()
     @search = @pre_search.page(params[:page]).search(params[:q])
     @search.sorts = "id asc" if @search.sorts.empty?
@@ -87,8 +87,13 @@ class SpellsController < ApplicationController
                                           {params_name: "class_summon" ,    value: proper_name["召喚"]},
                                           {params_name: "class_synthesis" , value: proper_name["合成"]}])
 
+    checkbox_params_set_query_any(params, @form_params, query_name: "profile_subject_id_eq_any",
+                             checkboxes: [{params_name: "subject_magic", value: 0, first_checked: true},
+                                          {params_name: "subject_martial" , value: 1, first_checked: true}])
+
     toggle_params_to_variable(params, @form_params, params_name: "show_spell_name")
     toggle_params_to_variable(params, @form_params, params_name: "show_spell_text")
+    toggle_params_to_variable(params, @form_params, params_name: "show_profile")
   end
   # GET /spells/1
   #def show
