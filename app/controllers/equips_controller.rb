@@ -27,7 +27,7 @@ class EquipsController < ApplicationController
     render json: @pre_search.search(params[:q]).result.to_json(except: [:id, :created_at, :updated_at],
       include: [
         {pc_name: {only: [:name, :player]}},
-        {profile: {except: [:id, :result_no, :generate_no, :created_at, :updated_at]}}
+        {profile: {only: [:subject_id]}},
       ])
   end
 

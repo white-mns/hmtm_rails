@@ -29,6 +29,7 @@ class SpellsController < ApplicationController
     render json: @pre_search.search(params[:q]).result.to_json(except: [:id, :created_at, :updated_at],
       include: [
         {pc_name: {only: [:name, :player]}},
+        {profile: {only: [:subject_id]}},
         {spell: {
           except: [:id, :spell_id, :created_at, :updated_at],
           include: [
