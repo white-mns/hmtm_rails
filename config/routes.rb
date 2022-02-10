@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :tuning_abilities
+  resources :tuning_abilities,only: [:index] do collection do get "json"; get "pno_text" end end
   resources :obsolescences,   only: [:index] do collection do get "json"; get "pno_text" end end
   resources :spells,          only: [:index] do collection do get "json"; get "pno_text" end end
   resources :tune_gem_data,   only: [:index] do collection do get "json"; get "pno_text" end end

@@ -26,9 +26,20 @@ class TuningAbilitiesController < ApplicationController
   def json
     index
     render json: @pre_search.search(params[:q]).result.to_json(except: [:id, :created_at, :updated_at],
-      include: [
-        {pc_name: {only: [:name, :player]}}
-      ])
+    include: [
+      {pc_name: {only: [:name, :player]}},
+      {profile: {only: [:subject_id]}},
+      {spell: {
+        only: [:name, :power, :hit, :range, :gems],
+        include: [
+          {spell: {except: [:id, :spell_id, :created_at, :updated_at]}},
+          {timing: {only: :name}},
+          {element: {only: :name}}
+        ]
+      }},
+      {merit: {only: :name}},
+      {demerit: {only: :name}}
+    ])
   end
 
   def param_set
