@@ -74,6 +74,15 @@
         %td.indent
         - td_form(f, @form_params, @placeholder,                            params_name: "gems_form", colspan: 3,
                     checkboxes: [{label: "TGが付加されていないものだけを表示", params_name: "no_gems"}])
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_base_spell",
+                    label: {open: "派生元スペル名を表示する", close: "派生元スペル名を表示しない"}, base_first: false)
+    %tbody.closed
+      %tr
+
+    - #==========================================================================================================================
+    %tbody
       %tr.sep
         %td.indent
         %td.indent= hidden_field_tag :is_form, 1
@@ -91,7 +100,8 @@
   %thead
     %tr
       %th= sort_link(@search, :name, "スペル名", default_order: :desc)
-      %th= sort_link(@search, :name, "派生元", default_order: :desc)
+      - if @form_params["show_base_spell"] == "1"
+        %th= sort_link(@search, :name, "派生元", default_order: :desc)
       %th= sort_link(@search, :sp, "SP", default_order: :desc)
       %th= sort_link(@search, :element_id, "属性", default_order: :desc)
       %th= sort_link(@search, :text, "説明", default_order: :desc)
@@ -105,7 +115,8 @@
     - @spell_data.each do |spell_datum|
       %tr
         %td{rowspan: 3}= spell_datum.name
-        %td{rowspan: 3}= spell_datum.base_spell.name if spell_datum.base_spell
+        - if @form_params["show_base_spell"] == "1"
+          %td{rowspan: 3}= spell_datum.base_spell.name if spell_datum.base_spell
         %td= spell_datum.sp
         %td= spell_datum.element.name if spell_datum.element
         %td{colspan: 2}= link_to spell_datum.text, spell_data_path + "?text_form=\"" + CGI.escape(spell_datum.text) + "\"" + "&tg_all=on"

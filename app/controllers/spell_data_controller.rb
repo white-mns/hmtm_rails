@@ -85,6 +85,7 @@ class SpellDataController < ApplicationController
                              checkbox: {params_name: "no_gems",   value: true, first_checked: gems_first_checked})
 
     toggle_params_to_variable(params, @form_params, params_name: "show_data")
+    toggle_params_to_variable(params, @form_params, params_name: "show_base_spell")
   end
 
   # GET /spell_data/1
