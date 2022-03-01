@@ -34,7 +34,8 @@
         - td_form(f, @form_params, @placeholder, class_name: "formText", label: "キャラクター名", params_name: "pc_name_form", placeholder: "Name")
       %tr.sep
         %td.indent
-        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "元スペル名", params_name: "spell_form", placeholder: "Spell", colspan: 3)
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "元スペル名", params_name: "spell_form", placeholder: "Spell")
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "派生元スペル名", params_name: "base_spell_form", placeholder: "BaseSpell")
       %tr.sep
         %td.indent
         - td_form(f, @form_params, @placeholder,                         label: "属性", params_name: "element_id_form", colspan: 3,
@@ -92,6 +93,12 @@
         - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "改名スペル名", params_name: "name_form", colspan: 3)
 
     - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_base_spell",
+                    label: {open: "派生元スペル名を表示する", close: "派生元スペル名を表示しない"}, base_first: false)
+    %tbody.closed
+      %tr
+
+    - #==========================================================================================================================
     - tbody_toggle(@form_params, params_name: "show_profile",
                     label: {open: "学科で絞り込む", close: "学科で絞り込みを隠す"}, base_first: false)
     %tbody.closed
@@ -125,6 +132,8 @@
       - if @form_params["show_spell_name"] == "1"
         %th= sort_link(@search, :name, "改名スペル名", default_order: :desc)
       %th= sort_link(@search, :spell_id, "元スペル名", default_order: :desc)
+      - if @form_params["show_base_spell"] == "1"
+        %th= sort_link(@search, :name, "派生元スペル名", default_order: :desc)
       %th.sep= sort_link(@search, :element_id, "属性", default_order: :desc)
       %th= sort_link(@search, :sp, "消費", default_order: :desc)
       %th= sort_link(@search, :power, "威力", default_order: :desc)
@@ -147,6 +156,8 @@
               = spell.spell.name
             - else
               - spell_text(spell.spell.name, @spell_data)
+        - if @form_params["show_base_spell"] == "1"
+          %td= spell.spell.base_spell.name if spell.spell && spell.spell.base_spell
         %td.sep= spell.element.name if spell.element
         %td= spell.sp
         %td= spell.power
@@ -158,12 +169,15 @@
           = "%"
         %td.sep{rowspan: 3}= character_link(spell.p_no)
         %td{rowspan: 3}= character_old_link(@latest_result, spell.p_no, spell.result_no, spell.generate_no)
+      - colspan = 6
+      - colspan += (@form_params["show_spell_name"] == "1") ? 1 : 0
+      - colspan += (@form_params["show_base_spell"] == "1") ? 1 : 0
       %tr
         - if @form_params["show_spell_text"] == "1"
-          %td{colspan: 5}= spell.spell.text if spell.spell
+          %td{colspan: colspan}= spell.spell.text if spell.spell
           %td= spell.spell.class_data.name if spell.spell.class_data
       %tr
         - if spell.gems != "" then
-          %td.TG{colspan: 6}= gems_text(spell.gems, @tg_data)
+          %td.TG{colspan: colspan + 2}= gems_text(spell.gems, @tg_data)
 - p_no_concat_button
 = paginate(@spells)

@@ -28,12 +28,13 @@
       %tr
         %td.indent
         - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "スペル名", params_name: "name_form", placeholder: "Spell")
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "派生元スペル名", params_name: "base_spell_form", placeholder: "BaseSpell")
       %tr
         %td.indent
-        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "SP", params_name: "sp_form", placeholder: "Number")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "SP", params_name: "sp_form", placeholder: "Number", colspan: 3)
       %tr
         %td.indent
-        - td_form(f, @form_params, @placeholder,                         label: "属性", params_name: "element_id_form",
+        - td_form(f, @form_params, @placeholder,                         label: "属性", params_name: "element_id_form", colspan: 3,
                     checkboxes: [{label: "無", params_name: "element_none",  class_name: "after_space", br: true},
                                  {label: "火", params_name: "element_fire",  class_name: "after_space"},
                                  {label: "水", params_name: "element_water", class_name: "after_space"},
@@ -43,24 +44,22 @@
                                  {label: "闇", params_name: "element_dark"}])
       %tr
         %td.indent
-        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "説明", params_name: "text_form", placeholder: "SpellText")
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "説明", params_name: "text_form", placeholder: "SpellText", colspan: 3)
       %tr
         %td.indent
-        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "射程", params_name: "range_form", placeholder: "Number")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "射程", params_name: "range_form", placeholder: "Number", colspan: 3)
       %tr
         %td.indent
         - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "威力", params_name: "power_form")
-      %tr
-        %td.indent
         - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "命中", params_name: "hit_form")
       %tr
         %td.indent
-        - td_form(f, @form_params, @placeholder,                         label: "タイミング", params_name: "timing_id_form",
+        - td_form(f, @form_params, @placeholder,                         label: "タイミング", params_name: "timing_id_form", colspan: 3,
                     checkboxes: [{label: "アクティブ", params_name: "timing_active", class_name: "after_space"},
                                  {label: "カウンター", params_name: "timing_counter"}])
       %tr
         %td.indent
-        - td_form(f, @form_params, @placeholder,                         label: "分類", params_name: "class_id_form",
+        - td_form(f, @form_params, @placeholder,                         label: "分類", params_name: "class_id_form", colspan: 3,
                     checkboxes: [{label: "近接",     params_name: "class_approach",     class_name: "after_space"},
                                  {label: "射撃",     params_name: "class_gunshot",      class_name: "after_space"},
                                  {label: "防御補助", params_name: "class_defense",  class_name: "after_space mobile_br"},
@@ -70,10 +69,10 @@
                                  {label: "合成",     params_name: "class_synthesis"}])
       %tr
         %td.indent
-        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "TG", params_name: "gems_form")
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "TG", params_name: "gems_form", colspan: 3)
       %tr
         %td.indent
-        - td_form(f, @form_params, @placeholder,                            params_name: "gems_form",
+        - td_form(f, @form_params, @placeholder,                            params_name: "gems_form", colspan: 3,
                     checkboxes: [{label: "TGが付加されていないものだけを表示", params_name: "no_gems"}])
       %tr.sep
         %td.indent
@@ -92,10 +91,11 @@
   %thead
     %tr
       %th= sort_link(@search, :name, "スペル名", default_order: :desc)
-      %th= sort_link(@search, :gems, "TG", default_order: :desc)
+      %th= sort_link(@search, :name, "派生元", default_order: :desc)
       %th= sort_link(@search, :sp, "SP", default_order: :desc)
       %th= sort_link(@search, :element_id, "属性", default_order: :desc)
       %th= sort_link(@search, :text, "説明", default_order: :desc)
+      %th= sort_link(@search, :gems, "TG", default_order: :desc)
       %th= sort_link(@search, :range, "射程", default_order: :desc)
       %th= sort_link(@search, :power, "威力", default_order: :desc)
       %th= sort_link(@search, :hit, "命中", default_order: :desc)
@@ -104,10 +104,11 @@
   %tbody
     - @spell_data.each do |spell_datum|
       %tr
-        %td{rowspan: 3, colspan: 2}= spell_datum.name
+        %td{rowspan: 3}= spell_datum.name
+        %td{rowspan: 3}= spell_datum.base_spell.name if spell_datum.base_spell
         %td= spell_datum.sp
         %td= spell_datum.element.name if spell_datum.element
-        %td= link_to spell_datum.text, spell_data_path + "?text_form=\"" + CGI.escape(spell_datum.text) + "\"" + "&tg_all=on"
+        %td{colspan: 2}= link_to spell_datum.text, spell_data_path + "?text_form=\"" + CGI.escape(spell_datum.text) + "\"" + "&tg_all=on"
         %td= range_text(spell_datum.range)
         %td= spell_datum.power
         %td= range_text(spell_datum.hit)
@@ -116,5 +117,5 @@
       %tr
       %tr
         - if spell_datum.gems.length > 1
-          %td.TG{colspan: 8}= gems_text(spell_datum.gems, @tg_data)
+          %td.TG{colspan: 9}= gems_text(spell_datum.gems, @tg_data)
 = paginate(@spell_data)

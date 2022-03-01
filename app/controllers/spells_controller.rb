@@ -71,6 +71,7 @@ class SpellsController < ApplicationController
     params_to_form(params, @form_params, column_name: "spell_name", params_name: "spell_form", type: "text")
     params_to_form(params, @form_params, column_name: "spell_text", params_name: "spell_text_form", type: "text")
     params_to_form(params, @form_params, column_name: "spell_class_data_name", params_name: "spell_class_form", type: "text")
+    params_to_form(params, @form_params, column_name: "spell_base_spell_name", params_name: "base_spell_form", type: "text")
 
     proper_name = ProperName.pluck(:name, :proper_id).inject(Hash.new(0)){|hash, a| hash[a[0]] = a[1] ; hash}
     checkbox_params_set_query_any(params, @form_params, query_name: "timing_id_eq_any",
@@ -101,6 +102,7 @@ class SpellsController < ApplicationController
 
     toggle_params_to_variable(params, @form_params, params_name: "show_spell_name")
     toggle_params_to_variable(params, @form_params, params_name: "show_spell_text")
+    toggle_params_to_variable(params, @form_params, params_name: "show_base_spell")
     toggle_params_to_variable(params, @form_params, params_name: "show_profile")
   end
   # GET /spells/1

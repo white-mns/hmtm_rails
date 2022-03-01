@@ -52,6 +52,7 @@ class SpellDataController < ApplicationController
     params_to_form(params, @form_params, column_name: "class_id", params_name: "class_id_form", type: "number")
     params_to_form(params, @form_params, column_name: "gems", params_name: "gems_form", type: "concat")
 
+    params_to_form(params, @form_params, column_name: "base_spell_name", params_name: "base_spell_form", type: "text")
     params_to_form(params, @form_params, column_name: "element_name", params_name: "element_form", type: "text")
     params_to_form(params, @form_params, column_name: "timing_name", params_name: "timing_form", type: "text")
     params_to_form(params, @form_params, column_name: "class_data_name", params_name: "class_form", type: "text")
