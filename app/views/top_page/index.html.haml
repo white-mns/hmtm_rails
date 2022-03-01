@@ -12,11 +12,6 @@
     .row
       .col-md-6
         %ul
-          %li 基本データ
-          %ul
-            %li= link_to "スペルリスト", spell_data_path
-            %li= link_to "陳腐化一覧", obsolescences_path
-        %ul
           %li 個人データ
           %ul
             %li= link_to "プロフィール一覧", profiles_path
@@ -35,6 +30,12 @@
           %ul
             %li= link_to "学科・教育課程グラフ", graphs_profiles_path
             %li= link_to "装備グラフ", graphs_equips_path
+      .col-md-6
+        %ul
+          %li 基本データ
+          %ul
+            %li= link_to "スペルリスト", spell_data_path
+            %li= link_to "陳腐化一覧", obsolescences_path
 
 .card.top
   .card-body

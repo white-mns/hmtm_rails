@@ -23,13 +23,6 @@
           %ul.navbar-nav
             %li.nav-item.dropdown
               %a.nav-link.dropdown-toggle#navbarDropdownMenuLink{ data: {bs: {toggle: "dropdown"}}, :href => "#", role: "button", area: {expanded: "false"}}
-                基本データ
-                %span.caret
-              .dropdown-menu
-                = link_to "スペルリスト", spell_data_path, class: "dropdown-item"
-                = link_to "陳腐化一覧", obsolescences_path, class: "dropdown-item"
-            %li.nav-item.dropdown
-              %a.nav-link.dropdown-toggle#navbarDropdownMenuLink{ data: {bs: {toggle: "dropdown"}}, :href => "#", role: "button", area: {expanded: "false"}}
                 個人データ
                 %span.caret
               .dropdown-menu
@@ -52,6 +45,13 @@
                 = link_to "学科・教育課程グラフ", graphs_profiles_path, class: "dropdown-item"
                 = link_to "装備グラフ", graphs_equips_path, class: "dropdown-item"
                 .dropdown-divider
+            %li.nav-item.dropdown
+              %a.nav-link.dropdown-toggle#navbarDropdownMenuLink{ data: {bs: {toggle: "dropdown"}}, :href => "#", role: "button", area: {expanded: "false"}}
+                基本データ
+                %span.caret
+              .dropdown-menu
+                = link_to "スペルリスト", spell_data_path, class: "dropdown-item"
+                = link_to "陳腐化一覧", obsolescences_path, class: "dropdown-item"
 
     .container
       .row
