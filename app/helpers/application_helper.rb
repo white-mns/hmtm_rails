@@ -29,6 +29,17 @@ module ApplicationHelper
     end
   end
 
+  def party_members_pc_name_text(party_members)
+    if !party_members then
+      return
+    end
+
+    party_members.each do |party_member|
+      haml_concat pc_name_text(party_member.p_no, party_member.pc_name)
+      haml_tag :br
+    end
+  end
+
   def character_link(p_no)
     if p_no <= 0 then return end
 

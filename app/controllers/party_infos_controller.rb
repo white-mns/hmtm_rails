@@ -8,7 +8,7 @@ class PartyInfosController < ApplicationController
     placeholder_set
     param_set
 
-    @pre_search = PartyInfo.notnil()
+    @pre_search = PartyInfo.notnil().includes([party_members: :pc_name])
     @count = @pre_search.search(params[:q]).result.hit_count()
     @search = @pre_search.page(params[:page]).search(params[:q])
     @search.sorts = "id asc" if @search.sorts.empty?
@@ -40,7 +40,6 @@ class PartyInfosController < ApplicationController
       params["result_no_form"] ||= sprintf("%d",@latest_result)
     end
 
-    params_to_form(params, @form_params, column_name: "pc_name_name", params_name: "pc_name_form", type: "text")
     params_to_form(params, @form_params, column_name: "result_no", params_name: "result_no_form", type: "number")
     params_to_form(params, @form_params, column_name: "generate_no", params_name: "generate_no_form", type: "number")
     params_to_form(params, @form_params, column_name: "party_type", params_name: "party_type_form", type: "number")
@@ -49,6 +48,9 @@ class PartyInfosController < ApplicationController
     params_to_form(params, @form_params, column_name: "member_num", params_name: "member_num_form", type: "number")
     params_to_form(params, @form_params, column_name: "attacker_num", params_name: "attacker_num_form", type: "number")
     params_to_form(params, @form_params, column_name: "supporter_num", params_name: "supporter_num_form", type: "number")
+
+    params_to_form(params, @form_params, column_name: "party_members_pc_name_name", params_name: "pc_name_form", type: "text")
+    params_to_form(params, @form_params, column_name: "party_members_p_no", params_name: "p_no_form", type: "number")
 
     checkbox_params_set_query_any(params, @form_params, query_name: "party_type_eq_any",
                              checkboxes: [{params_name: "party_type_normal",            value: 0},

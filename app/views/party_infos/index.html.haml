@@ -86,6 +86,7 @@
       %th= sort_link(@search, :result_no,"更新回", default_order: :desc)
       %th= sort_link(@search, :party_type, "種別", default_order: :desc)
       %th= sort_link(@search, :name, "パーティ名", default_order: :desc)
+      %th= sort_link(@search, :party_no,"キャラクター(Eno)", default_order: :desc)
       %th= sort_link(@search, :member_num, "人数", default_order: :desc)
       %th= sort_link(@search, :attacker_num, "参加", default_order: :desc)
       %th= sort_link(@search, :supporter_num, "応援", default_order: :desc)
@@ -96,6 +97,8 @@
         %td= party_info.result_no
         %td= party_type_text(party_info.party_type)
         %td= party_info.name
+        %td
+          - party_members_pc_name_text(party_info.party_members)
         %td= party_info.member_num
         %td= party_info.attacker_num
         %td= party_info.supporter_num
