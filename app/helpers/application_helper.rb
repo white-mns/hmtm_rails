@@ -59,6 +59,16 @@ module ApplicationHelper
     link_to " 結果", "http://www.sssloxia.jp/result/now/c/"+file_name+".html", :target => "_blank"
   end
 
+  def character_next_link(latest_result_no, p_no, result_no, generate_no)
+    if p_no <= 0 then return end
+    if result_no == latest_result_no then return end
+
+    result_no_text = (result_no == latest_result_no - 1) ? "now" : sprintf("%d", result_no + 1)
+    generate_text  = generate_no > 0 ? "_" + sprintf("%d", generate_no) : ""
+    file_name = sprintf("%d", p_no)
+    link_to " 次回結果", "http://www.sssloxia.jp/result/"+result_no_text+"/c/"+file_name+".html", :target => "_blank"
+  end
+
   def character_old_link(latest_result_no, p_no, result_no, generate_no)
     if p_no <= 0 then return end
     if result_no == latest_result_no then return end

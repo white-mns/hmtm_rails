@@ -141,7 +141,7 @@
       %th= sort_link(@search, :range, "射程", default_order: :desc)
       %th= sort_link(@search, :timing_id, "タイミング", default_order: :desc)
       %th= sort_link(@search, :obsolescence, "陳腐化", default_order: :desc)
-      %th.sep{colspan: 2} 結果リンク
+      %th.sep{colspan: 3} 結果リンク
   %tbody
     - @spells.each do |spell|
       %tr
@@ -169,6 +169,7 @@
           = spell.obsolescence
           = "%"
         %td.sep{rowspan: 3}= character_link(spell.p_no)
+        %td{rowspan: 3}= character_next_link(@latest_result, spell.p_no, spell.result_no, spell.generate_no)
         %td{rowspan: 3}= character_old_link(@latest_result, spell.p_no, spell.result_no, spell.generate_no)
       - colspan = 6
       - colspan += (@form_params["show_spell_name"] == "1") ? 1 : 0
