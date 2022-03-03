@@ -61,7 +61,8 @@
     - @names.each do |name|
       %tr
         %td= name.result_no
-        %td= pc_name_text(name.p_no, name)
+        %td
+          - pc_name_text(name.p_no, name)
         %td= name.player
         %td.sep= character_link(name.p_no)
         %td= character_old_link(@latest_result, name.p_no, name.result_no, name.generate_no)

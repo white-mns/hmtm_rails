@@ -83,7 +83,8 @@
     - @profiles.each do |profile|
       %tr
         %td= profile.result_no
-        %td= pc_name_text(profile.p_no, profile.pc_name)
+        %td
+          - pc_name_text(profile.p_no, profile.pc_name)
         %td= profile.title
         %td= profile.nickname
         %td= subject_text(profile)

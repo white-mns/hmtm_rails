@@ -95,7 +95,8 @@
     - @equips.each do |equip|
       %tr
         %td= equip.result_no
-        %td= pc_name_text(equip.p_no, equip.pc_name)
+        %td
+          - pc_name_text(equip.p_no, equip.pc_name)
         %td= subject_text(equip.profile)
         %td.sep= equip_no_text(equip.equip_no)
         %td= equip.name

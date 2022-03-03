@@ -121,7 +121,8 @@
     - @statuses.each do |status|
       %tr
         %td= status.result_no
-        %td.sep= pc_name_text(status.p_no, status.pc_name)
+        %td.sep
+          - pc_name_text(status.p_no, status.pc_name)
         %td.sep= subject_text(status.profile)
         %td= status.mhp
         %td= status.msp

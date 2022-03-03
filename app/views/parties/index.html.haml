@@ -83,7 +83,8 @@
     - @parties.each do |party|
       %tr
         %td= party.result_no
-        %td= pc_name_text(party.p_no, party.pc_name)
+        %td
+          - pc_name_text(party.p_no, party.pc_name)
         %td= party_type_text(party.party_type)
         %td= party.party_no
         %td

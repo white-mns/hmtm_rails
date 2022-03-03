@@ -70,7 +70,8 @@
     - @items.each do |item|
       %tr
         %td= item.result_no
-        %td= pc_name_text(item.p_no, item.pc_name)
+        %td
+          - pc_name_text(item.p_no, item.pc_name)
         %td= item.i_no
         %td= item.name
         %td= item.type.name if item.type

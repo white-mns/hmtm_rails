@@ -21,12 +21,14 @@ module ApplicationHelper
   end
 
   def pc_name_text(p_no, pc_name)
-    p_no_text = "(" + sprintf("%d",p_no) + ")"
     if pc_name then
-      pc_name.name.html_safe + p_no_text
-    else
-      p_no_text
+      haml_concat pc_name.name
     end
+    haml_concat "("
+    haml_tag :a, href: "http://www.sssloxia.jp/result/now/c/"+sprintf("%d",p_no)+".html", target: "_blank" do
+      haml_concat sprintf("%d",p_no)
+    end
+    haml_concat ")"
   end
 
   def party_members_pc_name_text(party_members)
@@ -35,7 +37,7 @@ module ApplicationHelper
     end
 
     party_members.each do |party_member|
-      haml_concat pc_name_text(party_member.p_no, party_member.pc_name)
+      pc_name_text(party_member.p_no, party_member.pc_name)
       haml_tag :br
     end
   end
