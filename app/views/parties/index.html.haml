@@ -1,0 +1,94 @@
+- @page_title = "パーティ所属情報一覧"
+%h1= @page_title
+
+.card.desc
+  .card-header
+    - act_icon(true)
+    検索仕様
+    - act_desc(true)
+  .card-body
+    = render "layouts/base_desc"
+    %p
+      %span.example_select.example_toggle.pointer
+        - help_icon
+        入力例
+        - act_desc(false)
+    #example.closed
+      = render "layouts/input_desc"
+= search_form_for @search do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: 5}
+          - act_icon(true)
+          絞り込み検索
+          - act_desc(true)
+    %tbody
+      %tr
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "更新回", params_name: "result_no_form", placeholder: nil, colspan: 3)
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "PNo", params_name: "p_no_form", placeholder: "Number")
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formText", label: "キャラクター名", params_name: "pc_name_form", placeholder: "Name")
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder,                         label: "パーティ種別", params_name: "class_id_form", colspan: 3,
+                    checkboxes: [{label: "通常戦闘", params_name: "party_type_normal",     class_name: "after_space"},
+                                 {label: "朝練戦闘", params_name: "party_type_practice",   class_name: "after_space"},
+                                 {label: "ランク戦", params_name: "party_type_rank",       class_name: "after_space mobile_br"},
+                                 {label: "風紀戦闘", params_name: "party_type_pk",         class_name: "after_space"},
+                                 {label: "レイド戦", params_name: "party_type_reid",       class_name: "after_space"},
+                                 {label: "魔闘大会", params_name: "party_type_convention", class_name: "after_space", br:true},
+                                 {label: "次回通常戦闘予告", params_name: "party_type_normal_notice",     class_name: "after_space"},
+                                 {label: "次回朝練戦闘予告", params_name: "party_type_practice_notice",   class_name: "after_space"},
+                                 {label: "次回ランク戦予告", params_name: "party_type_rank_notice",       class_name: "after_space", br:true},
+                                 {label: "次回風紀戦闘予告", params_name: "party_type_pk_notice",         class_name: "after_space"},
+                                 {label: "次回レイド戦予告", params_name: "party_type_reid_notice",       class_name: "after_space"},
+                                 {label: "次回魔闘大会予告", params_name: "party_type_convention_notice", class_name: "after_space"}])
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "パーティ先頭PNo", params_name: "party_no_form", placeholder: "Number")
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder,                         label: "参加方法", params_name: "class_id_form", colspan: 3,
+                    checkboxes: [{label: "戦闘参加", params_name: "is_attacker", class_name: "after_space"},
+                                 {label: "応援",     params_name: "is_supporter", class_name: "after_space"}])
+      %tr.sep
+        %td.indent
+        %td.indent= hidden_field_tag :is_form, 1
+        %td{colspan: 3}
+          - search_submit_button
+
+
+= paginate(@parties)
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th= sort_link(@search, :result_no,"更新回", default_order: :desc)
+      %th= sort_link(@search, :p_no,"キャラクター(PNo)", default_order: :desc)
+      %th= sort_link(@search, :party_type, "パーティ種別", default_order: :desc)
+      %th= sort_link(@search, :party_no, "先頭PNo", default_order: :desc)
+      %th= sort_link(@search, :is_supporter, "応援", default_order: :desc)
+      %th.sep{colspan: 2} 結果リンク
+  %tbody
+    - @parties.each do |party|
+      %tr
+        %td= party.result_no
+        %td= pc_name_text(party.p_no, party.pc_name)
+        %td= party_type_text(party.party_type)
+        %td= party.party_no
+        %td
+          = "CHEER" if party.is_supporter == 1
+        %td.sep= character_link(party.p_no)
+        %td= character_old_link(@latest_result, party.p_no, party.result_no, party.generate_no)
+- p_no_concat_button
+= paginate(@parties)
