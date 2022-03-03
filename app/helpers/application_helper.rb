@@ -37,8 +37,18 @@ module ApplicationHelper
     end
 
     party_members.each do |party_member|
-      pc_name_text(party_member.p_no, party_member.pc_name)
-      haml_tag :br
+      if (party_member.is_supporter == 0)
+        pc_name_text(party_member.p_no, party_member.pc_name)
+        haml_tag :br
+      end
+    end
+
+    party_members.each do |party_member|
+      if (party_member.is_supporter == 1)
+        pc_name_text(party_member.p_no, party_member.pc_name)
+        haml_concat "　[ CHEER ]"
+        haml_tag :br
+      end
     end
   end
 
