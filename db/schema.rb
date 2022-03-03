@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_26_074936) do
+ActiveRecord::Schema.define(version: 2022_03_01_091504) do
 
   create_table "equips", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
     t.integer "result_no"
@@ -76,6 +76,25 @@ ActiveRecord::Schema.define(version: 2022_02_26_074936) do
     t.index ["gems"], name: "index_obsolescences_on_gems"
     t.index ["obsolescence"], name: "index_obsolescences_on_obsolescence"
     t.index ["result_no", "generate_no"], name: "resultno_generateno"
+  end
+
+  create_table "party_infos", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "party_type"
+    t.integer "party_no"
+    t.string "name"
+    t.integer "member_num"
+    t.integer "attacker_num"
+    t.integer "supporter_num"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["attacker_num"], name: "index_party_infos_on_attacker_num"
+    t.index ["member_num"], name: "index_party_infos_on_member_num"
+    t.index ["name"], name: "index_party_infos_on_name"
+    t.index ["party_type"], name: "index_party_infos_on_party_type"
+    t.index ["result_no", "party_no", "generate_no"], name: "resultno_partyno"
+    t.index ["supporter_num"], name: "index_party_infos_on_supporter_num"
   end
 
   create_table "profiles", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|

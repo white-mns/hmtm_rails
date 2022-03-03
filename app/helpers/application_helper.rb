@@ -200,6 +200,28 @@ module ApplicationHelper
     end
   end
 
+  def party_type_text(party_type)
+    if !party_type then
+      return "-"
+    end
+    party_types = {
+        0 => "通常戦闘",
+        1 => "朝練戦闘",
+        2 => "ランク戦",
+        3 => "風紀戦闘",
+        4 => "レイド戦",
+        5 => "魔闘大会",
+        10 => "次回通常戦闘予告",
+        11 => "次回朝練戦闘予告",
+        12 => "次回ランク戦予告",
+        13 => "次回風紀戦闘予告",
+        14 => "次回レイド戦予告",
+        15 => "次回魔闘大会予告"
+    };
+
+    return party_types[party_type]
+  end
+
   def tooltip_text(text, data, placement="right")
     if text == "" then return end
 
