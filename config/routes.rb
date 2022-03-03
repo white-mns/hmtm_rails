@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  resources :parties
-  resources :party_infos
+  resources :parties,         only: [:index] do collection do get "json"; get "pno_text" end end
+  resources :party_infos,     only: [:index] do collection do get "json"; get "pno_text" end end
   resources :tuning_abilities,only: [:index] do collection do get "json"; get "pno_text" end end
   resources :obsolescences,   only: [:index] do collection do get "json"; get "pno_text" end end
   resources :spells,          only: [:index] do collection do get "json"; get "pno_text" end end

@@ -18,7 +18,7 @@ class PartyInfosController < ApplicationController
   # GET /party_infos/pno_text
   def pno_text
     index
-    render plain: @pre_search.group(:p_no).search(params[:q]).result.pluck(:p_no).join('/')
+    render plain: @pre_search.group(:p_no).search(params[:q]).result.pluck('parties.p_no').join('/')
   end
 
   # GET /party_infos/json
@@ -26,7 +26,12 @@ class PartyInfosController < ApplicationController
     index
     render json: @pre_search.search(params[:q]).result.to_json(except: [:id, :created_at, :updated_at],
       include: [
-        {pc_name: {only: [:name, :player]}}
+        {party_members: {
+          only: [:pc_name, :p_no, :is_supporter],
+          include: [
+            pc_name: {only: [:name, :player]}
+          ]
+        }}
       ])
   end
 
