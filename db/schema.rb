@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_03_010826) do
+ActiveRecord::Schema.define(version: 2022_03_04_045048) do
 
   create_table "equips", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
     t.integer "result_no"
@@ -172,6 +172,32 @@ ActiveRecord::Schema.define(version: 2022_03_03_010826) do
     t.index ["spell_id"], name: "index_spell_data_on_spell_id"
     t.index ["text"], name: "index_spell_data_on_text"
     t.index ["timing_id"], name: "index_spell_data_on_timing_id"
+  end
+
+  create_table "spell_threads", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "battle_type"
+    t.integer "battle_no"
+    t.integer "turn"
+    t.integer "thread_id"
+    t.text "thread"
+    t.text "thread_tg"
+    t.text "thread_orig"
+    t.text "thread_orig_tg"
+    t.text "thread_base"
+    t.text "thread_base_tg"
+    t.integer "depth"
+    t.integer "length"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["battle_no"], name: "index_spell_threads_on_battle_no"
+    t.index ["battle_type"], name: "index_spell_threads_on_battle_type"
+    t.index ["depth"], name: "index_spell_threads_on_depth"
+    t.index ["length"], name: "index_spell_threads_on_length"
+    t.index ["result_no", "battle_type", "battle_no", "thread_id", "generate_no"], name: "resultno_battletype_battleno_threadid"
+    t.index ["thread_id"], name: "index_spell_threads_on_thread_id"
+    t.index ["turn"], name: "index_spell_threads_on_turn"
   end
 
   create_table "spells", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|

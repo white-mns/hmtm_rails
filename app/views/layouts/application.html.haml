@@ -23,7 +23,7 @@
           %ul.navbar-nav
             %li.nav-item.dropdown
               %a.nav-link.dropdown-toggle#navbarDropdownMenuLink{ data: {bs: {toggle: "dropdown"}}, :href => "#", role: "button", area: {expanded: "false"}}
-                個人データ
+                個人
                 %span.caret
               .dropdown-menu
                 = link_to "プロフィール一覧", profiles_path, class: "dropdown-item"
@@ -35,20 +35,26 @@
                 = link_to "パーティ情報一覧", party_infos_path, class: "dropdown-item"
             %li.nav-item.dropdown
               %a.nav-link.dropdown-toggle#navbarDropdownMenuLink{ data: {bs: {toggle: "dropdown"}}, :href => "#", role: "button", area: {expanded: "false"}}
-                行動データ
+                行動
                 %span.caret
               .dropdown-menu
                 = link_to "能力調律一覧", tuning_abilities_path, class: "dropdown-item"
             %li.nav-item.dropdown
               %a.nav-link.dropdown-toggle#navbarDropdownMenuLink{ data: {bs: {toggle: "dropdown"}}, :href => "#", role: "button", area: {expanded: "false"}}
-                グラフデータ
+                戦闘
+                %span.caret
+              .dropdown-menu
+                = link_to "対抗発動スレッド一覧", spell_threads_path, class: "dropdown-item"
+            %li.nav-item.dropdown
+              %a.nav-link.dropdown-toggle#navbarDropdownMenuLink{ data: {bs: {toggle: "dropdown"}}, :href => "#", role: "button", area: {expanded: "false"}}
+                グラフ
                 %span.caret
               .dropdown-menu
                 = link_to "学科・教育課程グラフ", graphs_profiles_path, class: "dropdown-item"
                 = link_to "装備グラフ", graphs_equips_path, class: "dropdown-item"
             %li.nav-item.dropdown
               %a.nav-link.dropdown-toggle#navbarDropdownMenuLink{ data: {bs: {toggle: "dropdown"}}, :href => "#", role: "button", area: {expanded: "false"}}
-                基本データ
+                基本
                 %span.caret
               .dropdown-menu
                 = link_to "スペルリスト", spell_data_path, class: "dropdown-item"

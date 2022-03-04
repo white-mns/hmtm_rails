@@ -1,0 +1,128 @@
+- @page_title = "対抗発動スレッド一覧"
+%h1= @page_title
+
+.card.desc
+  .card-header
+    - act_icon(true)
+    検索仕様
+    - act_desc(true)
+  .card-body
+    = render "layouts/base_desc"
+    %p
+      %span.example_select.example_toggle.pointer
+        - help_icon
+        入力例
+        - act_desc(false)
+    #example.closed
+      = render "layouts/input_desc"
+= search_form_for @search do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: 5}
+          - act_icon(true)
+          絞り込み検索
+          - act_desc(true)
+    %tbody
+      %tr
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "更新回", params_name: "result_no_form", placeholder: nil, colspan: 3)
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder,                         label: "戦闘種別", params_name: "class_id_form", colspan: 3, colspan: 3,
+                    checkboxes: [{label: "通常戦闘", params_name: "battle_type_normal",     class_name: "after_space"},
+                                 {label: "朝練戦闘", params_name: "battle_type_practice",   class_name: "after_space"},
+                                 {label: "ランク戦", params_name: "battle_type_rank",       class_name: "after_space mobile_br"},
+                                 {label: "風紀戦闘", params_name: "battle_type_pk",         class_name: "after_space"},
+                                 {label: "レイド戦", params_name: "battle_type_reid",       class_name: "after_space"},
+                                 {label: "魔闘大会", params_name: "battle_type_convention", class_name: "after_space"}])
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "戦闘No", params_name: "battle_no_form", placeholder: "Number", colspan: 3)
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "ターン", params_name: "turn_form", placeholder: "Number", colspan: 3)
+      %tr.sep
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "元スペル名", params_name: "thread_orig_tg_form", placeholder: "Spell", colspan: 3)
+        -# td_form(f, @form_params, @placeholder, class_name: "formText",  label: "派生元スペル名", params_name: "thread_base_tg_form", placeholder: "BaseSpell")
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "改名後スペル名", params_name: "thread_tg_form", colspan: 3)
+      %tr.sep
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "深さ", params_name: "depth_form", placeholder: "Number")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "長さ", params_name: "length_form", placeholder: "Number")
+      %tr.sep
+        %td.indent
+        - td_form(f, @form_params, @placeholder,                                        params_name: "class_id_form", colspan: 3,
+                    checkboxes: [{label: "元スペルで表示", params_name: "thread_orig_spell",   class_name: "after_space", br:true},
+                                 {label: "改名後スペルで表示", params_name: "thread_after_spell",     class_name: "after_space"}])
+      %tr.sep
+        %td.indent
+        - td_form(f, @form_params, @placeholder,                                        params_name: "class_id_form", colspan: 3,
+                    checkboxes: [{label: "発動TGを表示する", params_name: "show_tg",     class_name: "after_space"}])
+      %tr.sep
+        %td.indent
+        %td.indent= hidden_field_tag :is_form, 1
+        %td{colspan: 3}
+          - search_submit_button
+
+= paginate(@spell_threads)
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th= sort_link(@search, :result_no,"更新回", default_order: :desc)
+      %th.sep= sort_link(@search, :battle_type, "戦闘種別", default_order: :desc)
+      %th= sort_link(@search, :battle_no, "戦闘No", default_order: :desc)
+      %th.sep_r= sort_link(@search, :turn, "ターン", default_order: :desc)
+      - if @form_params["show_tg"] == "on"
+        - if @form_params["thread_after_spell"] == "on"
+          %th= sort_link(@search, :thread_tg, "スレッド(改名スペル名+TG)", default_order: :desc)
+        - if @form_params["thread_orig_spell"] == "on"
+          %th= sort_link(@search, :thread_orig_tg, "スレッド(元スペル名+TG)", default_order: :desc)
+        - if @form_params["thread_base_spell"] == "on"
+          %th= sort_link(@search, :thread_base_tg, "スレッド(派生元スペル名+TG)", default_order: :desc)
+      - else
+        - if @form_params["thread_after_spell"] == "on"
+          %th= sort_link(@search, :thread, "スレッド(改名スペル名)", default_order: :desc)
+        - if @form_params["thread_orig_spell"] == "on"
+          %th= sort_link(@search, :thread_orig, "スレッド(元スペル名)", default_order: :desc)
+        - if @form_params["thread_base_spell"] == "on"
+          %th= sort_link(@search, :thread_base, "スレッド(派生元スペル名)", default_order: :desc)
+      %th.sep= sort_link(@search, :depth, "深さ", default_order: :desc)
+      %th= sort_link(@search, :length, "長さ", default_order: :desc)
+      %th.sep{colspan: 2} 結果リンク
+  %tbody
+    - @spell_threads.each do |spell_thread|
+      %tr
+        %td= spell_thread.result_no
+        %td.sep= party_type_text(spell_thread.battle_type)
+        %td= spell_thread.battle_no
+        %td.sep_r= spell_thread.turn
+        - if @form_params["show_tg"] == "on"
+          - if @form_params["thread_after_spell"] == "on"
+            %td.thread= thread_text(spell_thread.thread_tg, @spell_data, @tg_data)
+          - if @form_params["thread_orig_spell"] == "on"
+            %td.thread= thread_text(spell_thread.thread_orig_tg, @spell_data, @tg_data)
+          - if @form_params["thread_base_spell"] == "on"
+            %td.thread= thread_text(spell_thread.thread_base_tg, @spell_data, @tg_data)
+        - else
+          - if @form_params["thread_after_spell"] == "on"
+            %td.thread= thread_text(spell_thread.thread, @spell_data, @tg_data)
+          - if @form_params["thread_orig_spell"] == "on"
+            %td.thread= thread_text(spell_thread.thread_orig, @spell_data, @tg_data)
+          - if @form_params["thread_base_spell"] == "on"
+            %td.thread= thread_text(spell_thread.thread_base, @spell_data, @tg_data)
+        %td.sep= spell_thread.depth
+        %td= spell_thread.length
+        %td.sep= battle_link(spell_thread.battle_type, spell_thread.battle_no)
+        %td= battle_old_link(@latest_result, spell_thread.battle_type, spell_thread.battle_no, spell_thread.result_no, spell_thread.generate_no)
+- p_no_concat_button
+= paginate(@spell_threads)

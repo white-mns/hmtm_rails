@@ -1,0 +1,2 @@
+class SpellThread < ApplicationRecord
+end

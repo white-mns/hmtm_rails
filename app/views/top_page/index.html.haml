@@ -28,6 +28,11 @@
             %li= link_to "能力調律一覧", tuning_abilities_path
       .col-md-6
         %ul
+          %li 戦闘データ
+          %ul
+            %li= link_to "対抗発動スレッド一覧", spell_threads_path
+      .col-md-6
+        %ul
           %li グラフデータ
           %ul
             %li= link_to "学科・教育課程グラフ", graphs_profiles_path
@@ -43,6 +48,11 @@
   .card-body
     %h2 更新履歴
     %ul
+      %li 2022/3/-
+      %ul
+        %li
+          = link_to "対抗発動スレッド一覧", spell_threads_path
+          を公開
       %li 2022/3/3
       %ul
         %li

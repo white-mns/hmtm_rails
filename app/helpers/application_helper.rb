@@ -79,6 +79,38 @@ module ApplicationHelper
     link_to " 過去結果", "http://www.sssloxia.jp/result/"+result_no_text+"/c/"+file_name+".html", :target => "_blank"
   end
 
+  def battle_link(battle_type, battle_no)
+    directories = {
+        0 => "b",
+        1 => "prc",
+        2 => "rank",
+        3 => "pk",
+        4 => "b",
+        5 => "b",
+    };
+
+    file_name = sprintf("%d",battle_no)
+    link_to " 結果", "http://www.sssloxia.jp/result/now/"+directories[battle_type]+"/"+file_name+".html", :target => "_blank"
+  end
+
+  def battle_old_link(latest_result_no, battle_type, battle_no, result_no, generate_no)
+    directories = {
+        0 => "b",
+        1 => "prc",
+        2 => "rank",
+        3 => "pk",
+        4 => "b",
+        5 => "b",
+    };
+
+    if result_no == latest_result_no then return end
+
+    result_no_text = sprintf("%d", result_no)
+    generate_text  = generate_no > 0 ? "_" + sprintf("%d", generate_no) : ""
+    file_name = sprintf("%d", battle_no)
+    link_to " 過去結果", "http://www.sssloxia.jp/result/"+result_no_text+"/"+directories[battle_type]+"/"+file_name+".html", :target => "_blank"
+  end
+
   def search_submit_button()
     haml_tag :button, class: "btn btn-outline-search", type: "submit" do
       haml_concat fa_icon "search", text: "検索する"
@@ -268,10 +300,20 @@ module ApplicationHelper
     end
   end
 
-  def spell_text(name, skill_data, placement="right")
+  def tooltip_spell_or_tg_text(text, spell_data, tg_data, placement="right")
+    if text == "" then return end
+
+    if spell_data[text] then
+      tooltip_text(text, spell_data, placement)
+    else
+      tooltip_text(text, tg_data, placement)
+    end
+  end
+
+  def spell_text(name, spell_data, placement="right")
     if name == "" then return end
 
-    tooltip_text(name, skill_data, placement)
+    tooltip_text(name, spell_data, placement)
   end
 
   def gems_text(gems_text, tg_data)
@@ -285,6 +327,35 @@ module ApplicationHelper
         tooltip_text(gem, tg_data, "bottom")
 
       if index != gems.size - 1 then haml_concat "、" end
+    end
+
+    return
+  end
+
+  def thread_text(thread_text, spell_data, tg_data)
+    if !thread_text then return end
+
+    thread_text = thread_text.gsub(",","")
+    actions = thread_text.split("|")
+
+    actions.each_with_index do |action, index|
+      if action == "" then next end
+        depth = action.count(">")
+        for i in 1..depth do
+          haml_concat "→"
+        end
+
+        tg_depth = action.count("<")
+        for i in 1..tg_depth -1 do
+          haml_concat "　"
+        end
+        if tg_depth > 0 then
+          haml_concat "+"
+        end
+
+        tooltip_spell_or_tg_text(action.gsub(">","").gsub("<",""), spell_data, tg_data, "bottom")
+
+      if index != actions.size - 1 then haml_tag :br end
     end
 
     return

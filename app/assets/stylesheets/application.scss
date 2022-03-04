@@ -215,6 +215,10 @@ td.sign{
     font-size: x-large;
 }
 
+td.thread {
+    white-space: nowrap
+}
+
 th.sep,td.sep{
     border-left: 3px solid $table-border-color;
 }
