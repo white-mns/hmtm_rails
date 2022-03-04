@@ -360,4 +360,19 @@ module ApplicationHelper
 
     return
   end
+
+  def thread_members_text(thread_members)
+    if !thread_members then
+      return
+    end
+
+    thread_members.each do |thread_member|
+      if (!thread_member.pc_name || thread_member.name != thread_member.profile.nickname) then
+        haml_concat thread_member.name
+      else
+        pc_name_text(thread_member.p_no, thread_member.pc_name)
+      end
+      haml_tag :br
+    end
+  end
 end

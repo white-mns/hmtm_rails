@@ -10,7 +10,7 @@ class SpellThreadsController < ApplicationController
     spell_data_set
     tg_data_set
 
-    @pre_search = SpellThread.notnil()
+    @pre_search = SpellThread.distinct.notnil().includes(thread_members: :pc_name)
     @count = @pre_search.search(params[:q]).result.hit_count()
     @search = @pre_search.page(params[:page]).search(params[:q])
     @search.sorts = "id asc" if @search.sorts.empty?
@@ -20,7 +20,7 @@ class SpellThreadsController < ApplicationController
   # GET /spell_threads/pno_text
   def pno_text
     index
-    render plain: @pre_search.group(:p_no).search(params[:q]).result.pluck(:p_no).join('/')
+    render plain: @pre_search.group(:p_no).search(params[:q]).result.pluck("spell_thread_members.p_no").join('/')
   end
 
   # GET /spell_threads/json
@@ -41,7 +41,6 @@ class SpellThreadsController < ApplicationController
       params["thread_orig_spell"] ||= "on"
     end
 
-    params_to_form(params, @form_params, column_name: "pc_name_name", params_name: "pc_name_form", type: "text")
     params_to_form(params, @form_params, column_name: "result_no", params_name: "result_no_form", type: "number")
     params_to_form(params, @form_params, column_name: "generate_no", params_name: "generate_no_form", type: "number")
     params_to_form(params, @form_params, column_name: "battle_type", params_name: "battle_type_form", type: "number")
@@ -56,6 +55,9 @@ class SpellThreadsController < ApplicationController
     params_to_form(params, @form_params, column_name: "thread_base_tg", params_name: "thread_base_tg_form", type: "concat")
     params_to_form(params, @form_params, column_name: "depth", params_name: "depth_form", type: "number")
     params_to_form(params, @form_params, column_name: "length", params_name: "length_form", type: "number")
+
+    params_to_form(params, @form_params, column_name: "thread_members_pc_name_name", params_name: "pc_name_form", type: "text")
+    params_to_form(params, @form_params, column_name: "thread_members_p_no", params_name: "p_no_form", type: "number")
 
     checkbox_params_set_query_any(params, @form_params, query_name: "battle_type_eq_any",
                              checkboxes: [{params_name: "battle_type_normal",            value: 0},

@@ -35,6 +35,10 @@
         - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "更新回", params_name: "result_no_form", placeholder: nil, colspan: 3)
       %tr
         %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "PNo", params_name: "p_no_form", placeholder: "Number")
+        - td_form(f, @form_params, @placeholder, class_name: "formText", label: "キャラクター名", params_name: "pc_name_form", placeholder: "Name")
+      %tr
+        %td.indent
         - td_form(f, @form_params, @placeholder,                         label: "戦闘種別", params_name: "class_id_form", colspan: 3, colspan: 3,
                     checkboxes: [{label: "通常戦闘", params_name: "battle_type_normal",     class_name: "after_space"},
                                  {label: "朝練戦闘", params_name: "battle_type_practice",   class_name: "after_space"},
@@ -86,7 +90,8 @@
       %th= sort_link(@search, :result_no,"更新回", default_order: :desc)
       %th.sep= sort_link(@search, :battle_type, "戦闘種別", default_order: :desc)
       %th= sort_link(@search, :battle_no, "戦闘No", default_order: :desc)
-      %th.sep_r= sort_link(@search, :turn, "ターン", default_order: :desc)
+      %th= sort_link(@search, :turn, "ターン", default_order: :desc)
+      %th.sep.sep_r= sort_link(@search, :thread_members_p_no, "スレッド参加", default_order: :desc)
       - if @form_params["show_tg"] == "on"
         - if @form_params["thread_after_spell"] == "on"
           %th= sort_link(@search, :thread_tg, "スレッド(改名スペル名+TG)", default_order: :desc)
@@ -110,7 +115,9 @@
         %td= spell_thread.result_no
         %td.sep= party_type_text(spell_thread.battle_type)
         %td= spell_thread.battle_no
-        %td.sep_r= spell_thread.turn
+        %td= spell_thread.turn
+        %td.sep.sep_r
+          - thread_members_text(spell_thread.thread_members)
         - if @form_params["show_tg"] == "on"
           - if @form_params["thread_after_spell"] == "on"
             %td.thread= thread_text(spell_thread.thread_tg, @spell_data, @tg_data)
