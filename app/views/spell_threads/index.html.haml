@@ -50,11 +50,11 @@
         - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "ターン", params_name: "turn_form", placeholder: "Number", colspan: 3)
       %tr.sep
         %td.indent
-        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "元スペル名", params_name: "thread_orig_tg_form", placeholder: "Spell", colspan: 3)
-        -# td_form(f, @form_params, @placeholder, class_name: "formText",  label: "派生元スペル名", params_name: "thread_base_tg_form", placeholder: "BaseSpell")
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "元スペル・TG", params_name: "thread_orig_tg_form", placeholder: "Spell", colspan: 3)
+        -# td_form(f, @form_params, @placeholder, class_name: "formText",  label: "派生元スペル名・TG", params_name: "thread_base_tg_form", placeholder: "BaseSpell")
       %tr
         %td.indent
-        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "改名後スペル名", params_name: "thread_tg_form", colspan: 3)
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "改名後スペル名・TG", params_name: "thread_tg_form", placeholder: "BattleTuneGem", colspan: 3)
       %tr.sep
         %td.indent
         - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "深さ", params_name: "depth_form", placeholder: "Number")
