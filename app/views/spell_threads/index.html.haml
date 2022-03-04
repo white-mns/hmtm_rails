@@ -1,4 +1,9 @@
-- @page_title = "対抗発動スレッド一覧"
+- if params[:q][:s] == "depth desc" then
+  - @page_title = "ディープスレッドランキング"
+- elsif params[:q][:s] == "length desc" then
+  - @page_title = "ロングスレッドランキング"
+- else
+  - @page_title = "対抗発動スレッド一覧"
 %h1= @page_title
 
 .card.desc

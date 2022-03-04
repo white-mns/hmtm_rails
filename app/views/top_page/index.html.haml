@@ -31,6 +31,9 @@
           %li 戦闘データ
           %ul
             %li= link_to "対抗発動スレッド一覧", spell_threads_path
+            %ul
+              %li= link_to "ディープスレッドランキング", spell_threads_path + "?q[s]=depth+desc"
+              %li= link_to "ロングスレッドランキング", spell_threads_path + "?q[s]=length+desc"
       .col-md-6
         %ul
           %li グラフデータ
@@ -52,6 +55,10 @@
       %ul
         %li
           = link_to "対抗発動スレッド一覧", spell_threads_path
+          、
+          = link_to "ディープスレッドランキング", spell_threads_path + "?q[s]=depth+desc"
+          、
+          = link_to "ロングスレッドランキング", spell_threads_path + "?q[s]=length+desc"
           を公開
       %li 2022/3/3
       %ul
