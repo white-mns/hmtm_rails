@@ -56,8 +56,7 @@
   %thead
     %tr
       %th= sort_link(@search, :result_no,"更新回", default_order: :desc)
-      %th
-        - sort_link(@search, :p_no,"キャラクター(PNo)", default_order: :desc)
+      %th= sort_link(@search, :p_no,"キャラクター(PNo)", default_order: :desc)
 <% attributes.reject(&:password_digest?).each do |attribute| -%>
       %th= sort_link(@search, :<%= attribute.name %>, <%= "\"" +  attribute.human_name + "\"" %>, default_order: :desc)
 <% end -%>
@@ -66,7 +65,8 @@
     - @<%= plural_table_name %>.each do |<%= singular_table_name %>|
       %tr
         %td= <%= singular_table_name %>.result_no
-        %td= pc_name_text(<%= singular_table_name %>.p_no, <%= singular_table_name %>.pc_name)
+        %td
+          - pc_name_text(<%= singular_table_name %>.p_no, <%= singular_table_name %>.pc_name)
 <% attributes.reject(&:password_digest?).each do |attribute| -%>
         %td= <%= singular_table_name %>.<%= attribute.name %>
 <% end -%>
