@@ -63,7 +63,7 @@
                                  {label: "カウンター", params_name: "timing_counter"}])
       %tr
         %td.indent
-        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "スペル説明", params_name: "spell_text_form", placeholder: "SpellText", colspan: 3)
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "調律後スペル説明", params_name: "tuned_text_form", placeholder: "SpellText", colspan: 3)
       %tr
         %td.indent
         - td_form(f, @form_params, @placeholder,                         label: "分類", params_name: "class_id_form", colspan: 3,
@@ -149,7 +149,7 @@
           %td= teach_spell.spell.name if teach_spell.spell && teach_spell.spell
         - if @form_params["show_orig_spell"] == "1"
           %td
-            = teach_spell.spell.orig_spell.name if teach_spell.spell && teach_spell.spell.orig_spell
+            - spell_text(teach_spell.spell.orig_spell.name, @spell_data) if teach_spell.spell && teach_spell.spell.orig_spell
         %td
           - spell_text(teach_spell.spell.orig_spell.base_spell.name, @spell_data) if teach_spell.spell && teach_spell.spell.orig_spell && teach_spell.spell.orig_spell.base_spell
         %td.sep= teach_spell.spell.element.name if teach_spell.spell && teach_spell.spell.element
@@ -173,7 +173,7 @@
       - colspan += (@form_params["show_spell_name"] == "1") ? 1 : 0
       - colspan += (@form_params["show_orig_spell"] == "1") ? 1 : 0
       %tr
-        %td{colspan: colspan}= teach_spell.spell.orig_spell.text if teach_spell.spell && teach_spell.spell.orig_spell
+        %td{colspan: colspan}= teach_spell.spell.tuned_text if teach_spell.spell
         %td= teach_spell.spell.orig_spell.class_data.name if teach_spell.spell && teach_spell.spell.orig_spell && teach_spell.spell.orig_spell.class_data
         %td
       %tr

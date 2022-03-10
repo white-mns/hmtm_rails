@@ -28,7 +28,22 @@ class TeachSpellsController < ApplicationController
     index
     render json: @pre_search.search(params[:q]).result.to_json(except: [:id, :created_at, :updated_at],
       include: [
-        {pc_name: {only: [:name, :player]}}
+        {pc_name: {only: [:name, :player]}},
+        {spell:
+          {expect: [:id, :spell_id, :created_at, :updated_at],
+          include: [
+            {orig_spell: {
+              except: [:id, :spell_id, :created_at, :updated_at],
+              include: [
+                {element: {only: :name}},
+                {timing: {only: :name}},
+                {class_data: {only: :name}}
+              ]
+            }},
+            {timing: {only: :name}},
+            {element: {only: :name}}
+          ]
+        }}
       ])
   end
 
@@ -61,9 +76,9 @@ class TeachSpellsController < ApplicationController
     params_to_form(params, @form_params, column_name: "spell_spell_id", params_name: "spell_id_form", type: "number")
     params_to_form(params, @form_params, column_name: "spell_gems", params_name: "gems_form", type: "concat")
     params_to_form(params, @form_params, column_name: "spell_obsolescence", params_name: "obsolescence_form", type: "number")
+    params_to_form(params, @form_params, column_name: "spell_tuned_text", params_name: "tuned_text_form", type: "text")
 
     params_to_form(params, @form_params, column_name: "spell_orig_spell_name", params_name: "spell_form", type: "text")
-    params_to_form(params, @form_params, column_name: "spell_orig_spell_text", params_name: "spell_text_form", type: "text")
     params_to_form(params, @form_params, column_name: "spell_orig_spell_class_data_name", params_name: "spell_class_form", type: "text")
     params_to_form(params, @form_params, column_name: "spell_orig_spell_base_spell_name", params_name: "base_spell_form", type: "text")
 

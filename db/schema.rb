@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_09_122225) do
+ActiveRecord::Schema.define(version: 2022_03_10_005516) do
 
   create_table "equips", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
     t.integer "result_no"
@@ -237,6 +237,7 @@ ActiveRecord::Schema.define(version: 2022_03_09_122225) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "element_id"
     t.decimal "obsolescence", precision: 8, scale: 1
+    t.string "tuned_text"
     t.index ["element_id"], name: "index_spells_on_element_id"
     t.index ["gems"], name: "index_spells_on_gems"
     t.index ["hit"], name: "index_spells_on_hit"
@@ -249,6 +250,7 @@ ActiveRecord::Schema.define(version: 2022_03_09_122225) do
     t.index ["sp"], name: "index_spells_on_sp"
     t.index ["spell_id"], name: "index_spells_on_spell_id"
     t.index ["timing_id"], name: "index_spells_on_timing_id"
+    t.index ["tuned_text"], name: "index_spells_on_tuned_text"
   end
 
   create_table "statuses", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|

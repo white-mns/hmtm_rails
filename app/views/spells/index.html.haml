@@ -68,11 +68,12 @@
 
     - #==========================================================================================================================
     - tbody_toggle(@form_params, params_name: "show_spell_text",
-                    label: {open: "スペル説明を表示する", close: "スペル説明を表示しない"}, base_first: false)
+                    label: {open: "調律後スペル説明を表示する", close: "調律後スペル説明を表示しない"}, base_first: false,
+                    act_desc: "調律後スペル説明、分類", base_first: false)
     %tbody.closed
       %tr
         %td.indent
-        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "スペル説明", params_name: "spell_text_form", placeholder: "SpellText", colspan: 3)
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "調律後スペル説明", params_name: "tuned_text_form", placeholder: "SpellText", colspan: 3)
       %tr
         %td.indent
         - td_form(f, @form_params, @placeholder,                         label: "分類", params_name: "class_id_form", colspan: 3,
@@ -152,13 +153,10 @@
         - if @form_params["show_spell_name"] == "1"
           %td= spell.name
         %td
-          - if spell.orig_spell
-            - if @form_params["show_spell_text"] == "1"
-              = spell.orig_spell.name
-            - else
-              - spell_text(spell.orig_spell.name, @spell_data)
+          - spell_text(spell.orig_spell.name, @spell_data) if spell.orig_spell
         - if @form_params["show_base_spell"] == "1"
-          %td= spell.orig_spell.base_spell.name if spell.orig_spell && spell.orig_spell.base_spell
+          %td
+            - spell_text(spell.orig_spell.base_spell.name, @spell_data) if spell.orig_spell && spell.orig_spell.base_spell
         %td.sep= spell.element.name if spell.element
         %td= spell.sp
         %td= spell.power
@@ -176,7 +174,7 @@
       - colspan += (@form_params["show_base_spell"] == "1") ? 1 : 0
       %tr
         - if @form_params["show_spell_text"] == "1"
-          %td{colspan: colspan}= spell.orig_spell.text if spell.orig_spell
+          %td{colspan: colspan}= spell.tuned_text
           %td= spell.orig_spell.class_data.name if spell.orig_spell && spell.orig_spell.class_data
       %tr
         - if spell.gems != "" then

@@ -67,9 +67,9 @@ class SpellsController < ApplicationController
     params_to_form(params, @form_params, column_name: "spell_id", params_name: "spell_id_form", type: "number")
     params_to_form(params, @form_params, column_name: "gems", params_name: "gems_form", type: "concat")
     params_to_form(params, @form_params, column_name: "obsolescence", params_name: "obsolescence_form", type: "number")
+    params_to_form(params, @form_params, column_name: "tuned_text", params_name: "tuned_text_form", type: "text")
 
     params_to_form(params, @form_params, column_name: "spell_name", params_name: "spell_form", type: "text")
-    params_to_form(params, @form_params, column_name: "spell_text", params_name: "spell_text_form", type: "text")
     params_to_form(params, @form_params, column_name: "spell_class_data_name", params_name: "spell_class_form", type: "text")
     params_to_form(params, @form_params, column_name: "spell_base_spell_name", params_name: "base_spell_form", type: "text")
 

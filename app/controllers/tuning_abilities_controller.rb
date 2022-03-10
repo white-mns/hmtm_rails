@@ -30,9 +30,9 @@ class TuningAbilitiesController < ApplicationController
       {pc_name: {only: [:name, :player]}},
       {profile: {only: [:subject_id]}},
       {spell: {
-        only: [:name, :power, :hit, :range, :gems],
+        only: [:name, :power, :hit, :range, :gems, :tuned_text],
         include: [
-          {spell: {
+          {orig_spell: {
             except: [:id, :spell_id, :created_at, :updated_at],
             include: [
               {element: {only: :name}},
