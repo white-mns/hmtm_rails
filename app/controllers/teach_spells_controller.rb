@@ -107,8 +107,9 @@ class TeachSpellsController < ApplicationController
 
     toggle_params_to_variable(params, @form_params, params_name: "show_spell_name")
     toggle_params_to_variable(params, @form_params, params_name: "show_spell_text")
-    toggle_params_to_variable(params, @form_params, params_name: "show_orig_spell")
+    toggle_params_to_variable(params, @form_params, params_name: "show_orig_spell", first_opened: true)
     toggle_params_to_variable(params, @form_params, params_name: "show_pc_name")
+    @form_params["base_first"]    = (!params["is_form"]) ? "1" : "0"
   end
 
   private
