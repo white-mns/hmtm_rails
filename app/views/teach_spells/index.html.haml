@@ -139,7 +139,7 @@
       - if @form_params["show_pc_name"] == "1"
         %th.sep= sort_link(@search, :p_no,"キャラクター(PNo)", default_order: :desc)
         %th= sort_link(@search, :s_no, "スペルNo.", default_order: :desc)
-        %th.sep{colspan: 2} 結果リンク
+        %th.sep{colspan: 3} 結果リンク
   %tbody
     - @teach_spells.each do |teach_spell|
       %tr
@@ -149,9 +149,9 @@
           %td= teach_spell.spell.name if teach_spell.spell && teach_spell.spell
         - if @form_params["show_orig_spell"] == "1"
           %td
-            = teach_spell.spell.spell.name if teach_spell.spell && teach_spell.spell.spell
+            = teach_spell.spell.orig_spell.name if teach_spell.spell && teach_spell.spell.orig_spell
         %td
-          - spell_text(teach_spell.spell.spell.base_spell.name, @spell_data) if teach_spell.spell && teach_spell.spell.spell && teach_spell.spell.spell.base_spell
+          - spell_text(teach_spell.spell.orig_spell.base_spell.name, @spell_data) if teach_spell.spell && teach_spell.spell.orig_spell && teach_spell.spell.orig_spell.base_spell
         %td.sep= teach_spell.spell.element.name if teach_spell.spell && teach_spell.spell.element
         %td= teach_spell.spell.sp if teach_spell.spell
         %td= teach_spell.spell.power if teach_spell.spell
@@ -171,10 +171,11 @@
           %td{rowspan: 3}= character_old_link(@latest_result, teach_spell.p_no, teach_spell.result_no, teach_spell.generate_no)
       - colspan = 6
       - colspan += (@form_params["show_spell_name"] == "1") ? 1 : 0
-      - colspan += (@form_params["show_base_spell"] == "1") ? 1 : 0
+      - colspan += (@form_params["show_orig_spell"] == "1") ? 1 : 0
       %tr
-        %td{colspan: colspan + 1}= teach_spell.spell.spell.text if teach_spell.spell && teach_spell.spell.spell
-        %td= teach_spell.spell.spell.class_data.name if teach_spell.spell && teach_spell.spell.spell && teach_spell.spell.spell.class_data
+        %td{colspan: colspan}= teach_spell.spell.orig_spell.text if teach_spell.spell && teach_spell.spell.orig_spell
+        %td= teach_spell.spell.orig_spell.class_data.name if teach_spell.spell && teach_spell.spell.orig_spell && teach_spell.spell.orig_spell.class_data
+        %td
       %tr
         - if teach_spell.spell && teach_spell.spell.gems != "" then
           %td.TG{colspan: colspan + 2}= gems_text(teach_spell.spell.gems, @tg_data)

@@ -9,7 +9,7 @@ class TuningAbilitiesController < ApplicationController
     param_set
     spell_data_set
 
-    @pre_search = TuningAbility.notnil().includes(:pc_name, :profile, [spell: [:spell, :timing, :element]], :merit, :demerit)
+    @pre_search = TuningAbility.notnil().includes(:pc_name, :profile, [spell: [:orig_spell, :timing, :element]], :merit, :demerit)
     @count = @pre_search.search(params[:q]).result.hit_count()
     @search = @pre_search.page(params[:page]).search(params[:q])
     @search.sorts = "id asc" if @search.sorts.empty?
@@ -78,9 +78,9 @@ class TuningAbilitiesController < ApplicationController
     params_to_form(params, @form_params, column_name: "spell_hit", params_name: "hit_form", type: "number")
     params_to_form(params, @form_params, column_name: "spell_range", params_name: "range_form", type: "number")
 
-    params_to_form(params, @form_params, column_name: "spell_spell_name", params_name: "spell_form", type: "text")
-    params_to_form(params, @form_params, column_name: "spell_spell_text", params_name: "spell_text_form", type: "text")
-    params_to_form(params, @form_params, column_name: "spell_spell_class_data_name", params_name: "spell_class_form", type: "text")
+    params_to_form(params, @form_params, column_name: "spell_orig_spell_name", params_name: "spell_form", type: "text")
+    params_to_form(params, @form_params, column_name: "spell_orig_spell_text", params_name: "spell_text_form", type: "text")
+    params_to_form(params, @form_params, column_name: "spell_orig_spell_class_data_name", params_name: "spell_class_form", type: "text")
 
     proper_name = ProperName.pluck(:name, :proper_id).inject(Hash.new(0)){|hash, a| hash[a[0]] = a[1] ; hash}
     checkbox_params_set_query_any(params, @form_params, query_name: "spell_timing_id_eq_any",

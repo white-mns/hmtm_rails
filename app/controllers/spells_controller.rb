@@ -10,7 +10,7 @@ class SpellsController < ApplicationController
     spell_data_set
     tg_data_set
 
-    @pre_search = Spell.notnil().includes(:pc_name, :spell, :timing, :element, :profile)
+    @pre_search = Spell.notnil().includes(:pc_name, :orig_spell, :timing, :element, :profile)
     @count =  @pre_search.search(params[:q]).result.hit_count()
     @search = @pre_search.page(params[:page]).search(params[:q])
     @search.sorts = "id asc" if @search.sorts.empty?
@@ -30,7 +30,7 @@ class SpellsController < ApplicationController
       include: [
         {pc_name: {only: [:name, :player]}},
         {profile: {only: [:subject_id]}},
-        {spell: {
+        {orig_spell: {
           except: [:id, :spell_id, :created_at, :updated_at],
           include: [
             {element: {only: :name}},

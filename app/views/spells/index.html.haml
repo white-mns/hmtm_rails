@@ -152,13 +152,13 @@
         - if @form_params["show_spell_name"] == "1"
           %td= spell.name
         %td
-          - if spell.spell
+          - if spell.orig_spell
             - if @form_params["show_spell_text"] == "1"
-              = spell.spell.name
+              = spell.orig_spell.name
             - else
-              - spell_text(spell.spell.name, @spell_data)
+              - spell_text(spell.orig_spell.name, @spell_data)
         - if @form_params["show_base_spell"] == "1"
-          %td= spell.spell.base_spell.name if spell.spell && spell.spell.base_spell
+          %td= spell.orig_spell.base_spell.name if spell.orig_spell && spell.orig_spell.base_spell
         %td.sep= spell.element.name if spell.element
         %td= spell.sp
         %td= spell.power
@@ -176,8 +176,8 @@
       - colspan += (@form_params["show_base_spell"] == "1") ? 1 : 0
       %tr
         - if @form_params["show_spell_text"] == "1"
-          %td{colspan: colspan}= spell.spell.text if spell.spell
-          %td= spell.spell.class_data.name if spell.spell.class_data
+          %td{colspan: colspan}= spell.orig_spell.text if spell.orig_spell
+          %td= spell.orig_spell.class_data.name if spell.orig_spell && spell.orig_spell.class_data
       %tr
         - if spell.gems != "" then
           %td.TG{colspan: colspan + 2}= gems_text(spell.gems, @tg_data)
