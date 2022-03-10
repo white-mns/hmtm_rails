@@ -155,7 +155,7 @@
           - pc_name_text(tuning_ability.p_no, tuning_ability.pc_name)
         %td.sep= tuning_ability.s_no if tuning_ability.s_no > -9999
         - if @form_params["show_spell_name"] == "1"
-          %td= tuning_ability.name
+          %td= numeric_parse(tuning_ability.name)
         %td
           - spell_text(tuning_ability.spell.orig_spell.name, @spell_data) if tuning_ability.spell && tuning_ability.spell.orig_spell
         %td.sep= tuning_ability.merit.name if tuning_ability.merit

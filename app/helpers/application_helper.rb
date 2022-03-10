@@ -20,6 +20,10 @@ module ApplicationHelper
     end
   end
 
+  def numeric_parse(text)
+    return Nokogiri::HTML.parse(text).text
+  end
+
   def pc_name_text(p_no, pc_name)
     if pc_name then
       haml_concat pc_name.name
@@ -304,7 +308,7 @@ module ApplicationHelper
     span_attr = {data: {bs: {toggle: "tooltip" + placement}}, title: title}
 
     haml_tag :span, span_attr do
-      haml_concat text
+      haml_concat numeric_parse(text)
     end
   end
 
@@ -344,6 +348,7 @@ module ApplicationHelper
     if !thread_text then return end
 
     thread_text = thread_text.gsub(",","")
+    thread_text = numeric_parse(thread_text)
     actions = thread_text.split("|")
 
     actions.each_with_index do |action, index|

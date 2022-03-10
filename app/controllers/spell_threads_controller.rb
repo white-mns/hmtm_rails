@@ -41,6 +41,13 @@ class SpellThreadsController < ApplicationController
       params["thread_orig_spell"] ||= "on"
     end
 
+    if params["thread_form"] then params["thread_form"] = utf8mb4_encode_numericentity(params["thread_form"]) end
+    if params["thread_tg_form"] then params["thread_tg_form"] = utf8mb4_encode_numericentity(params["thread_tg_form"]) end
+    if params["thread_orig_form"] then params["thread_orig_form"] = utf8mb4_encode_numericentity(params["thread_orig_form"]) end
+    if params["thread_orig_tg_form"] then params["thread_orig_tg_form"] = utf8mb4_encode_numericentity(params["thread_orig_tg_form"]) end
+    if params["thread_base_form"] then params["thread_base_form"] = utf8mb4_encode_numericentity(params["thread_base_form"]) end
+    if params["thread_base_tg_form"] then params["thread_base_tg_form"] = utf8mb4_encode_numericentity(params["thread_base_tg_form"]) end
+
     params_to_form(params, @form_params, column_name: "result_no", params_name: "result_no_form", type: "number")
     params_to_form(params, @form_params, column_name: "generate_no", params_name: "generate_no_form", type: "number")
     params_to_form(params, @form_params, column_name: "battle_type", params_name: "battle_type_form", type: "number")

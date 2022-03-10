@@ -251,5 +251,9 @@ module MyUtility
     toggle_params_to_variable(params, form_params, params_name: "show_pm")
   end
 
+  def utf8mb4_encode_numericentity(str)
+    str.gsub(/[^\u{0}-\u{FFFF}]/) { '&#%d;' % $&.ord }
+  end
+
   private
 end

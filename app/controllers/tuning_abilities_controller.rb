@@ -59,12 +59,16 @@ class TuningAbilitiesController < ApplicationController
       params["result_no_form"] ||= sprintf("%d",@latest_result)
     end
 
+    if params["name_form"]
+      params["name_form"] = utf8mb4_encode_numericentity(params["name_form"])
+    end
+
     params_to_form(params, @form_params, column_name: "pc_name_name", params_name: "pc_name_form", type: "text")
     params_to_form(params, @form_params, column_name: "result_no", params_name: "result_no_form", type: "number")
     params_to_form(params, @form_params, column_name: "generate_no", params_name: "generate_no_form", type: "number")
     params_to_form(params, @form_params, column_name: "p_no", params_name: "p_no_form", type: "number")
     params_to_form(params, @form_params, column_name: "s_no", params_name: "s_no_form", type: "number")
-    params_to_form(params, @form_params, column_name: "name", params_name: "name_form", type: "number")
+    params_to_form(params, @form_params, column_name: "name", params_name: "name_form", type: "text")
     params_to_form(params, @form_params, column_name: "merit_id", params_name: "merit_id_form", type: "number")
     params_to_form(params, @form_params, column_name: "merit_value", params_name: "merit_value_form", type: "number")
     params_to_form(params, @form_params, column_name: "demerit_id", params_name: "demerit_id_form", type: "number")
