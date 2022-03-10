@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :teach_spells,         only: [:index] do collection do get "json"; get "pno_text" end end
   resources :spell_thread_members, only: [:index] do collection do get "json"; get "pno_text" end end
   resources :spell_threads,        only: [:index] do collection do get "json"; get "pno_text" end end
   resources :parties,              only: [:index] do collection do get "json"; get "pno_text" end end

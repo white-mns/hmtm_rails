@@ -26,6 +26,7 @@
           %li 行動データ
           %ul
             %li= link_to "能力調律一覧", tuning_abilities_path
+            %li= link_to "伝授スペルランキング", teach_spells_path + "?q[s]=num+desc"
       .col-md-6
         %ul
           %li 戦闘データ
@@ -51,6 +52,11 @@
   .card-body
     %h2 更新履歴
     %ul
+      %li 2022/3/10
+      %ul
+        %li
+          = link_to "伝授スペルランキング", teach_spells_path + "?q[s]=num+desc"
+          を公開
       %li 2022/3/4
       %ul
         %li

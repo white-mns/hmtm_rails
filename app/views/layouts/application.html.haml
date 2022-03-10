@@ -39,6 +39,7 @@
                 %span.caret
               .dropdown-menu
                 = link_to "能力調律一覧", tuning_abilities_path, class: "dropdown-item"
+                = link_to "伝授スペルランキング", teach_spells_path + "?q[s]=num+desc", class: "dropdown-item"
             %li.nav-item.dropdown
               %a.nav-link.dropdown-toggle#navbarDropdownMenuLink{ data: {bs: {toggle: "dropdown"}}, :href => "#", role: "button", area: {expanded: "false"}}
                 戦闘

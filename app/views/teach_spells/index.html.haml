@@ -1,0 +1,182 @@
+- if params[:q][:s] == "num desc" then
+  - @page_title = "伝授スペルランキング"
+- else
+  - @page_title = "スペル伝授人数一覧"
+%h1= @page_title
+
+.card.desc
+  .card-header
+    - act_icon(true)
+    検索仕様
+    - act_desc(true)
+  .card-body
+    = render "layouts/base_desc"
+    %p
+      %span.example_select.example_toggle.pointer
+        - help_icon
+        入力例
+        - act_desc(false)
+    #example.closed
+      = render "layouts/input_desc"
+= search_form_for @search do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: 5}
+          - act_icon(true)
+          絞り込み検索
+          - act_desc(true)
+    %tbody
+      %tr
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "更新回", params_name: "result_no_form", placeholder: nil, colspan: 3)
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "伝授人数", params_name: "num_form", placeholder: "Number")
+      %tr.sep
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "派生元スペル名", params_name: "base_spell_form", placeholder: "BaseSpell")
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "元スペル名", params_name: "spell_form", placeholder: "Spell")
+      %tr.sep
+        %td.indent
+        - td_form(f, @form_params, @placeholder,                         label: "属性", params_name: "element_id_form", colspan: 3,
+                    checkboxes: [{label: "無", params_name: "element_none",  class_name: "after_space", br: true},
+                                 {label: "火", params_name: "element_fire",  class_name: "after_space"},
+                                 {label: "水", params_name: "element_water", class_name: "after_space"},
+                                 {label: "風", params_name: "element_air",   class_name: "after_space mobile_br"},
+                                 {label: "地", params_name: "element_earth", class_name: "after_space"},
+                                 {label: "光", params_name: "element_light", class_name: "after_space"},
+                                 {label: "闇", params_name: "element_dark"}])
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "消費SP", params_name: "sp_form", placeholder: "Number")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "威力", params_name: "power_form")
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "命中", params_name: "hit_form")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "射程", params_name: "range_form")
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder,                         label: "タイミング", params_name: "timing_id_form", colspan: 3,
+                    checkboxes: [{label: "アクティブ", params_name: "timing_active", class_name: "after_space"},
+                                 {label: "カウンター", params_name: "timing_counter"}])
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "スペル説明", params_name: "spell_text_form", placeholder: "SpellText", colspan: 3)
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder,                         label: "分類", params_name: "class_id_form", colspan: 3,
+                    checkboxes: [{label: "近接",     params_name: "class_approach",     class_name: "after_space"},
+                                 {label: "射撃",     params_name: "class_gunshot",      class_name: "after_space"},
+                                 {label: "防御補助", params_name: "class_defense",  class_name: "after_space mobile_br"},
+                                 {label: "回復",     params_name: "class_heal",         class_name: "after_space"},
+                                 {label: "異常",     params_name: "class_abnormal",     class_name: "after_space"},
+                                 {label: "召喚",     params_name: "class_summon",       class_name: "after_space"},
+                                 {label: "合成",     params_name: "class_synthesis"}])
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "陳腐化", params_name: "obsolescence_form", colspan: 3)
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "TG一覧", params_name: "gems_form", placeholder: "TuneGem", colspan: 3)
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_pc_name",
+                    label: {open: "伝授元キャラクターを表示する", close: "伝授元キャラクターを表示しない"}, base_first: false)
+    %tbody.closed
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "PNo", params_name: "p_no_form", placeholder: "Number")
+        - td_form(f, @form_params, @placeholder, class_name: "formText", label: "伝授元キャラクター名", params_name: "pc_name_form", placeholder: "Name")
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_spell_name",
+                    label: {open: "改名後スペル名を表示する", close: "改名後スペル名を表示しない"}, base_first: false)
+    %tbody.closed
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "改名スペル名", params_name: "orig_name_form", colspan: 3)
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_orig_spell",
+                    label: {open: "元スペル名を表示する", close: "元スペル名を表示しない"}, base_first: false)
+    %tbody.closed
+      %tr
+
+    - #==========================================================================================================================
+    %tbody
+      %tr.sep
+        %td.indent
+        %td.indent= hidden_field_tag :is_form, 1
+        %td{colspan: 3}
+          - search_submit_button
+
+
+= paginate(@teach_spells)
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th= sort_link(@search, :result_no,"更新回", default_order: :desc)
+      %th.sep.sep_r= sort_link(@search, :num, "伝授人数", default_order: :desc)
+      - if @form_params["show_spell_name"] == "1"
+        %th= sort_link(@search, :name, "改名スペル名", default_order: :desc)
+      - if @form_params["show_orig_spell"] == "1"
+        %th= sort_link(@search, :spell_id, "元スペル名", default_order: :desc)
+      %th= sort_link(@search, :name, "派生元スペル名", default_order: :desc)
+      %th.sep= sort_link(@search, :element_id, "属性", default_order: :desc)
+      %th= sort_link(@search, :sp, "消費", default_order: :desc)
+      %th= sort_link(@search, :power, "威力", default_order: :desc)
+      %th= sort_link(@search, :hit, "命中", default_order: :desc)
+      %th= sort_link(@search, :range, "射程", default_order: :desc)
+      %th= sort_link(@search, :timing_id, "タイミング", default_order: :desc)
+      %th= sort_link(@search, :obsolescence, "陳腐化", default_order: :desc)
+      - if @form_params["show_pc_name"] == "1"
+        %th.sep= sort_link(@search, :p_no,"キャラクター(PNo)", default_order: :desc)
+        %th= sort_link(@search, :s_no, "スペルNo.", default_order: :desc)
+        %th.sep{colspan: 2} 結果リンク
+  %tbody
+    - @teach_spells.each do |teach_spell|
+      %tr
+        %td{rowspan: 3}= teach_spell.result_no
+        %td.sep.sep_r{rowspan: 3}= teach_spell.num
+        - if @form_params["show_spell_name"] == "1"
+          %td= teach_spell.spell.name if teach_spell.spell && teach_spell.spell
+        - if @form_params["show_orig_spell"] == "1"
+          %td
+            = teach_spell.spell.spell.name if teach_spell.spell && teach_spell.spell.spell
+        %td
+          - spell_text(teach_spell.spell.spell.base_spell.name, @spell_data) if teach_spell.spell && teach_spell.spell.spell && teach_spell.spell.spell.base_spell
+        %td.sep= teach_spell.spell.element.name if teach_spell.spell && teach_spell.spell.element
+        %td= teach_spell.spell.sp if teach_spell.spell
+        %td= teach_spell.spell.power if teach_spell.spell
+        %td= range_text(teach_spell.spell.hit) if teach_spell.spell
+        %td= range_text(teach_spell.spell.range) if teach_spell.spell
+        %td= teach_spell.spell.timing.name if teach_spell.spell && teach_spell.spell.timing
+        %td
+          -  if teach_spell.spell
+            = teach_spell.spell.obsolescence
+            = "%"
+        - if @form_params["show_pc_name"] == "1"
+          %td.sep{rowspan: 3}
+            - pc_name_text(teach_spell.p_no, teach_spell.pc_name)
+          %td{rowspan: 3}= teach_spell.s_no
+          %td.sep{rowspan: 3}= character_link(teach_spell.p_no)
+          %td{rowspan: 3}= character_previous_link(@latest_result, teach_spell.p_no, teach_spell.previous_result_no, teach_spell.previous_generate_no)
+          %td{rowspan: 3}= character_old_link(@latest_result, teach_spell.p_no, teach_spell.result_no, teach_spell.generate_no)
+      - colspan = 6
+      - colspan += (@form_params["show_spell_name"] == "1") ? 1 : 0
+      - colspan += (@form_params["show_base_spell"] == "1") ? 1 : 0
+      %tr
+        %td{colspan: colspan + 1}= teach_spell.spell.spell.text if teach_spell.spell && teach_spell.spell.spell
+        %td= teach_spell.spell.spell.class_data.name if teach_spell.spell && teach_spell.spell.spell && teach_spell.spell.spell.class_data
+      %tr
+        - if teach_spell.spell && teach_spell.spell.gems != "" then
+          %td.TG{colspan: colspan + 2}= gems_text(teach_spell.spell.gems, @tg_data)
+- p_no_concat_button
+= paginate(@teach_spells)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_04_092127) do
+ActiveRecord::Schema.define(version: 2022_03_09_122225) do
 
   create_table "equips", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
     t.integer "result_no"
@@ -290,6 +290,24 @@ ActiveRecord::Schema.define(version: 2022_03_04_092127) do
     t.index ["str"], name: "index_statuses_on_str"
     t.index ["tec"], name: "index_statuses_on_tec"
     t.index ["tp"], name: "index_statuses_on_tp"
+  end
+
+  create_table "teach_spells", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "previous_result_no"
+    t.integer "previous_generate_no"
+    t.integer "p_no"
+    t.integer "s_no"
+    t.integer "num"
+    t.integer "op"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["num"], name: "index_teach_spells_on_num"
+    t.index ["op"], name: "index_teach_spells_on_op"
+    t.index ["previous_result_no", "p_no", "previous_generate_no"], name: "previousresultno_pno"
+    t.index ["result_no", "p_no", "generate_no"], name: "resultno_pno"
+    t.index ["s_no"], name: "index_teach_spells_on_s_no"
   end
 
   create_table "tune_gem_data", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
