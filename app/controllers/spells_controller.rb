@@ -69,9 +69,9 @@ class SpellsController < ApplicationController
     params_to_form(params, @form_params, column_name: "obsolescence", params_name: "obsolescence_form", type: "number")
     params_to_form(params, @form_params, column_name: "tuned_text", params_name: "tuned_text_form", type: "text")
 
-    params_to_form(params, @form_params, column_name: "spell_name", params_name: "spell_form", type: "text")
-    params_to_form(params, @form_params, column_name: "spell_class_data_name", params_name: "spell_class_form", type: "text")
-    params_to_form(params, @form_params, column_name: "spell_base_spell_name", params_name: "base_spell_form", type: "text")
+    params_to_form(params, @form_params, column_name: "orig_spell_name", params_name: "spell_form", type: "text")
+    params_to_form(params, @form_params, column_name: "orig_spell_class_data_name", params_name: "spell_class_form", type: "text")
+    params_to_form(params, @form_params, column_name: "orig_spell_base_spell_name", params_name: "base_spell_form", type: "text")
 
     proper_name = ProperName.pluck(:name, :proper_id).inject(Hash.new(0)){|hash, a| hash[a[0]] = a[1] ; hash}
     checkbox_params_set_query_any(params, @form_params, query_name: "timing_id_eq_any",
@@ -87,7 +87,7 @@ class SpellsController < ApplicationController
                                           {params_name: "element_light" , value: proper_name["光"]},
                                           {params_name: "element_dark" ,  value: proper_name["闇"]}])
 
-    checkbox_params_set_query_any(params, @form_params, query_name: "spell_class_id_eq_any",
+    checkbox_params_set_query_any(params, @form_params, query_name: "orig_spell_class_id_eq_any",
                              checkboxes: [{params_name: "class_approach",   value: proper_name["近接"]},
                                           {params_name: "class_gunshot" ,   value: proper_name["射撃"]},
                                           {params_name: "class_defense" ,   value: proper_name["防補"]},
