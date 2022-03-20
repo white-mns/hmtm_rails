@@ -348,25 +348,25 @@ module ApplicationHelper
     if !thread_text then return end
 
     thread_text = thread_text.gsub(",","")
-    thread_text = numeric_parse(thread_text)
     actions = thread_text.split("|")
 
     actions.each_with_index do |action, index|
       if action == "" then next end
-        depth = action.count(">")
-        for i in 1..depth do
-          haml_concat "→"
-        end
 
-        tg_depth = action.count("<")
-        for i in 1..tg_depth -1 do
-          haml_concat "　"
-        end
-        if tg_depth > 0 then
-          haml_concat "+"
-        end
+      depth = action.count(">")
+      for i in 1..depth do
+        haml_concat "→"
+      end
 
-        tooltip_spell_or_tg_text(action.gsub(">","").gsub("<",""), spell_data, tg_data, "bottom")
+      tg_depth = action.count("<")
+      for i in 1..tg_depth -1 do
+        haml_concat "　"
+      end
+      if tg_depth > 0 then
+        haml_concat "+"
+      end
+
+      tooltip_spell_or_tg_text(numeric_parse(action.gsub(">","").gsub("<","")), spell_data, tg_data, "bottom")
 
       if index != actions.size - 1 then haml_tag :br end
     end
