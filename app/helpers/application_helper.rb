@@ -10,9 +10,7 @@ module ApplicationHelper
   end
 
   def uploading_alert(latest_result, uploaded_result)
-    if latest_result == uploaded_result then
-      return
-    end
+    if latest_result == uploaded_result then return end
 
     haml_tag :div, class: "alert alert-dismissible alert-danger" do
       haml_concat "現在データの更新中です。"
@@ -36,9 +34,7 @@ module ApplicationHelper
   end
 
   def party_members_pc_name_text(party_members)
-    if !party_members then
-      return
-    end
+    if !party_members then return end
 
     party_members.each do |party_member|
       if (party_member.is_supporter == 0)
@@ -245,9 +241,7 @@ module ApplicationHelper
   end
 
   def subject_text(profile)
-    if !profile then
-      return
-    end
+    if !profile then return end
 
     if profile.subject_id == 0 then "魔術科"
     elsif profile.subject_id == 1 then "武術科"
@@ -256,9 +250,7 @@ module ApplicationHelper
   end
 
   def equip_no_text(equip_no)
-    if !equip_no then
-      return "-"
-    end
+    if !equip_no then return "-" end
 
     if equip_no == 0 then "武器"
     elsif equip_no == 1 then "防具"
@@ -268,9 +260,7 @@ module ApplicationHelper
   end
 
   def range_text(range)
-    if !range then
-      return "-"
-    end
+    if !range then return "-" end
 
     if range >= 0 then range
     else "-"
@@ -278,9 +268,8 @@ module ApplicationHelper
   end
 
   def party_type_text(party_type)
-    if !party_type then
-      return "-"
-    end
+    if !party_type then return "-" end
+
     party_types = {
         0 => "通常戦闘",
         1 => "朝練戦闘",
