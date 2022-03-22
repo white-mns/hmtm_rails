@@ -89,6 +89,12 @@ class PartyInfosController < ApplicationController
                                           {params_name: "supporter_num_3", value: 3},
                                           {params_name: "supporter_num_4", value: 4}])
 
+    checkbox_params_set_query_any(params, @form_params, query_name: "pk_type_eq_any",
+                             checkboxes: [
+                                          {params_name: "pk_type_fallen",            value: 1},
+                                          {params_name: "pk_type_pk",                value: 2},
+                                          {params_name: "pk_type_resistance",        value: 3}])
+
 
 
     toggle_params_to_variable(params, @form_params, params_name: "show_data")

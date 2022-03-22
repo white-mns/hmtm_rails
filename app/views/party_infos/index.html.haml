@@ -69,6 +69,12 @@
                                  {label: "3", params_name: "supporter_num_3", class_name: "after_space"}])
       %tr.sep
         %td.indent
+        - td_form(f, @form_params, @placeholder,                         label: "風紀戦闘種別(対人のみ)", params_name: "pk_type_id_form", colspan: 3,
+                    checkboxes: [{label: "※不良", params_name: "pk_type_fallen",     class_name: "after_space"},
+                                 {label: "●風紀",  params_name: "pk_type_pk",         class_name: "after_space"},
+                                 {label: "▲抗戦",  params_name: "pk_type_resistance", class_name: "after_space"}])
+      %tr.sep
+        %td.indent
         %td.indent= hidden_field_tag :is_form, 1
         %td{colspan: 3}
           - search_submit_button
@@ -90,6 +96,7 @@
       %th= sort_link(@search, :member_num, "人数", default_order: :desc)
       %th= sort_link(@search, :attacker_num, "参加", default_order: :desc)
       %th= sort_link(@search, :supporter_num, "応援", default_order: :desc)
+      %th.sep= sort_link(@search, :pk_type, "風紀種別", default_order: :desc)
       %th.sep{colspan: 2} 結果リンク
   %tbody
     - @party_infos.each do |party_info|
@@ -102,6 +109,7 @@
         %td= party_info.member_num
         %td= party_info.attacker_num
         %td= party_info.supporter_num
+        %td.sep= pk_type_text(party_info.pk_type)
         %td.sep= character_link(party_info.party_no)
         %td= character_old_link(@latest_result, party_info.party_no, party_info.result_no, party_info.generate_no)
 - p_no_concat_button

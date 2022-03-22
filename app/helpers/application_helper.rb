@@ -288,6 +288,19 @@ module ApplicationHelper
     return party_types[party_type]
   end
 
+  def pk_type_text(pk_type)
+    if !pk_type then return "-" end
+
+    pk_types = {
+        0 => "",
+        1 => "※不良",
+        2 => "●風紀",
+        3 => "▲抗戦"
+    };
+
+    return pk_types[pk_type]
+  end
+
   def tooltip_text(text, data, placement="right")
     if text == "" then return end
 

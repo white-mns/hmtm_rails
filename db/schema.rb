@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_10_005516) do
+ActiveRecord::Schema.define(version: 2022_03_22_091405) do
 
   create_table "equips", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
     t.integer "result_no"
@@ -104,10 +104,12 @@ ActiveRecord::Schema.define(version: 2022_03_10_005516) do
     t.integer "supporter_num"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "pk_type"
     t.index ["attacker_num"], name: "index_party_infos_on_attacker_num"
     t.index ["member_num"], name: "index_party_infos_on_member_num"
     t.index ["name"], name: "index_party_infos_on_name"
     t.index ["party_type"], name: "index_party_infos_on_party_type"
+    t.index ["pk_type"], name: "index_party_infos_on_pk_type"
     t.index ["result_no", "party_no", "generate_no"], name: "resultno_partyno"
     t.index ["supporter_num"], name: "index_party_infos_on_supporter_num"
   end
