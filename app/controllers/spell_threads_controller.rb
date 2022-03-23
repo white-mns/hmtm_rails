@@ -65,6 +65,7 @@ class SpellThreadsController < ApplicationController
 
     params_to_form(params, @form_params, column_name: "thread_members_pc_name_name", params_name: "pc_name_form", type: "text")
     params_to_form(params, @form_params, column_name: "thread_members_p_no", params_name: "p_no_form", type: "number")
+    params_to_form(params, @form_params, column_name: "thread_members_name", params_name: "all_name_form", type: "text")
 
     checkbox_params_set_query_any(params, @form_params, query_name: "battle_type_eq_any",
                              checkboxes: [{params_name: "battle_type_normal",            value: 0},

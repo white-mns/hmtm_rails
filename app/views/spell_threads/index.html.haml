@@ -39,6 +39,9 @@
         - td_form(f, @form_params, @placeholder, class_name: "formText", label: "キャラクター名", params_name: "pc_name_form", placeholder: "Name")
       %tr
         %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formText", label: "NPC名", params_name: "all_name_form", placeholder: "EnemyName", colspan: 3)
+      %tr
+        %td.indent
         - td_form(f, @form_params, @placeholder,                         label: "戦闘種別", params_name: "class_id_form", colspan: 3, colspan: 3,
                     checkboxes: [{label: "通常戦闘", params_name: "battle_type_normal",     class_name: "after_space"},
                                  {label: "朝練戦闘", params_name: "battle_type_practice",   class_name: "after_space"},

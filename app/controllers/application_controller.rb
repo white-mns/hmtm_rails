@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
     @placeholder["TuneGemText"]  = "例）属性付与/\"列化\""
     @placeholder["TuneKind"]  = "例）威力/スペル使用前"
     @placeholder["BattleTuneGem"]  = "例）攻撃連鎖化/\"射程増\""
+    @placeholder["EnemyName"]  = "例）遺跡のカラス/\"苔スライム\""
   end
 
   def spell_data_set
