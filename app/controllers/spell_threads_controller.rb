@@ -37,7 +37,6 @@ class SpellThreadsController < ApplicationController
     params_clean(params)
     unless params["is_form"]
       params["result_no_form"] ||= sprintf("%d",@latest_result)
-      params["depth_form"] ||= "2~"
       params["thread_orig_spell"] ||= "on"
     end
 
