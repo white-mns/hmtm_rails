@@ -301,6 +301,10 @@ span.after_space::after {
         font-size: 1.5rem;
     }
 
+.navbar-custom .navbar-brand{
+    padding: .8rem .5rem;
+}
+
     table.search_toggle {
         border-collapse: collapse;
         td, th {
@@ -309,9 +313,14 @@ span.after_space::after {
             display: block;
         }
     }
+
     td.indent {
         border:  0rem;
         padding: 0rem;
+    }
+
+    .navbar-custom .navbar-brand{
+        padding: .8rem .0rem;
     }
 
     .pagination {
