@@ -36,17 +36,17 @@
         %td.indent
         - td_form(f, @form_params, @placeholder,                         label: "パーティ種別", params_name: "class_id_form", colspan: 3,
                     checkboxes: [{label: "通常戦闘", params_name: "party_type_normal",     class_name: "after_space"},
-                                 {label: "朝練戦闘", params_name: "party_type_practice",   class_name: "after_space"},
-                                 {label: "ランク戦", params_name: "party_type_rank",       class_name: "after_space mobile_br"},
-                                 {label: "風紀戦闘", params_name: "party_type_pk",         class_name: "after_space"},
+                                 {label: "朝練戦闘", params_name: "party_type_practice",   class_name: "after_space mobile_br"},
+                                 {label: "ランク戦", params_name: "party_type_rank",       class_name: "after_space"},
+                                 {label: "風紀戦闘", params_name: "party_type_pk",         class_name: "after_space mobile_br"},
                                  {label: "レイド戦", params_name: "party_type_reid",       class_name: "after_space"},
                                  {label: "魔闘大会", params_name: "party_type_convention", class_name: "after_space", br:true},
-                                 {label: "次回通常戦闘予告", params_name: "party_type_normal_notice",     class_name: "after_space"},
-                                 {label: "次回朝練戦闘予告", params_name: "party_type_practice_notice",   class_name: "after_space"},
+                                 {label: "次回通常戦闘予告", params_name: "party_type_normal_notice",     class_name: "after_space mobile_br"},
+                                 {label: "次回朝練戦闘予告", params_name: "party_type_practice_notice",   class_name: "after_space mobile_br"},
                                  {label: "次回ランク戦予告", params_name: "party_type_rank_notice",       class_name: "after_space", br:true},
-                                 {label: "次回風紀戦闘予告", params_name: "party_type_pk_notice",         class_name: "after_space"},
-                                 {label: "次回レイド戦予告", params_name: "party_type_reid_notice",       class_name: "after_space"},
-                                 {label: "次回魔闘大会予告", params_name: "party_type_convention_notice", class_name: "after_space"}])
+                                 {label: "次回風紀戦闘予告", params_name: "party_type_pk_notice",         class_name: "after_space mobile_br"},
+                                 {label: "次回レイド戦予告", params_name: "party_type_reid_notice",       class_name: "after_space mobile_br"},
+                                 {label: "次回魔闘大会予告", params_name: "party_type_convention_notice", class_name: "after_space mobile_br"}])
       %tr
         %td.indent
         - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "パーティ名", params_name: "name_form", colspan: 3,)
