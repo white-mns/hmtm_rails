@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_22_091405) do
+ActiveRecord::Schema.define(version: 2022_03_30_114540) do
 
   create_table "equips", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
     t.integer "result_no"
@@ -62,6 +62,25 @@ ActiveRecord::Schema.define(version: 2022_03_22_091405) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["result_no", "p_no", "generate_no"], name: "resultno_pno"
+  end
+
+  create_table "next_battle_infos", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "left_party_no"
+    t.integer "right_party_no"
+    t.integer "battle_type"
+    t.integer "enemy_party_name_id"
+    t.integer "enemy_num"
+    t.string "enemy_names"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["battle_type"], name: "index_next_battle_infos_on_battle_type"
+    t.index ["enemy_num"], name: "index_next_battle_infos_on_enemy_num"
+    t.index ["enemy_party_name_id"], name: "index_next_battle_infos_on_enemy_party_name_id"
+    t.index ["left_party_no"], name: "index_next_battle_infos_on_left_party_no"
+    t.index ["result_no", "generate_no"], name: "resultno_generateno"
+    t.index ["right_party_no"], name: "index_next_battle_infos_on_right_party_no"
   end
 
   create_table "obsolescences", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|

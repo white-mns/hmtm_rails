@@ -1,0 +1,166 @@
+- @page_title = "次回予告一覧"
+%h1= @page_title
+
+.card.desc
+  .card-header
+    - act_icon(true)
+    検索仕様
+    - act_desc(true)
+  .card-body
+    = render "layouts/base_desc"
+    %p
+      %span.example_select.example_toggle.pointer
+        - help_icon
+        入力例
+        - act_desc(false)
+    #example.closed
+      = render "layouts/input_desc"
+= search_form_for @search do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: 5}
+          - act_icon(true)
+          絞り込み検索
+          - act_desc(true)
+    %tbody
+      %tr
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "更新回", params_name: "result_no_form", placeholder: nil, colspan: 3)
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "PNo", params_name: "p_no_form", placeholder: "Number")
+        - td_form(f, @form_params, @placeholder, class_name: "formText", label: "キャラクター名", params_name: "pc_name_form", placeholder: "Name")
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "敵NPC名", params_name: "enemy_names_form", placeholder: "EnemyName", colspan: 3)
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder,                         label: "戦闘種別", params_name: "class_id_form", colspan: 3,
+                    checkboxes: [{label: "次回通常戦闘予告", params_name: "battle_type_normal_notice",     class_name: "after_space mobile_br"},
+                                 {label: "次回朝練戦闘予告", params_name: "battle_type_practice_notice",   class_name: "after_space mobile_br"},
+                                 {label: "次回ランク戦予告", params_name: "battle_type_rank_notice",       class_name: "after_space", br:true},
+                                 {label: "次回風紀戦闘予告", params_name: "battle_type_pk_notice",         class_name: "after_space mobile_br"},
+                                 {label: "次回レイド戦予告", params_name: "battle_type_reid_notice",       class_name: "after_space mobile_br"},
+                                 {label: "次回魔闘大会予告", params_name: "battle_type_convention_notice", class_name: "after_space mobile_br"}])
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder,                         label: "左PT人数", params_name: "class_id_form", colspan: 3,
+                    checkboxes: [{label: "1", params_name: "member_num_1", class_name: "after_space"},
+                                 {label: "2", params_name: "member_num_2", class_name: "after_space"},
+                                 {label: "3", params_name: "member_num_3", class_name: "after_space"},
+                                 {label: "4", params_name: "member_num_4", class_name: "after_space"}])
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder,                         label: "左PT参加人数", params_name: "class_id_form",
+                    checkboxes: [{label: "1", params_name: "attacker_num_1", class_name: "after_space"},
+                                 {label: "2", params_name: "attacker_num_2", class_name: "after_space"},
+                                 {label: "3", params_name: "attacker_num_3", class_name: "after_space"}])
+        - td_form(f, @form_params, @placeholder,                         label: "左PTサポート人数", params_name: "class_id_form",
+                    checkboxes: [{label: "1", params_name: "supporter_num_1", class_name: "after_space"},
+                                 {label: "2", params_name: "supporter_num_2", class_name: "after_space"},
+                                 {label: "3", params_name: "supporter_num_3", class_name: "after_space"}])
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_pk_type",
+                    label: {open: "風紀戦闘種別を表示する", close: "風紀戦闘種別を表示しない"}, base_first: false)
+    %tbody.closed
+      %tr.sep
+        %td.indent
+        - td_form(f, @form_params, @placeholder,                         label: "風紀戦闘種別", params_name: "pk_type_id_form", colspan: 3,
+                    checkboxes: [{label: "※不良", params_name: "pk_type_fallen",     class_name: "after_space"},
+                                 {label: "●風紀",  params_name: "pk_type_pk",         class_name: "after_space"},
+                                 {label: "▲抗戦",  params_name: "pk_type_resistance", class_name: "after_space"}])
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_party_name",
+                    label: {open: "パーティ名を表示する", close: "パーティ名を表示しない"}, base_first: false,
+                    act_desc: "パーティ名、敵NPCパーティ名", base_first: false)
+    %tbody.closed
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "パーティ名", params_name: "party_name_form")
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "敵NPCパーティ名", params_name: "enemy_party_name_form")
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_right_serach",
+                    label: {open: "右側PT情報で検索する", close: "右側PT情報で検索を隠す"}, base_first: false,
+                    act_desc: "右PT人数、右PT参加人数、右PTサポート人数", base_first: false)
+    %tbody.closed
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder,                         label: "右PT人数", params_name: "class_id_form", colspan: 3,
+                    checkboxes: [{label: "1", params_name: "right_member_num_1", class_name: "after_space"},
+                                 {label: "2", params_name: "right_member_num_2", class_name: "after_space"},
+                                 {label: "3", params_name: "right_member_num_3", class_name: "after_space"},
+                                 {label: "4", params_name: "right_member_num_4", class_name: "after_space"}])
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder,                         label: "右PT参加人数", params_name: "class_id_form",
+                    checkboxes: [{label: "1", params_name: "right_attacker_num_1", class_name: "after_space"},
+                                 {label: "2", params_name: "right_attacker_num_2", class_name: "after_space"},
+                                 {label: "3", params_name: "right_attacker_num_3", class_name: "after_space"}])
+        - td_form(f, @form_params, @placeholder,                         label: "右PTサポート人数", params_name: "class_id_form",
+                    checkboxes: [{label: "1", params_name: "right_supporter_num_1", class_name: "after_space"},
+                                 {label: "2", params_name: "right_supporter_num_2", class_name: "after_space"},
+                                 {label: "3", params_name: "right_supporter_num_3", class_name: "after_space"}])
+
+    - #==========================================================================================================================
+    %tbody
+      %tr.sep
+        %td.indent
+        %td.indent= hidden_field_tag :is_form, 1
+        %td{colspan: 3}
+          - search_submit_button
+
+
+= paginate(@next_battle_infos)
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th= sort_link(@search, :result_no,"更新回", default_order: :desc)
+      %th.sep.sep_r= sort_link(@search, :battle_type, "戦闘種別", default_order: :desc)
+      - if @form_params["show_pk_type"] == "1"
+        %th= sort_link(@search, :left_party_info_pk_type, "風紀種別", default_order: :desc)
+      - if @form_params["show_party_name"] == "1"
+        %th= sort_link(@search, :left_party_info_name, "左PT名", default_order: :desc)
+      %th= sort_link(@search, :left_party_no, "左PT", default_order: :desc)
+      %th.sep= sort_link(@search, :right_party_no, "右PT", default_order: :desc)
+      - if @form_params["show_party_name"] == "1"
+        %th= sort_link(@search, :enemy_party_name_id, "右PT名", default_order: :desc)
+      - if @form_params["show_pk_type"] == "1"
+        %th= sort_link(@search, :right_party_info_pk_type, "風紀種別", default_order: :desc)
+      %th.sep 過去結果リンク
+  %tbody
+    - @next_battle_infos.each do |next_battle_info|
+      %tr
+        %td= next_battle_info.result_no
+        %td.sep.sep_r= battle_type_text(next_battle_info.battle_type)
+        - if @form_params["show_pk_type"] == "1"
+          %td= pk_type_text(next_battle_info.left_party_info.pk_type) if next_battle_info.left_party_info
+        - if @form_params["show_party_name"] == "1"
+          %td= next_battle_info.left_party_info.name if next_battle_info.left_party_info
+        %td
+          - party_members_pc_name_text(next_battle_info.left_party_info.party_members) if next_battle_info.left_party_info
+        %td.sep
+          - if next_battle_info.right_party_no == 0
+            = enemy_names_text(next_battle_info.enemy_names)
+          - else
+            - party_members_pc_name_text(next_battle_info.right_party_info.party_members) if next_battle_info.right_party_info
+        - if @form_params["show_party_name"] == "1"
+          %td
+            - if next_battle_info.right_party_no == 0
+              = next_battle_info.enemy_party_name.name if next_battle_info.enemy_party_name
+            - else
+              = next_battle_info.right_party_info.name if next_battle_info.right_party_info
+        - if @form_params["show_pk_type"] == "1"
+          %td= pk_type_text(next_battle_info.right_party_info.pk_type) if next_battle_info.right_party_info
+        %td.sep= character_old_link(@latest_result, next_battle_info.left_party_no, next_battle_info.result_no, next_battle_info.generate_no)
+- p_no_concat_button
+= paginate(@next_battle_infos)

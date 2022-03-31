@@ -45,6 +45,7 @@
                 戦闘
                 %span.caret
               .dropdown-menu
+                = link_to "次回予告一覧", next_battle_infos_path, class: "dropdown-item"
                 = link_to "対抗発動スレッド一覧", spell_threads_path, class: "dropdown-item"
                 = link_to ">　ディープスレッドランキング", spell_threads_path + "?q[s]=depth+desc&depth_form=5~", class: "dropdown-item"
                 = link_to ">　ロングスレッドランキング", spell_threads_path + "?q[s]=length+desc&length_form=5~", class: "dropdown-item"

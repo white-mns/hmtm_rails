@@ -288,6 +288,10 @@ module ApplicationHelper
     return party_types[party_type]
   end
 
+  def battle_type_text(party_type)
+    party_type_text(party_type)
+  end
+
   def pk_type_text(pk_type)
     if !pk_type then return "-" end
 
@@ -341,6 +345,20 @@ module ApplicationHelper
         tooltip_text(gem, tg_data, "bottom")
 
       if index != gems.size - 1 then haml_concat "、" end
+    end
+
+    return
+  end
+
+  def enemy_names_text(enemies_text)
+    if !enemies_text then return end
+
+    enemies = enemies_text.split(",")
+    enemies.shift
+
+    enemies.each do |enemy|
+      haml_concat numeric_parse(enemy)
+      haml_tag :br
     end
 
     return
