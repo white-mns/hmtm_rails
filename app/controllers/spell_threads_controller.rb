@@ -37,7 +37,7 @@ class SpellThreadsController < ApplicationController
     params_clean(params)
     unless params["is_form"]
       params["result_no_form"] ||= sprintf("%d",@latest_result)
-      params["thread_orig_spell"] ||= "on"
+      params["thread_base_spell"] ||= "on"
     end
 
     if params["thread_form"] then params["thread_form"] = utf8mb4_encode_numericentity(params["thread_form"]) end

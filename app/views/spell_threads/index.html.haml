@@ -57,8 +57,8 @@
         - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "ターン", params_name: "turn_form", placeholder: "Number", colspan: 3)
       %tr.sep
         %td.indent
-        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "元スペル・TG", params_name: "thread_orig_tg_form", placeholder: "Spell", colspan: 3)
-        -# td_form(f, @form_params, @placeholder, class_name: "formText",  label: "派生元スペル名・TG", params_name: "thread_base_tg_form", placeholder: "BaseSpell")
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "派生元スペル名・TG", params_name: "thread_base_tg_form", placeholder: "BaseSpell")
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "元スペル・TG", params_name: "thread_orig_tg_form", placeholder: "Spell")
       %tr
         %td.indent
         - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "改名後スペル名・TG", params_name: "thread_tg_form", placeholder: "BattleTuneGem", colspan: 3)
@@ -69,7 +69,8 @@
       %tr.sep
         %td.indent
         - td_form(f, @form_params, @placeholder,                                        params_name: "class_id_form", colspan: 3,
-                    checkboxes: [{label: "元スペルで表示", params_name: "thread_orig_spell",   class_name: "after_space", br:true},
+                    checkboxes: [{label: "派生元スペルで表示", params_name: "thread_base_spell",   class_name: "after_space", br:true},
+                                 {label: "元スペルで表示",     params_name: "thread_orig_spell",   class_name: "after_space", br:true},
                                  {label: "改名後スペルで表示", params_name: "thread_after_spell",     class_name: "after_space"}])
       %tr.sep
         %td.indent
