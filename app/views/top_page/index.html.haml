@@ -32,6 +32,7 @@
           %li 戦闘データ
           %ul
             %li= link_to "次回予告一覧", next_battle_infos_path
+            %li= link_to "戦闘結果一覧", battle_results_path
             %li= link_to "対抗発動スレッド一覧", spell_threads_path
             %ul
               %li= link_to "ディープスレッドランキング", spell_threads_path + "?q[s]=depth+desc&depth_form=5~"
@@ -53,6 +54,14 @@
   .card-body
     %h2 更新履歴
     %ul
+      %li 2022/4/11
+      %ul
+        %li
+          = link_to "戦闘結果一覧", battle_results_path
+          を公開
+        %li
+          = link_to "次回予告一覧", next_battle_infos_path
+          で敵名検索ができない不具合を修正
       %li 2022/4/1
       %ul
         %li

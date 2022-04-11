@@ -305,6 +305,27 @@ module ApplicationHelper
     return pk_types[pk_type]
   end
 
+  def battle_result_text(battle_result, is_left)
+    if !battle_result then return "-" end
+
+    if battle_result == 0 then return "引分" end
+    if battle_result < -2 then return "？" end
+    if battle_result == is_left then return "勝利"
+    else "敗北"
+    end
+
+  end
+
+  def battle_result_style(battle_result, is_left)
+    if !battle_result then return "-" end
+
+    if battle_result == 0 then return "" end
+    if battle_result < -2 then return "" end
+    if battle_result == is_left then return "border-left: double 6px #c44;"
+    else "border-left: dotted 3px #66c;"
+    end
+  end
+
   def tooltip_text(text, data, placement="right")
     if text == "" then return end
 
