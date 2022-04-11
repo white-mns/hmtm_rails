@@ -70,7 +70,7 @@ class NextBattleInfosController < ApplicationController
     params_to_form(params, @form_params, column_name: "battle_type", params_name: "battle_type_form", type: "number")
     params_to_form(params, @form_params, column_name: "enemy_party_name_id", params_name: "enemy_party_name_id_form", type: "number")
     params_to_form(params, @form_params, column_name: "enemy_num", params_name: "enemy_num_form", type: "number")
-    params_to_form(params, @form_params, column_name: "enemy_names", params_name: "enemy_names_form", type: "number")
+    params_to_form(params, @form_params, column_name: "enemy_names", params_name: "enemy_names_form", type: "concat")
 
     params_to_form(params, @form_params, column_name: "enemy_party_name_name", params_name: "enemy_party_name_form", type: "text")
     params_to_form(params, @form_params, column_name: "left_party_info_party_members_p_no_or_right_party_info_party_members_p_no", params_name: "p_no_form", type: "number")
