@@ -33,6 +33,7 @@
                 = link_to "習得スペル一覧", spells_path, class: "dropdown-item"
                 .dropdown-divider
                 = link_to "パーティ情報一覧", party_infos_path, class: "dropdown-item"
+                = link_to "ランク情報一覧", ranks_path + "?q[s]=rp+desc", class: "dropdown-item"
             %li.nav-item.dropdown
               %a.nav-link.dropdown-toggle#navbarDropdownMenuLink{ data: {bs: {toggle: "dropdown"}}, :href => "#", role: "button", area: {expanded: "false"}}
                 行動

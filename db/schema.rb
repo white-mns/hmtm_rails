@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_11_080208) do
+ActiveRecord::Schema.define(version: 2022_04_12_125149) do
 
   create_table "battle_results", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
     t.integer "result_no"
@@ -190,6 +190,25 @@ ActiveRecord::Schema.define(version: 2022_04_11_080208) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_proper_names_on_name"
     t.index ["proper_id"], name: "index_proper_names_on_proper_id"
+  end
+
+  create_table "ranks", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "p_no"
+    t.integer "rp"
+    t.integer "total_match_num"
+    t.integer "total_win_num"
+    t.integer "total_draw_num"
+    t.integer "total_lose_num"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["result_no", "p_no", "generate_no"], name: "resultno_pno"
+    t.index ["rp"], name: "index_ranks_on_rp"
+    t.index ["total_draw_num"], name: "index_ranks_on_total_draw_num"
+    t.index ["total_lose_num"], name: "index_ranks_on_total_lose_num"
+    t.index ["total_match_num"], name: "index_ranks_on_total_match_num"
+    t.index ["total_win_num"], name: "index_ranks_on_total_win_num"
   end
 
   create_table "spell_data", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|

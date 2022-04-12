@@ -21,6 +21,7 @@
             %li= link_to "習得スペル一覧", spells_path
             %br
             %li= link_to "パーティ情報一覧", party_infos_path
+            %li= link_to "ランク情報一覧", ranks_path + "?q[s]=rp+desc"
       .col-md-6
         %ul
           %li 行動データ
@@ -54,6 +55,11 @@
   .card-body
     %h2 更新履歴
     %ul
+      %li 2022/4/13
+      %ul
+        %li
+          = link_to "ランク情報一覧", ranks_path + "?q[s]=rp+desc"
+          を公開
       %li 2022/4/11
       %ul
         %li

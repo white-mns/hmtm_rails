@@ -1,0 +1,122 @@
+- @page_title = "ランク情報一覧"
+%h1= @page_title
+
+.card.desc
+  .card-header
+    - act_icon(true)
+    検索仕様
+    - act_desc(true)
+  .card-body
+    = render "layouts/base_desc"
+    %p
+      ※推定RPは初期RPを100と仮定して計算しています。
+    %p
+      %span.example_select.example_toggle.pointer
+        - help_icon
+        入力例
+        - act_desc(false)
+    #example.closed
+      = render "layouts/input_desc"
+= search_form_for @search do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: 5}
+          - act_icon(true)
+          絞り込み検索
+          - act_desc(true)
+    %tbody
+      %tr
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "更新回", params_name: "result_no_form", placeholder: nil, colspan: 3)
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "PNo", params_name: "p_no_form", placeholder: "Number")
+        - td_form(f, @form_params, @placeholder, class_name: "formText", label: "キャラクター名", params_name: "pc_name_form", placeholder: "Name")
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "推定RP", params_name: "rp_form", placeholder: "Number", colspan: 3)
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "累計試合数", params_name: "total_match_num_form", placeholder: "Number")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "累計勝利数", params_name: "total_win_num_form", placeholder: "Number")
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_draw_lose",
+                    label: {open: "累計引分数、累計敗北数を表示する", close: "累計引分数、累計敗北数を表示しない"}, base_first: false)
+    %tbody.closed
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "累計引分数", params_name: "total_draw_num_form", placeholder: "Number")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "累計敗北数", params_name: "total_lose_num_form", placeholder: "Number")
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_rank",
+                    label: {open: "RANKを表示する", close: "RANKを表示しない"}, base_first: true)
+    %tbody.closed
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "RANK", params_name: "rank_form", colspan: 3)
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_profile",
+                    label: {open: "学科で絞り込む", close: "学科で絞り込みを隠す"}, base_first: false)
+    %tbody.closed
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder,                         label: "学科", params_name: "subject_id_form", colspan: 3,
+                    checkboxes: [{label: "魔術科", params_name: "subject_magic", class_name: "after_space"},
+                                 {label: "武術科", params_name: "subject_martial"}])
+
+    - #==========================================================================================================================
+    %tbody
+      %tr.sep
+        %td.indent
+        %td.indent= hidden_field_tag :is_form, 1
+        %td{colspan: 3}
+          - search_submit_button
+
+
+= paginate(@ranks)
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th= sort_link(@search, :result_no,"更新回", default_order: :desc)
+      %th.sep_r= sort_link(@search, :p_no,"キャラクター(PNo)", default_order: :desc)
+      - if @form_params["show_profile"] == "1"
+        %th= sort_link(@search, :profile_subject_id,"学科", default_order: :desc)
+      - if @form_params["show_rank"] == "1"
+        %th= sort_link(@search, :status_rank_name,"RANK", default_order: :desc)
+      %th= sort_link(@search, :rp, "推定RP", default_order: :desc)
+      %th.sep= sort_link(@search, :total_match_num, "試合数", default_order: :desc)
+      %th= sort_link(@search, :total_win_num, "勝数", default_order: :desc)
+      - if @form_params["show_draw_lose"] == "1"
+        %th= sort_link(@search, :total_draw_num, "引分数", default_order: :desc)
+        %th= sort_link(@search, :total_lose_num, "敗北数", default_order: :desc)
+      %th.sep{colspan: 2} 結果リンク
+  %tbody
+    - @ranks.each do |rank|
+      %tr
+        %td= rank.result_no
+        %td.sep_r
+          - pc_name_text(rank.p_no, rank.pc_name)
+        - if @form_params["show_profile"] == "1"
+          %td= subject_text(rank.profile)
+        - if @form_params["show_rank"] == "1"
+          %td= rank.status.rank.name if rank.status && rank.status.rank
+        %td= rank.rp
+        %td.sep= rank.total_match_num
+        %td= rank.total_win_num
+        - if @form_params["show_draw_lose"] == "1"
+          %td= rank.total_draw_num
+          %td= rank.total_lose_num
+        %td.sep= character_link(rank.p_no)
+        %td= character_old_link(@latest_result, rank.p_no, rank.result_no, rank.generate_no)
+- p_no_concat_button
+= paginate(@ranks)
