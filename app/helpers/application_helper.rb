@@ -173,7 +173,7 @@ module ApplicationHelper
     end
   end
 
-  def td_form(f, form_params, placeholders, class_name: nil, colspan: nil, label: nil, params_name: nil, placeholder: nil, checkboxes: nil, label_td_class_name: nil)
+  def td_form(f, form_params, placeholders, class_name: nil, colspan: nil, label: nil, params_name: nil, placeholder: nil, checkboxes: nil, label_td_class_name: nil, radiobottuns: nil)
     haml_tag :td, class: label_td_class_name do
       if label then
         haml_concat f.label params_name.to_sym, label
@@ -188,6 +188,10 @@ module ApplicationHelper
     # チェックボックス選択フォームの描画
     if !checkboxes.nil?  then
       td_text_checkbox(f, form_params, placeholders, class_name: class_name, colspan: colspan, checkboxes: checkboxes)
+    end
+
+    if !radiobottuns.nil?  then
+      td_text_radiobutton(f, form_params, placeholders, class_name: class_name, colspan: colspan, radiobottuns: radiobottuns)
     end
   end
 
@@ -204,6 +208,25 @@ module ApplicationHelper
         if !hash[:params_name].nil? then
           haml_tag :span, class: hash[:class_name] do
             haml_concat check_box_tag hash[:params_name].to_sym, form_params[hash[:params_name]], form_params[hash[:params_name]]
+            haml_concat label_tag hash[:params_name].to_sym, hash[:label]
+          end
+        end
+
+        # 改行指定
+        if hash[:br] then
+          haml_tag :br
+        end
+      end
+    end
+  end
+
+  def td_text_radiobutton(f, form_params, placeholders, class_name: nil, colspan: nil, radiobottuns: [])
+    haml_tag :td, class: class_name, colspan: colspan do
+      radiobottuns.each do |hash|
+        # チェックボックスの描画
+        if !hash[:params_name].nil? then
+          haml_tag :span, class: hash[:class_name] do
+            haml_concat radio_button_tag hash[:group].to_sym, form_params[hash[:params_name]], form_params[hash[:params_name]], :id => hash[:params_name], :value => hash[:params_name], checked: form_params[hash[:group]] == hash[:params_name]
             haml_concat label_tag hash[:params_name].to_sym, hash[:label]
           end
         end
@@ -314,6 +337,19 @@ module ApplicationHelper
     else "敗北"
     end
 
+  end
+
+  def pvp_type_text(pvp_type)
+    if !pvp_type then return "-" end
+
+      pvp_types = {
+        0 => "●▲合計",
+        1 => "※不良",
+        2 => "●風紀委員",
+        3 => "▲風紀狩り"
+    };
+
+    return pvp_types[pvp_type]
   end
 
   def battle_result_style(battle_result, is_left)

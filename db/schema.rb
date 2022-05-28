@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_12_125149) do
+ActiveRecord::Schema.define(version: 2022_05_21_032344) do
 
   create_table "battle_results", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
     t.integer "result_no"
@@ -157,6 +157,33 @@ ActiveRecord::Schema.define(version: 2022_04_12_125149) do
     t.index ["pk_type"], name: "index_party_infos_on_pk_type"
     t.index ["result_no", "party_no", "generate_no"], name: "resultno_partyno"
     t.index ["supporter_num"], name: "index_party_infos_on_supporter_num"
+  end
+
+  create_table "pk_pkks", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "p_no"
+    t.integer "pvp_type"
+    t.integer "total_match_num"
+    t.integer "total_battle_num"
+    t.integer "total_cheer_num"
+    t.integer "total_win_num"
+    t.integer "total_draw_num"
+    t.integer "total_lose_num"
+    t.integer "total_income"
+    t.integer "last_announcement_result_no"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["last_announcement_result_no"], name: "index_pk_pkks_on_last_announcement_result_no"
+    t.index ["pvp_type"], name: "index_pk_pkks_on_pvp_type"
+    t.index ["result_no", "p_no", "generate_no"], name: "resultno_pno"
+    t.index ["total_battle_num"], name: "index_pk_pkks_on_total_battle_num"
+    t.index ["total_cheer_num"], name: "index_pk_pkks_on_total_cheer_num"
+    t.index ["total_draw_num"], name: "index_pk_pkks_on_total_draw_num"
+    t.index ["total_income"], name: "index_pk_pkks_on_total_income"
+    t.index ["total_lose_num"], name: "index_pk_pkks_on_total_lose_num"
+    t.index ["total_match_num"], name: "index_pk_pkks_on_total_match_num"
+    t.index ["total_win_num"], name: "index_pk_pkks_on_total_win_num"
   end
 
   create_table "profiles", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|

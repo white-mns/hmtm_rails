@@ -1,0 +1,132 @@
+- @page_title = "風紀戦闘勝敗一覧"
+- @page_title = "風紀委員一覧" if @form_params["pvp_type"] == "2"
+- @page_title = "風紀狩り一覧" if @form_params["pvp_type"] == "3"
+%h1= @page_title
+
+.card.desc
+  .card-header
+    - act_icon(true)
+    検索仕様
+    - act_desc(true)
+  .card-body
+    = render "layouts/base_desc"
+    %p
+      勝利・引分・敗北の累計数、最終予告更新回は、戦闘参加メンバーの場合にのみ加算・更新されます。
+    %p
+      %span.example_select.example_toggle.pointer
+        - help_icon
+        入力例
+        - act_desc(false)
+    #example.closed
+      = render "layouts/input_desc"
+= search_form_for @search do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: 5}
+          - act_icon(true)
+          絞り込み検索
+          - act_desc(true)
+    %tbody
+      %tr
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "更新回", params_name: "result_no_form", placeholder: nil, colspan: 3)
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "PNo", params_name: "p_no_form", placeholder: "Number")
+        - td_form(f, @form_params, @placeholder, class_name: "formText", label: "キャラクター名", params_name: "pc_name_form", placeholder: "Name")
+      %tr.sep
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "PP", params_name: "pp_form", placeholder: "Number", colspan: 3)
+      %tr.sep
+        %td.indent
+        - td_form(f, @form_params, @placeholder,                         label: "集計種別", params_name: "pk_type_id_form", colspan: 3,
+                    radiobottuns: [{label: "合計",  group: "pvp_type", params_name: "0", class_name: "after_space"},
+                                   {label: "●風紀委員", group: "pvp_type", params_name: "2", class_name: "after_space"},
+                                   {label: "▲風紀狩り", group: "pvp_type", params_name: "3", class_name: "after_space"}])
+      %tr.rep
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "累計勝利数", params_name: "total_win_num_form", placeholder: "Number", colspan: 3)
+      %tr.sep
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "最終予告回", params_name: "last_announcement_result_no_form", placeholder: "Number", colspan: 3)
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_announce",
+                    label: {open: "累計予告数、累計応援数を表示する", close: "累計予告数、累計応援数を表示しない"}, base_first: false)
+    %tbody.closed
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "累計予告数", params_name: "total_match_num_form", placeholder: "Number")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "累計応援数", params_name: "total_cheer_num_form", placeholder: "Number")
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_draw_lose",
+                    label: {open: "累計引分数、累計敗北数を表示する", close: "累計引分数、累計敗北数を表示しない"}, base_first: true)
+    %tbody.closed
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "累計引分数", params_name: "total_draw_num_form", placeholder: "Number")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "累計敗北数", params_name: "total_lose_num_form", placeholder: "Number")
+
+    - #==========================================================================================================================
+    %tbody
+      %tr.sep
+        %td.indent
+        %td.indent= hidden_field_tag :is_form, 1
+        %td{colspan: 3}
+          - search_submit_button
+
+= paginate(@pk_pkks)
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th= sort_link(@search, :result_no,"更新回", default_order: :desc)
+      %th= sort_link(@search, :p_no,"キャラクター(PNo)", default_order: :desc)
+      %th.sep= sort_link(@search, :pvp_type, "風紀種別", default_order: :desc)
+      %th.sep= sort_link(@search, :status_pp, "PP", default_order: :desc)
+      - if @form_params["show_announce"] == "1"
+        %th.sep= sort_link(@search, :total_match_num, "予告数", default_order: :desc)
+        %th= sort_link(@search, :total_cheer_num, "応援数", default_order: :desc)
+      %th.sep= sort_link(@search, :total_win_num, "勝数", default_order: :desc)
+      - if @form_params["show_draw_lose"] == "1"
+        %th= sort_link(@search, :total_draw_num, "引分数", default_order: :desc)
+        %th= sort_link(@search, :total_lose_num, "敗北数", default_order: :desc)
+      - if @form_params["show_total_battle"] == "1"
+        %th= sort_link(@search, :total_battle_num, "戦闘数", default_order: :desc)
+      - if @form_params["show_income"] == "1"
+        %th.sep= sort_link(@search, :total_income, "収入", default_order: :desc)
+      %th.sep= sort_link(@search, :last_announcement_result_no, "最終予告", default_order: :desc)
+      %th.sep{colspan: 2} 個人結果
+      %th.sep{colspan: 2} 対戦履歴
+  %tbody
+    - @pk_pkks.each do |pk_pkk|
+      %tr
+        %td= pk_pkk.result_no
+        %td
+          - pc_name_text(pk_pkk.p_no, pk_pkk.pc_name)
+        %td.sep= pvp_type_text(pk_pkk.pvp_type)
+        %td.sep= pk_pkk.status.pp if pk_pkk.status
+        - if @form_params["show_announce"] == "1"
+          %td.sep= pk_pkk.total_match_num
+          %td= pk_pkk.total_cheer_num
+        %td.sep= pk_pkk.total_win_num
+        - if @form_params["show_draw_lose"] == "1"
+          %td= pk_pkk.total_draw_num
+          %td= pk_pkk.total_lose_num
+        - if @form_params["show_total_battle"] == "1"
+          %td= pk_pkk.total_battle_num
+        - if @form_params["show_income"] == "1"
+          %td.sep= pk_pkk.total_income
+        %td.sep= pk_pkk.last_announcement_result_no
+        %td.sep= character_link(pk_pkk.p_no)
+        %td= character_old_link(@latest_result, pk_pkk.p_no, pk_pkk.result_no, pk_pkk.generate_no)
+        %td.sep= link_to "履歴", battle_results_path + "?result_no_form=1~&p_no_form=" + sprintf("%d", pk_pkk.p_no) +"&battle_type_pk=on&show_pk_type=1"
+- p_no_concat_button
+= paginate(@pk_pkks)

@@ -22,6 +22,7 @@
             %br
             %li= link_to "パーティ情報一覧", party_infos_path
             %li= link_to "ランク情報一覧", ranks_path + "?q[s]=rp+desc"
+            %li= link_to "風紀委員一覧", pk_pkks_path
       .col-md-6
         %ul
           %li 行動データ
@@ -55,6 +56,11 @@
   .card-body
     %h2 更新履歴
     %ul
+      %li 2022/5/28
+      %ul
+        %li
+          = link_to "風紀委員一覧", pk_pkks_path
+          を公開
       %li 2022/4/13
       %ul
         %li
