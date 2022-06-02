@@ -1,0 +1,83 @@
+- @page_title = "レイド報酬一覧"
+%h1= @page_title
+
+.card.desc
+  .card-header
+    - act_icon(true)
+    検索仕様
+    - act_desc(true)
+  .card-body
+    = render "layouts/base_desc"
+    %p
+      %span.example_select.example_toggle.pointer
+        - help_icon
+        入力例
+        - act_desc(false)
+    #example.closed
+      = render "layouts/input_desc"
+= search_form_for @search do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: 5}
+          - act_icon(true)
+          絞り込み検索
+          - act_desc(true)
+    %tbody
+      %tr
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "更新回", params_name: "result_no_form", placeholder: nil, colspan: 3)
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "PNo", params_name: "p_no_form", placeholder: "Number")
+        - td_form(f, @form_params, @placeholder, class_name: "formText", label: "キャラクター名", params_name: "pc_name_form", placeholder: "Name")
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "SC", params_name: "sc_form", placeholder: "Number", colspan: 3)
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "TP", params_name: "tp_form", placeholder: "Number", colspan: 3)
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "RP", params_name: "rp_form", placeholder: "Number", colspan: 3)
+      %tr.sep
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "パーティ名", params_name: "party_name_form", colspan: 3)
+      %tr.sep
+        %td.indent
+        %td.indent= hidden_field_tag :is_form, 1
+        %td{colspan: 3}
+          - search_submit_button
+
+
+= paginate(@raid_rewards)
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th= sort_link(@search, :result_no,"更新回", default_order: :desc)
+      %th= sort_link(@search, :p_no,"キャラクター(PNo)", default_order: :desc)
+      %th= sort_link(@search, :sc, "SC", default_order: :desc)
+      %th= sort_link(@search, :tp, "TP", default_order: :desc)
+      %th= sort_link(@search, :rp, "RP", default_order: :desc)
+      %th.sep= sort_link(@search, :party_party_info_name, "パーティ名", default_order: :desc)
+      %th.sep{colspan: 2} 結果リンク
+  %tbody
+    - @raid_rewards.each do |raid_reward|
+      %tr
+        %td= raid_reward.result_no
+        %td
+          - pc_name_text(raid_reward.p_no, raid_reward.pc_name)
+        %td= raid_reward.sc
+        %td= raid_reward.tp
+        %td= raid_reward.rp
+        %td.sep= raid_reward.party.party_info.name if raid_reward.party && raid_reward.party.party_info
+        %td.sep= character_link(raid_reward.p_no)
+        %td= character_old_link(@latest_result, raid_reward.p_no, raid_reward.result_no, raid_reward.generate_no)
+- p_no_concat_button
+= paginate(@raid_rewards)

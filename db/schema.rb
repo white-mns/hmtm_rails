@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_21_032344) do
+ActiveRecord::Schema.define(version: 2022_06_01_233013) do
 
   create_table "battle_results", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
     t.integer "result_no"
@@ -217,6 +217,21 @@ ActiveRecord::Schema.define(version: 2022_05_21_032344) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_proper_names_on_name"
     t.index ["proper_id"], name: "index_proper_names_on_proper_id"
+  end
+
+  create_table "raid_rewards", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "p_no"
+    t.integer "sc"
+    t.integer "tp"
+    t.integer "rp"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["result_no", "p_no", "generate_no"], name: "resultno_pno"
+    t.index ["rp"], name: "index_raid_rewards_on_rp"
+    t.index ["sc"], name: "index_raid_rewards_on_sc"
+    t.index ["tp"], name: "index_raid_rewards_on_tp"
   end
 
   create_table "ranks", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
