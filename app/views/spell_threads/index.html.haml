@@ -138,7 +138,7 @@
             %td.thread= thread_text(spell_thread.thread_base, @spell_data, @tg_data)
         %td.sep= spell_thread.depth
         %td= spell_thread.length
-        %td.sep= battle_link(spell_thread.battle_type, spell_thread.battle_no)
-        %td= battle_old_link(@latest_result, spell_thread.battle_type, spell_thread.battle_no, spell_thread.result_no, spell_thread.generate_no)
+        %td.sep= battle_link(spell_thread.battle_type, spell_thread.battle_no, spell_thread.page_no)
+        %td= battle_old_link(@latest_result, spell_thread.battle_type, spell_thread.battle_no, spell_thread.page_no, spell_thread.result_no, spell_thread.generate_no)
 - p_no_concat_button
 = paginate(@spell_threads)

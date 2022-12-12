@@ -87,27 +87,28 @@ module ApplicationHelper
     link_to " 過去結果", "http://archives.teiki.org/sssloxia/hmtm/0/result"+result_no_text+"/result/c/"+file_name+".html", :target => "_blank"
   end
 
-  def battle_link(battle_type, battle_no)
+  def battle_link(battle_type, battle_no, page_no)
     directories = {
         0 => "b",
         1 => "prc",
         2 => "rank",
         3 => "pk",
-        4 => "b",
+        4 => "raid",
         5 => "b",
     };
 
-    file_name = sprintf("%02d",battle_no)
-    link_to " 結果", "http://archives.teiki.org/sssloxia/hmtm/0/result10/result"+directories[battle_type]+"/"+file_name+".html", :target => "_blank"
+    file_name = sprintf("%d",battle_no)
+    file_name += sprintf("-%d",page_no) if page_no && page_no > 0
+    link_to " 結果", "http://archives.teiki.org/sssloxia/hmtm/0/result10/result/"+directories[battle_type]+"/"+file_name+".html", :target => "_blank"
   end
 
-  def battle_old_link(latest_result_no, battle_type, battle_no, result_no, generate_no)
+  def battle_old_link(latest_result_no, battle_type, battle_no, page_no, result_no, generate_no)
     directories = {
         0 => "b",
         1 => "prc",
         2 => "rank",
         3 => "pk",
-        4 => "b",
+        4 => "raid",
         5 => "b",
     };
 
@@ -116,6 +117,7 @@ module ApplicationHelper
     result_no_text = sprintf("%02d", result_no)
     generate_text  = generate_no > 0 ? "_" + sprintf("%02d", generate_no) : ""
     file_name = sprintf("%d", battle_no)
+    file_name += sprintf("-%d",page_no) if page_no && page_no > 0
     link_to " 過去結果", "http://archives.teiki.org/sssloxia/hmtm/0/result"+result_no_text+"/result/"+directories[battle_type]+"/"+file_name+".html", :target => "_blank"
   end
 
