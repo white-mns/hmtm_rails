@@ -27,7 +27,7 @@ module ApplicationHelper
       haml_concat pc_name.name
     end
     haml_concat "("
-    haml_tag :a, href: "http://www.sssloxia.jp/result/now/c/"+sprintf("%d",p_no)+".html", target: "_blank" do
+    haml_tag :a, href: "http://archives.teiki.org/sssloxia/hmtm/0/result10/result/c/"+sprintf("%d",p_no)+".html", target: "_blank" do
       haml_concat sprintf("%d",p_no)
     end
     haml_concat ")"
@@ -56,35 +56,35 @@ module ApplicationHelper
     if p_no <= 0 then return end
 
     file_name = sprintf("%d",p_no)
-    link_to " 結果", "http://www.sssloxia.jp/result/now/c/"+file_name+".html", :target => "_blank"
+    link_to " 結果", "http://archives.teiki.org/sssloxia/hmtm/0/result10/result/c/"+file_name+".html", :target => "_blank"
   end
 
   def character_next_link(latest_result_no, p_no, result_no, generate_no)
     if p_no <= 0 then return end
     if result_no == latest_result_no then return end
 
-    result_no_text = (result_no == latest_result_no - 1) ? "now" : sprintf("%d", result_no + 1)
+    result_no_text = (result_no == latest_result_no - 1) ? "now" : sprintf("%02d", result_no + 1)
     file_name = sprintf("%d", p_no)
-    link_to " 次回結果", "http://www.sssloxia.jp/result/"+result_no_text+"/c/"+file_name+".html", :target => "_blank"
+    link_to " 次回結果", "http://archives.teiki.org/sssloxia/hmtm/0/result"+result_no_text+"/result/c/"+file_name+".html", :target => "_blank"
   end
 
   def character_previous_link(latest_result_no, p_no, previous_result_no, previous_generate_no)
     if p_no <= 0 then return end
     if previous_result_no == 0 then return end
 
-    previous_result_no_text = sprintf("%d", previous_result_no)
+    previous_result_no_text = sprintf("%02d", previous_result_no)
     file_name = sprintf("%d", p_no)
-    link_to " 前回結果", "http://www.sssloxia.jp/result/"+previous_result_no_text+"/c/"+file_name+".html", :target => "_blank"
+    link_to " 前回結果", "http://archives.teiki.org/sssloxia/hmtm/0/result"+previous_result_no_text+"/result/c/"+file_name+".html", :target => "_blank"
   end
 
   def character_old_link(latest_result_no, p_no, result_no, generate_no)
     if p_no <= 0 then return end
     if result_no == latest_result_no then return end
 
-    result_no_text = sprintf("%d", result_no)
-    generate_text  = generate_no > 0 ? "_" + sprintf("%d", generate_no) : ""
+    result_no_text = sprintf("%02d", result_no)
+    generate_text  = generate_no > 0 ? "_" + sprintf("%02d", generate_no) : ""
     file_name = sprintf("%d", p_no)
-    link_to " 過去結果", "http://www.sssloxia.jp/result/"+result_no_text+"/c/"+file_name+".html", :target => "_blank"
+    link_to " 過去結果", "http://archives.teiki.org/sssloxia/hmtm/0/result"+result_no_text+"/result/c/"+file_name+".html", :target => "_blank"
   end
 
   def battle_link(battle_type, battle_no)
@@ -97,8 +97,8 @@ module ApplicationHelper
         5 => "b",
     };
 
-    file_name = sprintf("%d",battle_no)
-    link_to " 結果", "http://www.sssloxia.jp/result/now/"+directories[battle_type]+"/"+file_name+".html", :target => "_blank"
+    file_name = sprintf("%02d",battle_no)
+    link_to " 結果", "http://archives.teiki.org/sssloxia/hmtm/0/result10/result"+directories[battle_type]+"/"+file_name+".html", :target => "_blank"
   end
 
   def battle_old_link(latest_result_no, battle_type, battle_no, result_no, generate_no)
@@ -113,10 +113,10 @@ module ApplicationHelper
 
     if result_no == latest_result_no then return end
 
-    result_no_text = sprintf("%d", result_no)
-    generate_text  = generate_no > 0 ? "_" + sprintf("%d", generate_no) : ""
+    result_no_text = sprintf("%02d", result_no)
+    generate_text  = generate_no > 0 ? "_" + sprintf("%02d", generate_no) : ""
     file_name = sprintf("%d", battle_no)
-    link_to " 過去結果", "http://www.sssloxia.jp/result/"+result_no_text+"/"+directories[battle_type]+"/"+file_name+".html", :target => "_blank"
+    link_to " 過去結果", "http://archives.teiki.org/sssloxia/hmtm/0/result"+result_no_text+"/result/"+directories[battle_type]+"/"+file_name+".html", :target => "_blank"
   end
 
   def search_submit_button()
