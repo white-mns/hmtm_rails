@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_01_233013) do
+ActiveRecord::Schema.define(version: 2022_12_12_165833) do
 
   create_table "battle_results", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
     t.integer "result_no"
@@ -293,10 +293,12 @@ ActiveRecord::Schema.define(version: 2022_06_01_233013) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "page_no"
     t.index ["battle_no"], name: "index_spell_thread_members_on_battle_no"
     t.index ["battle_type"], name: "index_spell_thread_members_on_battle_type"
     t.index ["name"], name: "index_spell_thread_members_on_name"
     t.index ["p_no"], name: "index_spell_thread_members_on_p_no"
+    t.index ["page_no"], name: "index_spell_thread_members_on_page_no"
     t.index ["result_no", "battle_type", "battle_no", "thread_id", "generate_no"], name: "resultno_battletype_battleno_threadid"
     t.index ["thread_id"], name: "index_spell_thread_members_on_thread_id"
     t.index ["turn"], name: "index_spell_thread_members_on_turn"
@@ -319,10 +321,12 @@ ActiveRecord::Schema.define(version: 2022_06_01_233013) do
     t.integer "length"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "page_no"
     t.index ["battle_no"], name: "index_spell_threads_on_battle_no"
     t.index ["battle_type"], name: "index_spell_threads_on_battle_type"
     t.index ["depth"], name: "index_spell_threads_on_depth"
     t.index ["length"], name: "index_spell_threads_on_length"
+    t.index ["page_no"], name: "index_spell_threads_on_page_no"
     t.index ["result_no", "battle_type", "battle_no", "thread_id", "generate_no"], name: "resultno_battletype_battleno_threadid"
     t.index ["thread_id"], name: "index_spell_threads_on_thread_id"
     t.index ["turn"], name: "index_spell_threads_on_turn"
