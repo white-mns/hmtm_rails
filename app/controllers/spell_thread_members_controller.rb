@@ -55,7 +55,7 @@ class SpellThreadMembersController < ApplicationController
                                           {params_name: "battle_type_practice",          value: 1},
                                           {params_name: "battle_type_rank",              value: 2},
                                           {params_name: "battle_type_pk",                value: 3},
-                                          {params_name: "battle_type_reid",              value: 4},
+                                          {params_name: "battle_type_raid",              value: 4},
                                           {params_name: "battle_type_convention",        value: 5}])
 
     toggle_params_to_variable(params, @form_params, params_name: "show_data")
