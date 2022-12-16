@@ -38,11 +38,11 @@ class RaidRewardsController < ApplicationController
   def param_set
     @form_params = {}
 
-    @latest_result = RaidReward.maximum("result_no")
+    @latest_result = Name.maximum("result_no")
 
     params_clean(params)
     unless params["is_form"]
-      params["result_no_form"] ||= sprintf("%d",@latest_result)
+      params["result_no_form"] ||= sprintf("%d",RaidReward.maximum("result_no"))
     end
 
     params_to_form(params, @form_params, column_name: "pc_name_name", params_name: "pc_name_form", type: "text")
