@@ -308,7 +308,7 @@ module ApplicationHelper
         13 => "次回風紀戦闘予告",
         14 => "次回レイド戦予告",
         15 => "次回魔闘大会予告"
-    };
+    }
 
     return party_types[party_type]
   end
@@ -325,9 +325,34 @@ module ApplicationHelper
         1 => "※不良",
         2 => "●風紀",
         3 => "▲抗戦"
-    };
+    }
 
     return pk_types[pk_type]
+  end
+
+  def battle_ranking_type_text(battle_ranking_type)
+    if !battle_ranking_type then return "-" end
+
+    battle_ranking_types = {
+        0 => "合計ダメージ",
+        1 => "合計レイドボスダメージ",
+        2 => "合計ネームドダメージ",
+        3 => "合計雷反動ダメージ",
+        4 => "スペル1回合計最大ダメージ",
+        5 => "1ターン合計最大ダメージ",
+        6 => "合計HP回復",
+        7 => "合計SP回復",
+        8 => "合計CP回復",
+        9 => "スペル1回HP回復",
+        10 => "スペル1回SP回復",
+        11 => "合計召喚数",
+        12 => "合計状態異常追加",
+        13 => "行動回数",
+        14 => "対抗発動数",
+        15 => "単発最大ダメージ"
+    }
+
+    return battle_ranking_types[battle_ranking_type]
   end
 
   def battle_result_text(battle_result, is_left)
@@ -344,11 +369,11 @@ module ApplicationHelper
   def pvp_type_text(pvp_type)
     if !pvp_type then return "-" end
 
-      pvp_types = {
-        0 => "●▲合計",
-        1 => "※不良",
-        2 => "●風紀委員",
-        3 => "▲風紀狩り"
+    pvp_types = {
+      0 => "●▲合計",
+      1 => "※不良",
+      2 => "●風紀委員",
+      3 => "▲風紀狩り"
     };
 
     return pvp_types[pvp_type]
@@ -454,9 +479,7 @@ module ApplicationHelper
   end
 
   def thread_members_text(thread_members)
-    if !thread_members then
-      return
-    end
+    if !thread_members then return end
 
     thread_members.each do |thread_member|
       if (!thread_member.pc_name || thread_member.name != thread_member.profile.nickname) then
@@ -466,5 +489,40 @@ module ApplicationHelper
       end
       haml_tag :br
     end
+  end
+
+  def ranking_name_text(data)
+    if !data then return end
+
+    if (!data.pc_name) then
+      haml_concat data.name
+
+    elsif (data.name != data.profile.nickname) then
+      haml_concat data.name
+      haml_concat "("
+      haml_tag :a, href: "http://archives.teiki.org/sssloxia/hmtm/0/result10/result/c/"+sprintf("%d",data.p_no)+".html", target: "_blank" do
+        haml_concat sprintf("%d",data.p_no)
+      end
+      haml_concat "使い魔)"
+
+    else
+      pc_name_text(data.p_no, data.pc_name) if data.pc_name
+    end
+  end
+
+  def battle_ranking_subtitle(battle_type_eq_any)
+    page_title = "戦闘内容ランキング一覧"
+    party_types = {
+        0 => "通常",
+        1 => "朝練",
+        2 => "ランク",
+        3 => "風紀",
+        4 => "レイド",
+        5 => "魔闘大会"
+    }
+    if battle_type_eq_any.size == 1 then
+      page_title = party_types[battle_type_eq_any.join("").to_i] + page_title
+    end
+    return page_title
   end
 end

@@ -53,6 +53,7 @@
                 = link_to "対抗発動スレッド一覧", spell_threads_path, class: "dropdown-item"
                 = link_to ">　ディープスレッドランキング", spell_threads_path + "?q[s]=depth+desc&depth_form=5~", class: "dropdown-item"
                 = link_to ">　ロングスレッドランキング", spell_threads_path + "?q[s]=length+desc&length_form=5~", class: "dropdown-item"
+                = link_to "レイド戦闘内容ランキング一覧", battle_rankings_path, class: "dropdown-item"
             %li.nav-item.dropdown
               %a.nav-link.dropdown-toggle#navbarDropdownMenuLink{ data: {bs: {toggle: "dropdown"}}, :href => "#", role: "button", area: {expanded: "false"}}
                 グラフ

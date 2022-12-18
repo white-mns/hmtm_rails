@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :battle_rankings,      only: [:index] do collection do get "json"; get "pno_text" end end
   resources :raid_rewards,         only: [:index] do collection do get "json"; get "pno_text" end end
   resources :pk_pkks,              only: [:index] do collection do get "json"; get "pno_text" end end
   resources :ranks,                only: [:index] do collection do get "json"; get "pno_text" end end

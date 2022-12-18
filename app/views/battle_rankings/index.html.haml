@@ -1,0 +1,110 @@
+- @page_title = battle_ranking_subtitle(params[:q]["battle_type_eq_any"])
+%h1= @page_title
+
+.card.desc
+  .card-header
+    - act_icon(true)
+    検索仕様
+    - act_desc(true)
+  .card-body
+    = render "layouts/base_desc"
+    %p
+      %span.example_select.example_toggle.pointer
+        - help_icon
+        入力例
+        - act_desc(false)
+    #example.closed
+      = render "layouts/input_desc"
+= search_form_for @search do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: 5}
+          - act_icon(true)
+          絞り込み検索
+          - act_desc(true)
+    %tbody
+      %tr
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "更新回", params_name: "result_no_form", placeholder: nil, colspan: 3)
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "PNo", params_name: "p_no_form", placeholder: "Number")
+        - td_form(f, @form_params, @placeholder, class_name: "formText", label: "キャラクター名", params_name: "pc_name_form", placeholder: "Name")
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder,                         label: "戦闘種別", params_name: "class_id_form", colspan: 3,
+                    checkboxes: [{label: "通常戦闘", params_name: "battle_type_normal",     class_name: "after_space mobile_br"},
+                                 {label: "朝練戦闘", params_name: "battle_type_practice",   class_name: "after_space mobile_br"},
+                                 {label: "ランク戦", params_name: "battle_type_rank",       class_name: "after_space", br:true},
+                                 {label: "風紀戦闘", params_name: "battle_type_pk",         class_name: "after_space mobile_br"},
+                                 {label: "レイド戦", params_name: "battle_type_reid",       class_name: "after_space mobile_br"},
+                                 {label: "魔闘大会", params_name: "battle_type_convention", class_name: "after_space mobile_br"}])
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder,                         label: "集計種別", params_name: "pk_type_id_form", colspan: 3,
+                    radiobottuns: [{label: "合計ダメージ",  group: "ranking_type", params_name: "0", class_name: "after_space mobile_br"},
+                                   {label: "合計レイドボスダメージ", group: "ranking_type", params_name: "1", class_name: "after_space mobile_br"},
+                                   {label: "合計ネームドダメージ", group: "ranking_type", params_name: "2", class_name: "after_space", br:"true"},
+                                   {label: "単発最大ダメージ", group: "ranking_type", params_name: "15", class_name: "after_space", br:"true"},
+                                   {label: "1ターン合計ダメージ", group: "ranking_type", params_name: "5", class_name: "after_space mobile_br"},
+                                   {label: "スペル1回合計ダメージ", group: "ranking_type", params_name: "4", class_name: "after_space", br:"true"},
+                                   {label: "合計雷反動ダメージ", group: "ranking_type", params_name: "3", class_name: "after_space", br:"true"},
+                                   {label: "合計HP回復", group: "ranking_type", params_name: "6", class_name: "after_space mobile_br"},
+                                   {label: "合計SP回復", group: "ranking_type", params_name: "7", class_name: "after_space mobile_br"},
+                                   {label: "合計CP回復", group: "ranking_type", params_name: "8", class_name: "after_space", br:"true"},
+                                   {label: "合計召喚数", group: "ranking_type", params_name: "11", class_name: "after_space mobile_br"},
+                                   {label: "合計状態異常追加", group: "ranking_type", params_name: "12", class_name: "after_space", br:"true"},
+                                   {label: "行動回数", group: "ranking_type", params_name: "13", class_name: "after_space mobile_br"},
+                                   {label: "対抗発動数", group: "ranking_type", params_name: "14", class_name: "after_space mobile_br"}])
+      %tr
+        %td.indent
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "数値", params_name: "value_form", placeholder: "Number", colspan: 3)
+      %tr.sep
+        %td.indent
+        %td.indent= hidden_field_tag :is_form, 1
+        %td{colspan: 3}
+          - search_submit_button
+
+
+= paginate(@battle_rankings)
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th= sort_link(@search, :result_no,"更新回", default_order: :desc)
+      %th= sort_link(@search, :p_no,"キャラクター(PNo)", default_order: :desc)
+      %th= sort_link(@search, :ranking_type, "ランキング種別", default_order: :desc)
+      %th= sort_link(@search, :value, "値", default_order: :desc)
+      %th= sort_link(@search, :battle_type, "戦闘種別", default_order: :desc)
+      %th= sort_link(@search, :battle_no, "Battle no", default_order: :desc)
+      %th= sort_link(@search, :page_no, "Page no", default_order: :desc)
+      - if [4, 5, 15].include?(@form_params["ranking_type"].to_i)
+        %th= sort_link(@search, :turn, "ターン数", default_order: :desc)
+      - if @form_params["ranking_type"] == "12"
+        %th= sort_link(@search, :abnormal_type, "最多異常", default_order: :desc)
+      %th.sep{colspan: 2} 結果リンク
+  %tbody
+    - @battle_rankings.each do |battle_ranking|
+      %tr
+        %td= battle_ranking.result_no
+        %td
+          - ranking_name_text(battle_ranking)
+        %td= battle_ranking_type_text(battle_ranking.ranking_type)
+        %td= battle_ranking.value
+        %td= battle_type_text(battle_ranking.battle_type)
+        %td= battle_ranking.battle_no
+        %td= battle_ranking.page_no
+        - if [4, 5, 15].include?(@form_params["ranking_type"].to_i)
+          %td= battle_ranking.turn
+        - if @form_params["ranking_type"] == "12"
+          %td= battle_ranking.abnormal_name.name if battle_ranking.abnormal_name
+        %td.sep= battle_link(battle_ranking.battle_type, battle_ranking.battle_no, battle_ranking.page_no)
+        %td= battle_old_link(@latest_result, battle_ranking.battle_type, battle_ranking.battle_no, battle_ranking.page_no, battle_ranking.result_no, battle_ranking.generate_no)
+- p_no_concat_button
+= paginate(@battle_rankings)

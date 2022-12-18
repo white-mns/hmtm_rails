@@ -10,7 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_12_165833) do
+ActiveRecord::Schema.define(version: 2022_12_13_071217) do
+
+  create_table "battle_rankings", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "p_no"
+    t.string "name"
+    t.integer "ranking_type"
+    t.integer "value"
+    t.integer "battle_type"
+    t.integer "battle_no"
+    t.integer "page_no"
+    t.integer "turn"
+    t.integer "thread_id"
+    t.integer "abnormal_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["abnormal_type"], name: "index_battle_rankings_on_abnormal_type"
+    t.index ["battle_no"], name: "index_battle_rankings_on_battle_no"
+    t.index ["name"], name: "index_battle_rankings_on_name"
+    t.index ["page_no"], name: "index_battle_rankings_on_page_no"
+    t.index ["result_no", "ranking_type", "battle_type", "p_no", "generate_no"], name: "resultno_rankingtype_battletype_battleno"
+    t.index ["result_no", "ranking_type", "p_no", "generate_no"], name: "resultno_rankingtype_battleno"
+    t.index ["thread_id"], name: "index_battle_rankings_on_thread_id"
+    t.index ["turn"], name: "index_battle_rankings_on_turn"
+    t.index ["value"], name: "index_battle_rankings_on_value"
+  end
 
   create_table "battle_results", charset: "utf8mb4", collation: "utf8mb4_0900_as_ci", force: :cascade do |t|
     t.integer "result_no"

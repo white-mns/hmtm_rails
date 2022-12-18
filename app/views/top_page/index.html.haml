@@ -40,6 +40,8 @@
             %ul
               %li= link_to "ディープスレッドランキング", spell_threads_path + "?q[s]=depth+desc&depth_form=5~"
               %li= link_to "ロングスレッドランキング", spell_threads_path + "?q[s]=length+desc&length_form=5~"
+
+            %li= link_to "レイド戦闘内容ランキング一覧", battle_rankings_path
       .col-md-6
         %ul
           %li グラフデータ
@@ -57,6 +59,11 @@
   .card-body
     %h2 更新履歴
     %ul
+      %li 2022/12/22
+      %ul
+        %li
+          = link_to "レイド戦闘内容ランキング一覧", battle_rankings_path
+          を公開
       %li 2022/6/2
       %ul
         %li
