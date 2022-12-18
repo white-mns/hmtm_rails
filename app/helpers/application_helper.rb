@@ -87,7 +87,15 @@ module ApplicationHelper
     link_to " 過去結果", "http://archives.teiki.org/sssloxia/hmtm/0/result"+result_no_text+"/result/c/"+file_name+".html", :target => "_blank"
   end
 
-  def battle_link(battle_type, battle_no, page_no)
+  def battle_link(latest_result_no, battle_type, battle_no, page_no, result_no, generate_no)
+    if result_no == latest_result_no then
+      battle_latest_link(battle_type, battle_no, page_no)
+    else
+      battle_old_link(latest_result_no, battle_type, battle_no, page_no, result_no, generate_no)
+    end
+  end
+
+  def battle_latest_link(battle_type, battle_no, page_no)
     directories = {
         0 => "b",
         1 => "prc",

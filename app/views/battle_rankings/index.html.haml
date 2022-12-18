@@ -104,7 +104,6 @@
           %td= battle_ranking.turn
         - if @form_params["ranking_type"] == "12"
           %td= battle_ranking.abnormal_name.name if battle_ranking.abnormal_name
-        %td.sep= battle_link(battle_ranking.battle_type, battle_ranking.battle_no, battle_ranking.page_no)
-        %td= battle_old_link(@latest_result, battle_ranking.battle_type, battle_ranking.battle_no, battle_ranking.page_no, battle_ranking.result_no, battle_ranking.generate_no)
+        %td.sep= battle_link(@latest_result, battle_ranking.battle_type, battle_ranking.battle_no, battle_ranking.page_no, battle_ranking.result_no, battle_ranking.generate_no)
 - p_no_concat_button
 = paginate(@battle_rankings)

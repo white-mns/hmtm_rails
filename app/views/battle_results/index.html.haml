@@ -173,7 +173,6 @@
               = battle_result.right_party_info.name if battle_result.right_party_info
         - if @form_params["show_pk_type"] == "1"
           %td= pk_type_text(battle_result.right_party_info.pk_type) if battle_result.right_party_info
-        %td.sep= battle_link(battle_result.battle_type, battle_result.battle_no, -1)
-        %td= battle_old_link(@latest_result, battle_result.battle_type, battle_result.battle_no, -1, battle_result.result_no, battle_result.generate_no)
+        %td.sep= battle_link(@latest_result, battle_result.battle_type, battle_result.battle_no, -1, battle_result.result_no, battle_result.generate_no)
 - p_no_concat_button
 = paginate(@battle_results)
