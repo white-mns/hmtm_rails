@@ -357,7 +357,8 @@ module ApplicationHelper
         12 => "合計状態異常追加",
         13 => "行動回数",
         14 => "対抗発動数",
-        15 => "単発最大ダメージ"
+        15 => "単発最大ダメージ",
+        16 => "障壁以外への合計ダメージ"
     }
 
     return battle_ranking_types[battle_ranking_type]
