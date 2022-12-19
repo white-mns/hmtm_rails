@@ -7,6 +7,7 @@ class BattleRankingsController < ApplicationController
     resultno_set
     placeholder_set
     param_set
+    spell_data_set
 
     @pre_search = BattleRanking.notnil().includes(:pc_name, :profile, :abnormal_name)
     @count = @pre_search.search(params[:q]).result.hit_count()

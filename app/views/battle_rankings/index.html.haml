@@ -87,6 +87,8 @@
       %th= sort_link(@search, :page_no, "Page no", default_order: :desc)
       - if [4, 5, 15].include?(@form_params["ranking_type"].to_i)
         %th= sort_link(@search, :turn, "ターン数", default_order: :desc)
+      - if [4, 15].include?(@form_params["ranking_type"].to_i)
+        %th= sort_link(@search, :spell_name, "スペル", default_order: :desc)
       - if @form_params["ranking_type"] == "12"
         %th= sort_link(@search, :abnormal_type, "最多異常", default_order: :desc)
       %th.sep{colspan: 2} 結果リンク
@@ -103,6 +105,13 @@
         %td= battle_ranking.page_no
         - if [4, 5, 15].include?(@form_params["ranking_type"].to_i)
           %td= battle_ranking.turn
+        - if [4, 15].include?(@form_params["ranking_type"].to_i)
+          %td
+            = battle_ranking.spell_name
+            %br
+            (
+            - spell_text(battle_ranking.orig_spell_name, @spell_data)
+            )
         - if @form_params["ranking_type"] == "12"
           %td= battle_ranking.abnormal_name.name if battle_ranking.abnormal_name
         %td.sep= battle_link(@latest_result, battle_ranking.battle_type, battle_ranking.battle_no, battle_ranking.page_no, battle_ranking.result_no, battle_ranking.generate_no)
