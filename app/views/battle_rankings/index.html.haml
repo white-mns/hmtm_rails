@@ -83,8 +83,6 @@
       %th= sort_link(@search, :ranking_type, "ランキング種別", default_order: :desc)
       %th= sort_link(@search, :value, "値", default_order: :desc)
       %th= sort_link(@search, :battle_type, "戦闘種別", default_order: :desc)
-      %th= sort_link(@search, :battle_no, "Battle no", default_order: :desc)
-      %th= sort_link(@search, :page_no, "Page no", default_order: :desc)
       - if [4, 5, 15].include?(@form_params["ranking_type"].to_i)
         %th= sort_link(@search, :turn, "ターン数", default_order: :desc)
       - if [4, 15].include?(@form_params["ranking_type"].to_i)
@@ -101,8 +99,6 @@
         %td= battle_ranking_type_text(battle_ranking.ranking_type)
         %td= battle_ranking.value
         %td= battle_type_text(battle_ranking.battle_type)
-        %td= battle_ranking.battle_no
-        %td= battle_ranking.page_no
         - if [4, 5, 15].include?(@form_params["ranking_type"].to_i)
           %td= battle_ranking.turn
         - if [4, 15].include?(@form_params["ranking_type"].to_i)
