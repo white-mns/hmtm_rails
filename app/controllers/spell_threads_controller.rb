@@ -11,8 +11,8 @@ class SpellThreadsController < ApplicationController
     tg_data_set
 
     @pre_search = SpellThread.distinct.notnil().includes(thread_members: :pc_name)
-    @count = @pre_search.search(params[:q]).result.hit_count()
-    @search = @pre_search.page(params[:page]).search(params[:q])
+    @count = @pre_search.ransack(params[:q]).result.hit_count()
+    @search = @pre_search.page(params[:page]).ransack(params[:q])
     @search.sorts = "id asc" if @search.sorts.empty?
     @spell_threads = @search.result.per(50)
   end
@@ -20,13 +20,13 @@ class SpellThreadsController < ApplicationController
   # GET /spell_threads/pno_text
   def pno_text
     index
-    render plain: @pre_search.group(:p_no).search(params[:q]).result.pluck("spell_thread_members.p_no").join('/')
+    render plain: @pre_search.group(:p_no).ransack(params[:q]).result.pluck("spell_thread_members.p_no").join('/')
   end
 
   # GET /spell_threads/json
   def json
     index
-    render json: @pre_search.search(params[:q]).result.to_json(except: [:id, :created_at, :updated_at]).gsub("\\u003c","<").gsub("\\u003e",">").gsub(",","")
+    render json: @pre_search.ransack(params[:q]).result.to_json(except: [:id, :created_at, :updated_at]).gsub("\\u003c","<").gsub("\\u003e",">").gsub(",","")
   end
 
   def param_set

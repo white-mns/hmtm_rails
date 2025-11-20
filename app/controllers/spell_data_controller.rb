@@ -10,8 +10,8 @@ class SpellDataController < ApplicationController
     tg_data_set
 
     @pre_search = SpellDatum.includes(:element, :timing, :class_data).where(spell_id: 1..Float::INFINITY)
-    @count =  @pre_search.search(params[:q]).result.hit_count()
-    @search = @pre_search.page(params[:page]).search(params[:q])
+    @count =  @pre_search.ransack(params[:q]).result.hit_count()
+    @search = @pre_search.page(params[:page]).ransack(params[:q])
     @search.sorts = "id asc" if @search.sorts.empty?
     @spell_data = @search.result.per(50)
   end
@@ -25,7 +25,7 @@ class SpellDataController < ApplicationController
   # GET /spell_data/json
   def json
     index
-    render json: @pre_search.search(params[:q]).result.to_json(except: [:id, :created_at, :updated_at],
+    render json: @pre_search.ransack(params[:q]).result.to_json(except: [:id, :created_at, :updated_at],
       include: [
         {element: {only: :name}},
         {timing: {only: :name}},

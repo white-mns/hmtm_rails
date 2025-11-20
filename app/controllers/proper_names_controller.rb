@@ -9,8 +9,8 @@ class ProperNamesController < ApplicationController
     param_set
 
     @pre_search = ProperName
-    @count = @pre_search.search(params[:q]).result.hit_count()
-    @search = @pre_search.page(params[:page]).search(params[:q])
+    @count = @pre_search.ransack(params[:q]).result.hit_count()
+    @search = @pre_search.page(params[:page]).ransack(params[:q])
     @search.sorts = "id asc" if @search.sorts.empty?
     @proper_names = @search.result.per(50)
   end
@@ -24,7 +24,7 @@ class ProperNamesController < ApplicationController
   # GET /proper_names/json
   def json
     index
-    render json: @pre_search.search(params[:q]).result.to_json(except: [:id, :created_at, :updated_at])
+    render json: @pre_search.ransack(params[:q]).result.to_json(except: [:id, :created_at, :updated_at])
   end
 
   def param_set

@@ -9,8 +9,8 @@ class RaidRewardsController < ApplicationController
     param_set
 
     @pre_search = RaidReward.notnil().includes(:pc_name, [party: :party_info])
-    @count = @pre_search.search(params[:q]).result.hit_count()
-    @search = @pre_search.page(params[:page]).search(params[:q])
+    @count = @pre_search.ransack(params[:q]).result.hit_count()
+    @search = @pre_search.page(params[:page]).ransack(params[:q])
     @search.sorts = "sc desc" if @search.sorts.empty?
     @raid_rewards = @search.result.per(50)
   end
@@ -18,13 +18,13 @@ class RaidRewardsController < ApplicationController
   # GET /raid_rewards/pno_text
   def pno_text
     index
-    render plain: @pre_search.group(:p_no).search(params[:q]).result.pluck(:p_no).join('/')
+    render plain: @pre_search.group(:p_no).ransack(params[:q]).result.pluck(:p_no).join('/')
   end
 
   # GET /raid_rewards/json
   def json
     index
-    render json: @pre_search.search(params[:q]).result.to_json(except: [:id, :created_at, :updated_at],
+    render json: @pre_search.ransack(params[:q]).result.to_json(except: [:id, :created_at, :updated_at],
       include: [
         {pc_name: {only: [:name, :player]}},
         {party: { only: [],
